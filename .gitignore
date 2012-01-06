@@ -1,0 +1,9 @@
+*.sw?
+*.gem
+.redcar/
+coverage/
+.yardoc/
+html/
+doc/
+Gemfile.lock
+.rvmrc

@@ -8,7 +8,7 @@ For supported devices
 
 **position2d** - The position2d proxy provides an interface to a mobile robot base, such as the ActiveMedia Pioneer series.
 
-1. Set speed and heading - wrap C `func playerc_position2d_set_cmd_vel_head`
+1. Set speed and heading - wrap C func `playerc_position2d_set_cmd_vel_head`
 2. Move to point - wrap C funcs `playerc_position2d_set_cmd_pose_with_vel` and `playerc_position2d_set_cmd_pose`
 
 Candidates for support
@@ -45,11 +45,7 @@ Device proxies are not started to develop
 
 **health** - The health proxy provides an interface to the HEALTH Module.
 
-**ir** - The ir proxy provides an interface to the ir sensors built into robots such as the RWI B21R.
-
 **joystick** - The joystick proxy can be used to get images from a joystick.
-
-**laser** - The laser proxy provides an interface to scanning laser range finders such as the sicklms200.
 
 **limb** - The limb proxy provides an interface to limbs using forward/inverse kinematics, such as the ActivMedia Pioneer Arm.
 
@@ -72,8 +68,6 @@ Device proxies are not started to develop
 **power** - The power proxy provides an interface through which battery levels can be monitored.
 
 **ptz** - The ptz proxy provides an interface to pan-tilt units such as the Sony PTZ camera.
-
-**sonar** - The sonar proxy provides an interface to the sonar range sensors built into robots such as the ActiveMedia Pioneer series.
 
 **wifi** - The wifi proxy is used to query the state of a wireless network.
 

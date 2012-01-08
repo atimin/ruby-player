@@ -13,24 +13,23 @@
 # GNU General Public License for more details.
 
 module Player
-  module Binding
-    class ClientStruct < FFI::Struct
-      layout :id, :pointer,
-            :host, :string,
-            :port, :int,
-            :transport, :int,
-            :server, SockaddrInStruct,
-            :connected, :int,
-            :retry_limit, :int,
-            :retry_time, :double,
-            :mode, :uint8,
-            :data_requested, :int,
-            :data_received, :int
-            #TODO Added devinfo, devicem, qitems 
-            #:data, :string,
-            #:write_xdrdata, :string,
-            #:read_xdrdata, :string,
-            #:read_xdrdata_len, :size_t
+  module CType
+    class DeviceStruct < FFI::Struct
+      layout  :id, :pointer,
+              :client, :pointer,
+              :addr, DevAddrStruct,
+              :drivername, [:char, PLAYER_MAX_DRIVER_STRING_LEN],
+              :subcribed, :int,
+              :datatime, :double,
+              :lasttime, :double,
+              :fresh, :int,
+              :freshdgeom, :int,
+              :freshconfig, :int,
+              :putmsg, :pointer,
+              :user_data, :pointer,
+              :callback_count, :int,
+              :calback, [:pointer, 4],
+              :calback_data, [:pointer, 4]
     end
   end
 end

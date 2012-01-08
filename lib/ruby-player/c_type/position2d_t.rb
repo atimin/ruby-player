@@ -13,7 +13,7 @@
 # GNU General Public License for more details.
 
 module Player
-  module Binding
+  module CType
     class Position2dStruct < FFI::Struct
       layout  :info, DeviceStruct,
               :pose, [:double, 3],

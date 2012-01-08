@@ -30,10 +30,10 @@ Example
 -------------------------------------
 
     require 'ruby-player'
-    Player::Client.connect("localhost") do |cl|
-      pos2d = cl[:position2d, 0]
+    Player::Client.connect("localhost") do |robot|
+      pos2d = robot[:position2d, 0]
       pos2d.set_vel(1, 0, 0.2)
-      cl.loop do
+      robot.loop do
         puts "Position: x=#{pos2d.px}, y=#{pos2d.py}, a=#{pos2d.pa}
       end
     end

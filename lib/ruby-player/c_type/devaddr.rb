@@ -13,23 +13,12 @@
 # GNU General Public License for more details.
 
 module Player
-  module Binding
-    class DeviceStruct < FFI::Struct
-      layout  :id, :pointer,
-              :client, :pointer,
-              :addr, DevAddrStruct,
-              :drivername, [:char, PLAYER_MAX_DRIVER_STRING_LEN],
-              :subcribed, :int,
-              :datatime, :double,
-              :lasttime, :double,
-              :fresh, :int,
-              :freshdgeom, :int,
-              :freshconfig, :int,
-              :putmsg, :pointer,
-              :user_data, :pointer,
-              :callback_count, :int,
-              :calback, [:pointer, 4],
-              :calback_data, [:pointer, 4]
+  module CType
+    class DevAddrStruct < FFI::Struct
+      layout  :host, :uint32,
+              :robot, :uint32,
+              :interf, :uint16,
+              :index, :uint16
     end
   end
 end

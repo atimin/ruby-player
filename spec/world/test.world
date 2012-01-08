@@ -14,11 +14,49 @@ window
   show_data 1              # 1=on 0=off
 )
 
+define carton model
+(
+  color "yelow"
+  #carton is retangular
+  # so make a square shape and use size[]
+  block
+  (
+   points 4
+   point[0] [1 0]
+   point[1] [1 4]
+   point[2] [0 4]
+   point[3] [0 0]
+   z [0 1]
+  )
+  # average litre carton size is ~ 20cm x 10cm x 5cm ish
+  size [0.4 4 2]
+)
 
+
+define bender_ranger ranger
+(
+  color "red"
+
+  sensor
+  (
+    pose [0 0.1 0.3 15]
+    size [0.4 0.4 0.4]
+    fov 30
+    range [0.1 3]
+  )
+
+  sensor
+  (
+    pose [0 -0.1 0.3 -15]
+    size [0.4 0.4 0.4]
+    fov 30
+    range [0.1 3]
+  )
+)
 
 define bender2dx position
 (
-  color "Grey"
+  color "grey"
 
   block
   (
@@ -33,10 +71,19 @@ define bender2dx position
 
   drive "omni"
 
+  bender_ranger()
+  size [1 1 1]
 )
+
+#carton
+#(
+#  name "c0"
+#  pose [ 1 0 0 0.0]
+#)
 
 bender2dx
 (
   name "bender"
   pose [ 0 0 0 0.000 ]
+
 )

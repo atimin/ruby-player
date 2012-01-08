@@ -12,15 +12,16 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 
-require "ffi"
-
 module Player
-  module Binding
-    class DevAddrStruct < FFI::Struct
-      layout  :host, :uint32,
-              :robot, :uint32,
-              :interf, :uint16,
-              :index, :uint16
+  module CType
+    class Pose3dStruct < FFI::Struct
+      layout  :px, :double,
+              :py, :double,
+              :pz, :double,
+              :proll, :double,
+              :ppitch, :double,
+              :pyaw, :double
     end
   end
 end
+

@@ -11,22 +11,19 @@
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-#
+
 module Player
-  module Binding 
-    module Position2d
+  module Common
+    module C
       extend FFI::Library
       ffi_lib "playerc"
 
-      attach_function :playerc_position2d_create, [:pointer, :int],  :pointer
-      attach_function :playerc_position2d_destroy, [:pointer],  :void
-      attach_function :playerc_position2d_subscribe, [:pointer, :int],  :int
-      attach_function :playerc_position2d_unsubscribe, [:pointer],  :int
+      attach_function :playerc_error_str, [],  :string
+    end
 
-      attach_function :playerc_position2d_get_geom, [:pointer], :int
-      attach_function :playerc_position2d_set_cmd_vel, [:pointer, :double, :double, :double, :int], :int
-      attach_function :playerc_position2d_set_cmd_car, [:pointer, :double, :double], :int
-      attach_function :playerc_position2d_enable, [:pointer, :int], :int
+    private
+    def try_with_error(result)
+      raise StandardError.new(C.playerc_error_str) if result != 0
     end
   end
 end

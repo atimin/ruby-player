@@ -11,20 +11,14 @@
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-#
+
 module Player
-  module Binding 
-    module Client
-      extend FFI::Library
-      ffi_lib "playerc"
-
-      attach_function :playerc_client_create, [:pointer, :string, :int], :pointer
-      attach_function :playerc_client_destroy, [:pointer],  :void
-      attach_function :playerc_client_connect, [:pointer], :int
-      attach_function :playerc_client_disconnect, [:pointer],  :int
-
-
-      attach_function :playerc_client_read, [:pointer],  :void
+  module CType
+    class BBox3dStruct < FFI::Struct
+      layout  :sw, :double,
+              :sl, :double,
+              :sh, :double
     end
   end
 end
+

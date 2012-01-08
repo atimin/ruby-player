@@ -12,8 +12,6 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 
-require File.dirname(__FILE__) + "/binding"
-
 module Player
   # The client object manages the connection with the Player server
   #
@@ -27,17 +25,29 @@ module Player
   #     end
   #   end
   class Client
-    include Binding
-    include Binding::Client
-    include Binding::Diagnostic
+    include CType
+    include Common 
+
+    module C
+      extend FFI::Library
+      ffi_lib "playerc"
+
+      attach_function :playerc_client_create, [:pointer, :string, :int], :pointer
+      attach_function :playerc_client_destroy, [:pointer],  :void
+      attach_function :playerc_client_connect, [:pointer], :int
+      attach_function :playerc_client_disconnect, [:pointer],  :int
+
+
+      attach_function :playerc_client_read, [:pointer],  :void
+    end
 
     # Initialize client
     # @param [String] host host address
     # @param port number of port default 6665  
     def initialize(host, port=6665)
-      @client = ClientStruct.new(playerc_client_create(nil, host, port.to_i))
+      @client = ClientStruct.new(C.playerc_client_create(nil, host, port.to_i))
 
-      try_with_error playerc_client_connect(@client)
+      try_with_error C.playerc_client_connect(@client)
 
       ObjectSpace.define_finalizer(self, Client.finilazer(@client))
       if block_given?
@@ -54,7 +64,7 @@ module Player
 
     # Read data from server and update all subscribed proxy objects
     def read
-      playerc_client_read(@client) 
+      C.playerc_client_read(@client) 
     end
 
     # Get proxy object
@@ -77,7 +87,7 @@ module Player
 
     # Close connection
     def close
-      try_with_error playerc_client_disconnect(@client)
+      try_with_error C.playerc_client_disconnect(@client)
     end
 
     # Loop for control code
@@ -98,8 +108,8 @@ module Player
 
     def Client.finilazer(client)
       lambda do
-        Binding.playerc_client_disconnect(client) if client[:connected] > 0
-        Binding.playerc_client_destroy(client)
+        C.playerc_client_disconnect(client) if client[:connected] > 0
+        C.playerc_client_destroy(client)
       end
     end
   end

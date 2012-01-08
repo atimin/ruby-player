@@ -12,13 +12,11 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 
+require "ffi"
+
 module Player
-  module Binding
-    class SockaddrInStruct < FFI::Struct
-      layout  :sin_family, :short,
-              :sin_port, :short,
-              :sin_addr, :int32,
-              :sin_zero, [:char, 8]
+  module Binding 
+    module Diagnostic
     end
   end
 end

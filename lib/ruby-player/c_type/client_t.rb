@@ -12,19 +12,25 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 
-require "ffi"
-
 module Player
-  module Binding 
-    module Diagnostic
-      extend FFI::Library
-      ffi_lib "playerc"
-
-      attach_function :playerc_error_str, [],  :string
-
-      def try_with_error(result)
-        raise StandardError.new(playerc_error_str) if result != 0
-      end
+  module CType
+    class ClientStruct < FFI::Struct
+      layout :id, :pointer,
+            :host, :string,
+            :port, :int,
+            :transport, :int,
+            :server, SockaddrInStruct,
+            :connected, :int,
+            :retry_limit, :int,
+            :retry_time, :double,
+            :mode, :uint8,
+            :data_requested, :int,
+            :data_received, :int
+            #TODO Added devinfo, devicem, qitems 
+            #:data, :string,
+            #:write_xdrdata, :string,
+            #:read_xdrdata, :string,
+            #:read_xdrdata_len, :size_t
     end
   end
 end

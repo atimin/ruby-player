@@ -12,6 +12,12 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 
+require "ffi"
+
+require "ruby-player/c_type"
+
 require "ruby-player/version"
+require "ruby-player/common"
 require "ruby-player/position2d"
+require "ruby-player/ranger"
 require "ruby-player/client"

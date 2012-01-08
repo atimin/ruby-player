@@ -11,17 +11,14 @@
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-require "ffi"
 
-#structs
-require File.dirname(__FILE__) + "/binding/sockaddr_in_t"
-require File.dirname(__FILE__) + "/binding/constants"
-require File.dirname(__FILE__) + "/binding/devaddr"
-require File.dirname(__FILE__) + "/binding/device_t"
-require File.dirname(__FILE__) + "/binding/position2d_t"
-require File.dirname(__FILE__) + "/binding/client_t"
-
-#funcs
-require File.dirname(__FILE__) + "/binding/diagnostic"
-require File.dirname(__FILE__) + "/binding/position2d"
-require File.dirname(__FILE__) + "/binding/client"
+module Player
+  module CType
+    class SockaddrInStruct < FFI::Struct
+      layout  :sin_family, :short,
+              :sin_port, :short,
+              :sin_addr, :int32,
+              :sin_zero, [:char, 8]
+    end
+  end
+end

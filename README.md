@@ -11,6 +11,7 @@ The list of support objects and devices of Player.
 
 * Client object
 * Position2d
+* Ranger
 
 Install
 -------------------------------------
@@ -32,9 +33,11 @@ Example
     require 'ruby-player'
     Player::Client.connect("localhost") do |robot|
       pos2d = robot[:position2d, 0]
-      pos2d.set_vel(1, 0, 0.2)
+      ranger = robot[:ranger, 0]
+      pos2d.set_speed(vx: 1, vy: 0, va: 0.2)
       robot.loop do
-        puts "Position: x=#{pos2d.px}, y=#{pos2d.py}, a=#{pos2d.pa}
+        puts "Position: x=#{pos2d.odometry[:px]}, y=#{pos2d.odometry[:py]}, a=#{pos2d.odometry[:pa]}"
+        puts "Ranger data: #{ranger.ranges.join(",")}"
       end
     end
 

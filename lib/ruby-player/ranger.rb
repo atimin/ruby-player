@@ -14,6 +14,13 @@
 
 module Player
   # The ranger proxy provides an interface to the ranger sensors built into robots
+  #
+  # @example
+  #   ranger = client[:ranger, 0]
+  #   client.read
+  #
+  #   # Ranger data for each sensor in m
+  #   ranger.rangers #=> [0.214, 0.211]
   class Ranger
     include CType
     include Common
@@ -60,13 +67,13 @@ module Player
 
     # Set config of ranger
     # @param [Hash] config params for setup
-    # @option :min_angle start angle of scans [rad] 
-    # @option :max_angle end angle of scans
-    # @option :angular_res scan resolution [rad]
-    # @option :min_range maximum range [m]
-    # @option :max_range minimum range [m]
-    # @option :range_res range resolution [m]
-    # @option :frequency scanning frequency [Hz]
+    # @option config :min_angle start angle of scans [rad] 
+    # @option config :max_angle end angle of scans
+    # @option config :angular_res scan resolution [rad]
+    # @option config :min_range maximum range [m]
+    # @option config :max_range minimum range [m]
+    # @option config :range_res range resolution [m]
+    # @option config :frequency scanning frequency [Hz]
     def set_config(config)
       args = [
         config[:min_angle].to_f || @ranger[:min_angle],

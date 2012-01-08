@@ -65,7 +65,7 @@ module Player
     end
     
     # Set odometry of robot.
-    # @params [Hash] odometry
+    # @param [Hash] odometry
     # @option odometry :px x position (m)
     # @option odometry :py y position (m)
     # @option odometry :pa angle (rad).     
@@ -104,7 +104,7 @@ module Player
 
 
     # Set speed of robot. All speeds are defined in the robot coordinate system.
-    # @params [Hash] speeds 
+    # @param [Hash] speeds 
     # @option speeds :vx forward speed (m/s)
     # @option speeds :vy sideways speed (m/s); this field is used by omni-drive robots only. 
     # @option speeds :va rotational speed (rad/s).     
@@ -121,7 +121,7 @@ module Player
     end
 
     # Set speed of carlike robot
-    # @params [Hash] speeds 
+    # @param [Hash] speeds 
     # @option speeds :vx forward speed (m/s)
     # @option speeds :a angle robot (rad).     
     def set_car(speeds)

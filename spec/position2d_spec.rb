@@ -1,77 +1,134 @@
 require "ruby-player"
 
+include Player::Constants
 describe Player::Position2d do
   before do
-    @cl = Player::Client.connect("localhost") 
-    @pos2d = @cl[:position2d, 0]
-    @pos2d.stop
-    @cl.read
+    @client = mock("Client")
+    @client.stub!(:write)
+
+    @pos2d = Player::Position2d.new(
+      Player::DevAddr.new(host: 0, robot:0, interface: 4, index: 0),
+      @client,
+      :debug
+    )
+  end
+
+  it 'should query geometry' do
+    should_send_message(PLAYER_MSGTYPE_REQ, PLAYER_POSITION2D_REQ_GET_GEOM)
+    @pos2d.query_geom
+  end
+
+  it 'should set motor power state' do
+    #sugar methods
+    should_send_message(PLAYER_MSGTYPE_REQ, PLAYER_POSITION2D_REQ_MOTOR_POWER, [0].pack("N"))
+    @pos2d.turn_off!
+
+    should_send_message(PLAYER_MSGTYPE_REQ, PLAYER_POSITION2D_REQ_MOTOR_POWER, [1].pack("N"))
+    @pos2d.turn_on!
+  end
+
+  it 'should set velocity mode' do
+    should_send_message(PLAYER_MSGTYPE_REQ, PLAYER_POSITION2D_REQ_VELOCITY_MODE, [1].pack("N"))
+    @pos2d.separate_speed_control!
+
+    should_send_message(PLAYER_MSGTYPE_REQ, PLAYER_POSITION2D_REQ_VELOCITY_MODE, [0].pack("N"))
+    @pos2d.direct_speed_control!
+  end
+
+  it 'should set control mode' do
+    should_send_message(PLAYER_MSGTYPE_REQ, PLAYER_POSITION2D_REQ_POSITION_MODE, [1].pack("N"))
+    @pos2d.speed_control!
+
+    should_send_message(PLAYER_MSGTYPE_REQ, PLAYER_POSITION2D_REQ_POSITION_MODE, [0].pack("N"))
+    @pos2d.position_control!
   end
 
   it 'should set odometry' do
-    pending "Don't work with Player/Stage"
     new_od = { px: 1.0, py: 2.0, pa: 3 }
+    should_send_message(PLAYER_MSGTYPE_REQ, PLAYER_POSITION2D_REQ_SET_ODOM, new_od.values.pack("GGG"))
     @pos2d.set_odometry(new_od)
+  end
+
+  it 'should reset odometry' do
+    should_send_message(PLAYER_MSGTYPE_REQ, PLAYER_POSITION2D_REQ_RESET_ODOM)
     @pos2d.reset_odometry
-    
-    sleep(1.0)
-    @cl.read
-
-    @pos2d.odometry.should eql(new_od)
   end
 
-  it 'should move' do
-    pos = @pos2d.odometry
-    speed = {vx: -0.4, vy: 0.2, va: -0.1 }
+  it 'should set PID params for speed' do
+    should_send_message(PLAYER_MSGTYPE_REQ, PLAYER_POSITION2D_REQ_SPEED_PID, [1, 2, 3].pack("GGG"))
+    @pos2d.set_speed_pid(kp: 1, ki: 2, kd: 3)
+  end
+
+  it 'should set PID params for position' do
+    should_send_message(PLAYER_MSGTYPE_REQ, PLAYER_POSITION2D_REQ_POSITION_PID, [1, 2, 3].pack("GGG"))
+    @pos2d.set_position_pid(kp: 1, ki: 2, kd: 3)
+  end
+
+  it 'should set speed profile parameters' do
+    should_send_message(PLAYER_MSGTYPE_REQ, PLAYER_POSITION2D_REQ_SPEED_PROF, [1, 2].pack("GG"))
+    @pos2d.set_speed_profile(speed: 1, acc: 2)
+  end
+
+  it 'should fill position data' do
+    pos = {
+      px: 0.0, py: 1.0, pa: 2.0,
+      vx: 3.0, vy: 4.0, va: 5.0,
+      stall: 1
+    }
+    @pos2d.fill(
+      Player::Header.from_a([0,0,4,0, PLAYER_MSGTYPE_DATA, PLAYER_POSITION2D_DATA_STATE, 0.0, 0, 52]),
+      pos.values.pack("GGGGGGN")
+    )
+    @pos2d.position.should eql(pos)
+  end
+
+  it 'should fill geom data' do
+    geom = {px: 1.0, py: 2.0, pz: 3.0, roll: 4.0, pitch: 5.0, yaw: 6.0, sw: 7.0, sl: 8.0, sh: 9.0}
+    @pos2d.fill(
+      Player::Header.from_a([0,0,4,0, PLAYER_MSGTYPE_DATA, PLAYER_POSITION2D_DATA_GEOM, 0.0, 0, 72]),
+      geom.values.pack("G*")
+    )
+    @pos2d.geom.should eql(geom)
+  end
+
+  it 'should get geom by request' do
+    geom = {px: 1.0, py: 2.0, pz: 3.0, roll: 4.0, pitch: 5.0, yaw: 6.0, sw: 7.0, sl: 8.0, sh: 9.0}
+    @pos2d.handle_response(
+      Player::Header.from_a([0,0,4,0, PLAYER_MSGTYPE_RESP_ACK, PLAYER_POSITION2D_REQ_GET_GEOM, 0.0, 0, 72]),
+      geom.values.pack("G*")
+    )
+    @pos2d.geom.should eql(geom)
+  end
+
+  it 'should set speed' do
+    speed = {vx: -0.4, vy: 0.2, va: -0.1, stall: 1 }
+    should_send_message(PLAYER_MSGTYPE_CMD, PLAYER_POSITION2D_CMD_VEL, speed.values.pack("GGGN"))
+
     @pos2d.set_speed(speed)
-
-    sleep(1.1)
-    @cl.read
-    @pos2d.speed.should eq(speed)
-
-    #change position
-    @pos2d.odometry[:px].should be_within(0.1).of(pos[:px] + speed[:vx]*Math.cos(pos[:pa]) - speed[:vy]*Math.sin(pos[:pa]))
-    @pos2d.odometry[:py].should be_within(0.1).of(pos[:py] + speed[:vx]*Math.sin(pos[:pa]) + speed[:vy]*Math.cos(pos[:pa]))
-    Math.sin(@pos2d.odometry[:pa]).should be_within(0.1).of(Math.sin(pos[:pa] + speed[:va]))
   end
 
 
-  it 'should move like car' do
-    pos = @pos2d.odometry
+  it 'should set speed like car' do
     speed = { vx: 0.4, a: 0.3 }
+    should_send_message(PLAYER_MSGTYPE_CMD, PLAYER_POSITION2D_CMD_CAR, speed.values.pack("GG"))
+
     @pos2d.set_car(speed)
+  end
 
-    sleep(1.1)
-    @cl.read
-    @pos2d.speed.should eq(vx: 0.4, vy: 0.0, va: 0.3)
+  it 'should set speed head' do
+    speed = { vx: 0.4, a: 0.3 }
+    should_send_message(PLAYER_MSGTYPE_CMD, PLAYER_POSITION2D_CMD_VEL_HEAD, speed.values.pack("GG"))
 
-    #change position
-    @pos2d.odometry[:px].should be_within(0.1).of(pos[:px] + speed[:vx]*Math.cos(pos[:pa]))
-    @pos2d.odometry[:py].should be_within(0.1).of(pos[:py] + speed[:vx]*Math.sin(pos[:pa]))
-    Math.sin(@pos2d.odometry[:pa]).should be_within(0.1).of(Math.sin(pos[:pa] + speed[:a]))
+    @pos2d.set_speed_head(speed)
   end
 
   it 'should have stop' do
-    # Move robot
-    @pos2d.set_speed(vx: 1.0, vy: 0.5, va: -0.2)
-    @cl.read
-    @pos2d.speed.should eql(vx: 1.0, vy: 0.5, va: -0.2)
-    @pos2d.stoped?.should be_false
-
-    # Stop robot
-    @pos2d.stop
-    @cl.read
-    @pos2d.speed.should eql(vx: 0.0, vy: 0.0, va: 0.0)
-    @pos2d.stoped?.should be_true
+    @pos2d.should_receive(:set_speed).with(vx: 0, vy: 0, va: 0)
+    @pos2d.stop!
   end
 
-  it 'should turn on motor' do
-    pending "Don't work with Player/Stage"
-    @pos2d.enable.should be_false
-    @pos2d.enable = true
-  end
-
-  after do 
-    @cl.close unless @cl.closed?
+  def should_send_message(*args)
+    @pos2d.should_receive(:send_message)
+      .with(*args)
   end
 end

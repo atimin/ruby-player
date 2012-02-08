@@ -2,8 +2,8 @@ Ruby Player - Ruby client library for Player (tools for robots)
 
 Summary
 -------------------------------------
-Ruby Player provide high level client library to access to Player server. 
-It are using the FFI for binding with playerc C client library. 
+Ruby Player provide high level client library to access to Player server in pure Ruby
+Currently (2012-01-07) the Ruby Player are developing and testing with Player 3.1.0 latest svn version
 
 API coverage 
 -------------------------------------
@@ -11,33 +11,22 @@ The list of support objects and devices of Player.
 
 * Client object
 * Position2d
-* Ranger
 
 Install
 -------------------------------------
-Currently (2012-01-07) the Ruby Player are developing and testing with Player 3.1.0 latest svn version
-and Stage v4.1.0. See them user guides for installation. 
-
-After installation Player/Stage run:
 
 `gem install ruby-player`
-
-For testing library in root dir library:
-
-    player spec/world/test.cfg
-    bundle exec rake spec
 
 Example
 -------------------------------------
 
     require 'ruby-player'
-    Player::Client.connect("localhost") do |robot|
-      pos2d = robot[:position2d, 0]
-      ranger = robot[:ranger, 0]
+    Player::Client.connect(host: "localhost") do |robot|
+      pos2d = robot.subscribe(type: "position2d")
       pos2d.set_speed(vx: 1, vy: 0, va: 0.2)
+      #main loop
       robot.loop do
-        puts "Position: x=#{pos2d.odometry[:px]}, y=#{pos2d.odometry[:py]}, a=#{pos2d.odometry[:pa]}"
-        puts "Ranger data: #{ranger.ranges.join(",")}"
+        puts "Position: x=%{px}, y=%{py}, a=%{pa}" % pos2d.position
       end
     end
 
@@ -48,10 +37,9 @@ References
 
 [Player project](http://playerstage.sourceforge.net/)
 
-[Stage project](https://github.com/rtv/Stage)
-
 [C API Player](http://playerstage.sourceforge.net/doc/Player-3.0.2/player/group__player__clientlib__libplayerc.html)
 
 Authors
 -------------------------------------
+
 Aleksey Timin <atimin@gmail.com>

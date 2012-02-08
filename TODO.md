@@ -6,11 +6,6 @@ For supported devices
 1. Get geometry of device and sensors
 2. Get 3d scan points (x,y,z)
 
-**position2d** - The position2d proxy provides an interface to a mobile robot base, such as the ActiveMedia Pioneer series.
-
-1. Set speed and heading - wrap C func `playerc_position2d_set_cmd_vel_head`
-2. Move to point - wrap C funcs `playerc_position2d_set_cmd_pose_with_vel` and `playerc_position2d_set_cmd_pose`
-
 Candidates for support
 --------------------------------------
 

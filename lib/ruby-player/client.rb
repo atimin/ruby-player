@@ -28,7 +28,6 @@ module Player
   #   end
   class Client < Device
     include Common 
-    include Constants
 
     # Initialize client
     # @param [String] host host of Player server 

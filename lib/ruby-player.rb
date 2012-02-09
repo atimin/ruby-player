@@ -20,3 +20,7 @@ require "ruby-player/header"
 require "ruby-player/device"
 require "ruby-player/position2d"
 require "ruby-player/client"
+
+module Player
+  include Constants
+end

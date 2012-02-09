@@ -15,7 +15,6 @@ require "socket"
 
 module Player
   class Device
-    include Constants
     include Common
 
     attr_reader :addr

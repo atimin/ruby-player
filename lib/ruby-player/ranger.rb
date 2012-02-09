@@ -16,35 +16,45 @@ module Player
   # The ranger proxy provides an interface to the ranger sensors built into robots
   #
   # @example
-  #   ranger = client[:ranger, 0]
-  #   client.read
-  #
-  #   # Ranger data for each sensor in m
-  #   ranger.rangers #=> [0.214, 0.211]
-  class Ranger
-    include CType
+  class Ranger < Device
     include Common
 
-    module C
-      extend FFI::Library
-      ffi_lib "playerc"
-
-      attach_function :playerc_ranger_create, [:pointer, :int],  :pointer
-      attach_function :playerc_ranger_destroy, [:pointer],  :void
-      attach_function :playerc_ranger_subscribe, [:pointer, :int],  :int
-      attach_function :playerc_ranger_unsubscribe, [:pointer],  :int
-
-      attach_function :playerc_ranger_power_config, [:pointer, :uint8],  :int
-      attach_function :playerc_ranger_intns_config, [:pointer, :uint8],  :int
-      attach_function :playerc_ranger_set_config, [:pointer] + [:double] * 7,  :int
-      attach_function :playerc_ranger_get_config, [:pointer] + [:pointer] * 7,  :int
+    def initialize(addr, client, log_level)
+      super
+    end
+    
+    # Query ranger geometry 
+    # @return self
+    def query_geom
+      send_message(PLAYER_MSGTYPE_REQ, PLAYER_RANGER_REQ_GET_GEOM)
+      self
     end
 
-    def initialize(client, index)
-      @ranger =  RangerStruct.new(C.playerc_ranger_create(client, index))
-      try_with_error C.playerc_ranger_subscribe(@ranger, PLAYER_OPEN_MODE)
+    # Turn on ranger
+    # @return self
+    def turn_on!
+      send_message(PLAYER_MSGTYPE_REQ, PLAYER_RANGER_REQ_POWER, [1].pack("N")) 
+      self
+    end
+    
+    # Turn off ranger
+    def turn_off!
+      send_message(PLAYER_MSGTYPE_REQ, PLAYER_RANGER_REQ_POWER, [0].pack("N")) 
+      self
+    end
 
-      ObjectSpace.define_finalizer(self, Ranger.finilazer(@ranger))
+    def intensity_enable!
+      send_message(PLAYER_MSGTYPE_REQ, PLAYER_RANGER_REQ_INTNS, [1].pack("N"))
+      self
+    end
+
+    def intensity_disable!
+      send_message(PLAYER_MSGTYPE_REQ, PLAYER_RANGER_REQ_INTNS, [0].pack("N"))
+      self
+    end
+
+    def set_config(config={})
+      warn "Setting configuration has not implemented yet"
     end
 
     # Count of sensors 
@@ -53,17 +63,6 @@ module Player
       @ranger[:element_count]
     end
 
-    # Power control
-    # @param enable nil or false power off
-    def power_enable=(enable)
-      try_with_error C.playerc_ranger_power_config(@ranger, enable ? 1 : 0)
-    end
-
-    # Enable intensity
-    # @param enable nil or false disable 
-    def intensity_enable=(enable)
-      try_with_error C.playerc_ranger_intns_config(@ranger, enable ? 1 : 0)
-    end
 
     # Set config of ranger
     # @param [Hash] config params for setup
@@ -85,13 +84,11 @@ module Player
         config[:frequecy].to_f || @ranger[:frequecy] 
       ]
 
-      try_with_error C.playerc_ranger_set_config(@ranger, *args)
     end
 
     # Configuration of ranger
     # @see set_config
     def config
-      try_with_error C.playerc_ranger_get_config(@ranger, *([nil] * 7))
       {  
         min_range:    @ranger[:min_angle],
         max_range:    @ranger[:max_angle],            
@@ -131,13 +128,6 @@ module Player
         :read_double, 
         @ranger[:bearings_count]
       )
-    end
-
-    def Ranger.finilazer(ranger)
-      lambda{
-        try_with_error C.playerc_ranger_unsubscribe(pos)
-        C.playerc_ranger_destroy(pos)
-      }
     end
   end
 end 

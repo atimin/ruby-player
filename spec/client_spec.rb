@@ -102,25 +102,36 @@ describe Player::Client do
   end
 
   describe "Subscribe" do
-    it "should describe to position2d" do
-      #subscribe
+    def mock_subscribe(code, index=0)
       should_send_message(
         hdr(0, 0, 1, 0, PLAYER_MSGTYPE_REQ, PLAYER_PLAYER_REQ_DEV, 0.0, 0, 28),
-        [0, 0, 4, 0, PLAYER_OPEN_MODE, 0, 0].pack("N*")
+        [0, 0, code, index, PLAYER_OPEN_MODE, 0, 0].pack("N*")
       )
 
       should_request_data
 
       should_read_message(
         hdr(16777343, 6665, PLAYER_PLAYER_CODE, 0, PLAYER_MSGTYPE_RESP_ACK, PLAYER_PLAYER_REQ_DEV, 0.0, 0, 35),
-        [0, 6665, PLAYER_POSITION2D_CODE, 0, PLAYER_OPEN_MODE, 5, 5].pack("N*") + "mock"
+        [0, 6665, code, index, PLAYER_OPEN_MODE, 5, 5].pack("N*") + "mock"
       )
 
       should_recive_sync
+    end
 
+    it "should describe to position2d:0" do
+      mock_subscribe(PLAYER_POSITION2D_CODE)
+   
       pos2d = @cl.subscribe("position2d")
       pos2d.addr.interface_name.should eql("position2d")
       pos2d.addr.index.should eql(0)
+    end
+
+    it "should describe to ranger:1" do
+      mock_subscribe(PLAYER_RANGER_CODE, 1)
+
+      ranger = @cl.subscribe(:ranger, index: 1)
+      ranger.addr.interface_name.should eql("ranger")
+      ranger.addr.index.should eql(1)
     end
   end
 

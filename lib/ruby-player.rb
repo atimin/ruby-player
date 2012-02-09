@@ -15,12 +15,16 @@
 require "ruby-player/version"
 require "ruby-player/constants"
 require "ruby-player/common"
+
+#basic classes
 require "ruby-player/dev_addr"
 require "ruby-player/header"
 require "ruby-player/device"
-require "ruby-player/position2d"
 require "ruby-player/client"
 
-module Player
-  include Constants
-end
+#interfaces
+require "ruby-player/position2d"
+require "ruby-player/ranger"
+
+
+

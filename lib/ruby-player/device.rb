@@ -16,6 +16,7 @@ require "socket"
 module Player
   class Device
     include Common
+    include Constants
 
     attr_reader :addr
     def initialize(addr, client, log_level)
@@ -24,11 +25,11 @@ module Player
     end
 
     def fill(hdr,msg)
-      raise "Method `fill` is not implemented for `#{self.class}`"
+      raise_error "Method `fill` has not implemented for `#{self.class}`"
     end
 
     def handle_response(hdr, msg)
-      raise "Method `handle_response` is not implemented for `#{self.class}`"
+      raise_error "Method `handle_response` has not implemented for `#{self.class}`"
     end
    
     private

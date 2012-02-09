@@ -19,7 +19,6 @@ describe Player::Position2d do
   end
 
   it 'should set motor power state' do
-    #sugar methods
     should_send_message(PLAYER_MSGTYPE_REQ, PLAYER_POSITION2D_REQ_MOTOR_POWER, [0].pack("N"))
     @pos2d.turn_off!
 

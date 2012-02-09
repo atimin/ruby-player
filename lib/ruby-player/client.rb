@@ -19,12 +19,11 @@ module Player
   #
   #   require 'ruby-player'
   #   Player::Client.connect("localhost") do |robot|
-  #     pos2d = robot[:position2d, 0]
-  #     ranger = robot[:ranger, 0]
+  #     pos2d = robot.subscribe("position2d", index: 0)
   #     pos2d.set_speed(vx: 1, vy: 0, va: 0.2)
+  #     #main loop
   #     robot.loop do
-  #       puts "Position: x=#{pos2d.odometry[:px]}, y=#{pos2d.odometry[:py]}, a=#{pos2d.odometry[:pa]}"
-  #       puts "Ranger data: #{ranger.ranges.join(",")}"
+  #       puts "Position: x=%{px}, y=%{py}, a=%{pa}" % pos2d.position
   #     end
   #   end
   class Client < Device
@@ -32,10 +31,9 @@ module Player
     include Constants
 
     # Initialize client
-    def initialize(conn = {})
-      host = conn[:host].to_s || "localhost"
-      port = conn[:port] || 6665
-      @log_level = conn[:log_level] || "notice"
+    def initialize(host, opt = {})
+      port = opt[:port] || 6665
+      @log_level = opt[:log_level] || "notice"
 
       @socket = TCPSocket.new(host, port)
       @addr = DevAddr.new(host: 0, robot: 0, interface: PLAYER_PLAYER_CODE, index: 0)
@@ -74,8 +72,8 @@ module Player
     # @example 
     #   pos2d = client.subscribe(type: :position2d, index: 0)
     # 
-    def subscribe(param = {})
-      code = instance_eval("PLAYER_#{param[:type].to_s.upcase}_CODE")
+    def subscribe(type, param = {})
+      code = instance_eval("PLAYER_#{type.to_s.upcase}_CODE")
       index = param[:index] || 0
       access = param[:access] || PLAYER_OPEN_MODE
 

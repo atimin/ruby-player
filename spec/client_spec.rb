@@ -16,7 +16,7 @@ describe Player::Client do
       [PLAYER_DATAMODE_PULL].pack("N")
     )
 
-    @cl = Player::Client.new(host: "localhost", log_level: "debug")
+    @cl = Player::Client.new("localhost", log_level: "debug")
   end
 
 #  it "should raise error if connection doesn't success" do
@@ -40,7 +40,7 @@ describe Player::Client do
     @socket.should_receive(:closed?).and_return(false)
     @socket.should_receive(:close)
 
-    Player::Client.connect(host: "localhost") do |cl|
+    Player::Client.connect("localhost") do |cl|
       cl.closed?.should be_false
     end
   end
@@ -118,7 +118,7 @@ describe Player::Client do
 
       should_recive_sync
 
-      pos2d = @cl.subscribe(type: "position2d")
+      pos2d = @cl.subscribe("position2d")
       pos2d.addr.interface_name.should eql("position2d")
       pos2d.addr.index.should eql(0)
     end

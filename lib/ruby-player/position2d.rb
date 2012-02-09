@@ -17,16 +17,15 @@ module Player
   #
   # @example
   #   # get proxy object
-  #   pos2d = client.subcribe(type: "position2d", index: 0)
+  #   pos2d = client.subcribe("position2d", index: 0)
   #   # setup speed of robot
   #   pos2d.set_speed(vx: 1.2, vy: 0.1, va: 0.3)
   #
   #   #update data from server
-  #   client.read
+  #   client.read!
   #   #read velocityand position by X,Y and angle
-  #   pos2d.speed #=> { :vx => 1.2, :vy => 0.1, :va => 0.3 }
-  #   pos2d.odometry #=> { :px => 0.2321, :py => 0,01, :pa => 0.2 }
-  #   pos2d.stop 
+  #   pos2d.position #=> { :px => 0.2321, :py => 0,01, :pa => 0.2, :vx => 1.2, :vy => 0.1, :va => 0.3, :stall => 1  }
+  #   pos2d.stop!
   class Position2d < Device
     def initialize(addr, client, log_level)
       super
@@ -34,13 +33,15 @@ module Player
       @geom = {px: 0.0, py: 0.0, pz: 0.0, roll: 0.0, pitch: 0.0, yaw: 0.0, sw: 0.0, sl: 0.0, sh: 0.0}
     end
 
-    #Query robot geometry 
+    # Query robot geometry 
+    # @return self
     def query_geom
       send_message(PLAYER_MSGTYPE_REQ, PLAYER_POSITION2D_REQ_GET_GEOM)
       self
     end
    
     # Turn on motor
+    # @return self
     def turn_on!
       send_message(PLAYER_MSGTYPE_REQ, PLAYER_POSITION2D_REQ_MOTOR_POWER, [1].pack("N")) 
       self
@@ -90,10 +91,10 @@ module Player
     end
 
     # Set speed PID paramters
-    # @param [Hash] PID params
-    # @option PID params :kp P
-    # @option PID params :ki I
-    # @option PID params :kd D
+    # @param [Hash] params PID params
+    # @option params :kp P
+    # @option params :ki I
+    # @option params :kd D
     # @return self
     def set_speed_pid(params={})
       data = [
@@ -106,10 +107,10 @@ module Player
     end
 
     # Set position PID paramters
-    # @param [Hash] PID params
-    # @option PID params :kp P
-    # @option PID params :ki I
-    # @option PID params :kd D
+    # @param [Hash] params PID params
+    # @option params :kp P
+    # @option params :ki I
+    # @option params :kd D
     # @return self
     def set_position_pid(params={})
       data = [
@@ -121,6 +122,11 @@ module Player
       self
     end
 
+    # Set speed profile
+    # @param [Hash] params profile prarams
+    # @option params :spped max speed (m/s)
+    # @option params :acc max acceleration (m/s^2)
+    # @return self
     def set_speed_profile(params={})
       data = [
         params[:speed].to_f,
@@ -203,6 +209,7 @@ module Player
     end
 
     # Stop robot set speed to 0
+    # @return self
     def stop!
       set_speed(vx: 0, vy: 0, va: 0)
     end

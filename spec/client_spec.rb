@@ -68,7 +68,7 @@ describe Player::Client do
       @cl.should_receive(:make_device).and_return(@dev_2)
 
       should_recive_sync
-      @cl.read_all
+      @cl.read!
     end
 
     it "should read data and fill deivice" do
@@ -82,7 +82,7 @@ describe Player::Client do
       should_recive_sync
       @dev_1.should_receive(:fill).with(hdr, msg)
 
-      @cl.read_all
+      @cl.read!
     end
 
     it "should recive response and handle deivice" do
@@ -97,7 +97,7 @@ describe Player::Client do
       should_recive_sync
       @dev_2.should_receive(:handle_response).with(hdr, msg)
 
-      @cl.read_all
+      @cl.read!
     end
   end
 

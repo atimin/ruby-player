@@ -31,9 +31,13 @@ module Player
     include Constants
 
     # Initialize client
-    def initialize(host, opt = {})
-      port = opt[:port] || 6665
-      @log_level = opt[:log_level] || "notice"
+    # @param [String] host host of Player server 
+    # @param [Hash] opts client options
+    # @option opts :port port of connection
+    # @option opts :log_level level of log messages [:debug,:notice, :warn, :error] default :notice
+    def initialize(host, opts = {})
+      port = opts[:port] || 6665
+      @log_level = (opts[:log_level] || :notice).to_sym
 
       @socket = TCPSocket.new(host, port)
       @addr = DevAddr.new(host: 0, robot: 0, interface: PLAYER_PLAYER_CODE, index: 0)
@@ -59,10 +63,9 @@ module Player
     end
 
     # Read data from server and update all subscribed proxy objects
-    def read_all
+    def read!
       send_message PLAYER_MSGTYPE_REQ, PLAYER_PLAYER_REQ_DATA, ""
       while read[0].type != PLAYER_MSGTYPE_SYNCH
-        sleep 0.01
       end
       nil
     end
@@ -70,18 +73,22 @@ module Player
     # Get proxy object
     #
     # @example 
-    #   pos2d = client.subscribe(type: :position2d, index: 0)
+    #   pos2d = client.subscribe(:position2d, index: 0)
     # 
-    def subscribe(type, param = {})
+    # @param [String,Symbol] type interface type name 
+    # @param [Hash] opts of subscribing
+    # @option opts :index index of device (default 0)
+    # @option opts :access access level (default PLAYER_OPEN_MODE)
+    def subscribe(type, opts = {})
       code = instance_eval("PLAYER_#{type.to_s.upcase}_CODE")
-      index = param[:index] || 0
-      access = param[:access] || PLAYER_OPEN_MODE
+      index = opts[:index] || 0
+      access = opts[:access] || PLAYER_OPEN_MODE
 
-      notice "Subscribing to #{param[:type]}:#{index}"
+      notice "Subscribing to #{type}:#{index}"
       data = DevAddr.new(interface: code, index: index).to_a + [access, 0, 0]
       send_message PLAYER_MSGTYPE_REQ, PLAYER_PLAYER_REQ_DEV, data.pack("N*")
 
-      read_all
+      read!
       
       @devices.select { |d| d.addr.interface == code && d.addr.index == index}.first
     end
@@ -106,7 +113,7 @@ module Player
     # @param period period cicles in seconds
     def loop(period=1.0)
       while(true) do
-        read_all
+        read!
         yield
         sleep(period.to_f)
       end

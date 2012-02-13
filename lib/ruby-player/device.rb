@@ -16,20 +16,28 @@ require "socket"
 module Player
   class Device
     include Common
-    include Constants
-
+  
+    # Device address
     attr_reader :addr
+
+    # Device geometry
+    # @return [Hash] geometry { :px, :py. :pz, :roll, :pitch, :yaw, :sw, :sl, :sh }
+    attr_reader :geom
+ 
+
     def initialize(addr, client, log_level)
       @addr, @client =  addr, client
       @log_level = log_level
+
+      @geom = {px: 0.0, py: 0.0, pz: 0.0, roll: 0.0, pitch: 0.0, yaw: 0.0, sw: 0.0, sl: 0.0, sh: 0.0}
     end
 
     def fill(hdr,msg)
-      raise_error "Method `fill` has not implemented for `#{self.class}`"
+      raise_error "Method `fill` isn't implemented for `#{self.class}`"
     end
 
     def handle_response(hdr, msg)
-      raise_error "Method `handle_response` has not implemented for `#{self.class}`"
+      raise_error "Method `handle_response` isn't implemented for `#{self.class}`"
     end
    
     private
@@ -39,6 +47,14 @@ module Player
           type: type,
           subtype: subtype,
           size: msg.bytesize), msg)
+    end
+
+    def read_geom(msg)
+      data = msg.unpack("G*")
+      [:px,:py,:pz, :roll,:pitch,:yaw, :sw,:sl,:sh].each_with_index do |k,i|
+        @geom[k] = data[i]
+      end
+      debug("Get geom px=%.2f py=%.2f pz=%.2f; roll=%.2f, pitch=%.2f, yaw=%.2f, sw=%.2f, sl=%.2f, sh=%.2f" % @geom.values)
     end
   end
 end

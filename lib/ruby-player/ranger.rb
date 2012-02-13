@@ -16,11 +16,28 @@ module Player
   # The ranger proxy provides an interface to the ranger sensors built into robots
   #
   # @example
+  #
+  # TODO Implement PLAYER_RANGER_DATA_RANGESTAMPED and PLAYER_RANGER_DATA_INTNSTAMPED
   class Ranger < Device
-    include Common
+
+    # Range data [m]
+    # @return [Array] fot each sensor
+    attr_reader :rangers
+
+    # Intensity data [m]. 
+    # @return [Array] fot each sensor
+    attr_reader :intensities
+ 
+    # Configuration of ranger
+    # @see set_config
+    attr_reader :config
 
     def initialize(addr, client, log_level)
       super
+      @rangers = []
+      @intensities = []
+      @geom[:sensors] = []
+      @config = { min_angle: 0.0, max_angle: 0.0, angular_res: 0.0, min_range: 0.0, max_range: 0.0, range_res: 0.0, frequecy: 0.0 }
     end
     
     # Query ranger geometry 
@@ -53,16 +70,11 @@ module Player
       self
     end
 
-    def set_config(config={})
-      warn "Setting configuration has not implemented yet"
+    # Query ranger configuration
+    def query_config
+      send_message(PLAYER_MSGTYPE_REQ, PLAYER_RANGER_REQ_GET_CONFIG)
+      self
     end
-
-    # Count of sensors 
-    # Return [Integer] count
-    def element_count
-      @ranger[:element_count]
-    end
-
 
     # Set config of ranger
     # @param [Hash] config params for setup
@@ -74,7 +86,7 @@ module Player
     # @option config :range_res range resolution [m]
     # @option config :frequency scanning frequency [Hz]
     def set_config(config)
-      args = [
+      data = [
         config[:min_angle].to_f || @ranger[:min_angle],
         config[:max_angle].to_f || @ranger[:max_angle],            
         config[:angular_res].to_f || @ranger[:angular_res],            
@@ -84,50 +96,67 @@ module Player
         config[:frequecy].to_f || @ranger[:frequecy] 
       ]
 
+      send_message(PLAYER_MSGTYPE_REQ, PLAYER_RANGER_REQ_SET_CONFIG, data.pack("G*"))
     end
 
-    # Configuration of ranger
-    # @see set_config
-    def config
-      {  
-        min_range:    @ranger[:min_angle],
-        max_range:    @ranger[:max_angle],            
-        angular_res:  @ranger[:angular_res],            
-        min_range:    @ranger[:min_range],
-        max_range:    @ranger[:max_range],
-        range_res:    @ranger[:range_res],
-        frequecy:     @ranger[:frequecy] 
-      }
+    def fill(hdr, msg)
+      case hdr.subtype
+      when PLAYER_RANGER_DATA_RANGE
+        data = msg.unpack("NG*")
+        @rangers = data[1..-1]
+        debug "Get rangers #{@rangers.inspect}"
+      when PLAYER_RANGER_DATA_INTNS
+        data = msg.unpack("NG*")
+        @intensities = data[1..-1]
+        debug "Get intensities #{@rangers.inspect}"
+      when PLAYER_RANGER_DATA_GEOM
+        read_geom(msg)
+      else
+        unexpected_message hdr
+      end
     end
 
-    # Range data [m]
-    # @return [Array] fot each sensor
-    def ranges
-      @ranger[:ranges].read_array_of_type(
-        FFI::Type::DOUBLE,
-        :read_double,
-        @ranger[:ranges_count]
-      )
+    def handle_response(hdr, msg)
+      case hdr.subtype
+      when PLAYER_RANGER_REQ_GET_GEOM
+        read_geom(msg)
+      when 2..4
+        nil
+      when PLAYER_RANGER_REQ_GET_CONFIG 
+        data = msg.unpack("G*")
+        [:min_angle, :max_angle, :angular_res, :min_range, :max_range, :range_res, :frequecy].each_with_index do |k,i|
+          @config[k] = data[i]
+        end
+      else
+        unexpected_message hdr
+      end
     end
 
-    # Intensity data [m]. 
-    # @return [Array] fot each sensor
-    def intensities
-      @ranger[:intensities].read_array_of_type(
-        FFI::Type::DOUBLE, 
-        :read_double, 
-        @ranger[:intensities_count]
-      )
-    end
+    private
+    def read_geom(msg)
+      super(msg[0,72])
 
-    # Scan bearings in the XY plane [radians]. 
-    # @return [Array] fot each sensor
-    def bearings
-      @ranger[:bearings].read_array_of_type(
-        FFI::Type::DOUBLE, 
-        :read_double, 
-        @ranger[:bearings_count]
-      )
+      p_count = msg[72,4].unpack("N")[0]
+      poses = msg[76, 48*p_count].unpack("G" + (6*p_count).to_s)
+      s_count = msg[76 + 48*p_count, 4].unpack("N")[0]
+      sizes = msg[80 + 48*p_count, 24*s_count].unpack("G" +(3* s_count).to_s)
+
+      p_count.times do |i|
+        @geom[:sensors][i] ||= {}
+        [:px, :py, :pz, :roll, :pitch, :yaw].each_with_index do |k,j|
+          @geom[:sensors][i][k] = poses[6*i + j]
+        end
+        debug("Get poses for ##{i} sensor: px=%.2f, py=%.2f, pz=%.2f, roll=%.2f, pitch=%.2f, yaw=%.2f" % @geom[:sensors][i].values[0,6])
+      end
+      
+      s_count.times do |i|
+        @geom[:sensors][i] ||= {}
+        [:sw, :sl, :sh].each_with_index do |k,j|
+          @geom[:sensors][i][k] = sizes[3*i + j]
+        end
+        debug("Get sizes for ##{i} sensor: sw=%.2f, sl=%.2f, sh=%.2f" % @geom[:sensors][i].values[6,3])
+      end
+
     end
   end
 end 

@@ -52,11 +52,15 @@ module Player
 
     def search_const_name(value, tmpl)
       tmpl = Regexp.new(tmpl.to_s)
-      consts = Constants.constants.select { |c| c =~ tmpl}
+      consts = Player.constants.select { |c| c =~ tmpl}
       consts.each do |c|
-        return c.to_s if Constants.module_eval(c.to_s) == value
+        return c.to_s if Player.module_eval(c.to_s) == value
       end
       ""
+    end
+
+    def unexpected_message(hdr)
+      warn "Get unexpection message type #{hdr.type_name}::#{hdr.subtype_name} for #@addr"
     end
   end
 end

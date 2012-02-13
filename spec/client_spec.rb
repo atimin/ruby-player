@@ -1,6 +1,6 @@
 require "ruby-player"
 
-include Player::Constants
+include Player
 describe Player::Client do
   before do 
     @socket = mock("Socket")

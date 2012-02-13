@@ -1,6 +1,6 @@
 require "ruby-player"
 
-include Player::Constants
+include Player
 describe Player::Position2d do
   before do
     @client = mock("Client")
@@ -11,6 +11,11 @@ describe Player::Position2d do
       @client,
       :debug
     )
+  end
+
+  it 'should have default values' do
+    @pos2d.position.should eql(px:0.0, py:0.0, pa:0.0, vx:0.0, vy:0.0, va:0.0, stall: 0)
+    @pos2d.geom.should eql(px:0.0, py:0.0, pz:0.0, roll:0.0, pitch:0.0, yaw:0.0, sw:0.0, sl:0.0, sh:0.0)
   end
 
   it 'should query geometry' do
@@ -106,7 +111,6 @@ describe Player::Position2d do
     @pos2d.set_speed(speed)
   end
 
-
   it 'should set speed like car' do
     speed = { vx: 0.4, a: 0.3 }
     should_send_message(PLAYER_MSGTYPE_CMD, PLAYER_POSITION2D_CMD_CAR, speed.values.pack("GG"))
@@ -124,6 +128,15 @@ describe Player::Position2d do
   it 'should have stop' do
     @pos2d.should_receive(:set_speed).with(vx: 0, vy: 0, va: 0)
     @pos2d.stop!
+  end
+
+  it 'should not puts warn message for ACK subtypes 2..9' do  
+    @pos2d.should_not_receive(:unexpected_message)
+    (2..9).each do |i|
+      @pos2d.handle_response(
+        Player::Header.from_a([0,0,4,0, PLAYER_MSGTYPE_RESP_ACK, i, 0.0, 0, 0]),
+        "")
+    end
   end
 
   def should_send_message(*args)

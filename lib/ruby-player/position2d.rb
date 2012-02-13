@@ -27,10 +27,14 @@ module Player
   #   pos2d.position #=> { :px => 0.2321, :py => 0,01, :pa => 0.2, :vx => 1.2, :vy => 0.1, :va => 0.3, :stall => 1  }
   #   pos2d.stop!
   class Position2d < Device
+
+    # Position of robot
+    # @return [Hash] hash position {:px, :py, :pa, :vx, :vy, :va, :stall }
+    attr_reader :position
+
     def initialize(addr, client, log_level)
       super
-      @pos2d = {px: 0.0, py: 0.0, pa: 0.0, vx: 0.0, vy: 0.0, va: 0.0, stall: 0}
-      @geom = {px: 0.0, py: 0.0, pz: 0.0, roll: 0.0, pitch: 0.0, yaw: 0.0, sw: 0.0, sl: 0.0, sh: 0.0}
+      @position = {px: 0.0, py: 0.0, pa: 0.0, vx: 0.0, vy: 0.0, va: 0.0, stall: 0}
     end
 
     # Query robot geometry 
@@ -144,18 +148,6 @@ module Player
       self
     end
 
-    # Position of robot
-    # @return [Hash] hash position {:px, :py, :pa, :vx, :vy, :va, :stall }
-    def position
-      @pos2d.dup
-    end
- 
-    # Robot geometry
-    # @return [Hash] geometry { :px, :py. :pz, :roll, :pitch, :yaw, :sw, :sl, :sh }
-    def geom
-      @geom.dup
-    end
-
     # Set speed of robot. All speeds are defined in the robot coordinate system.
     # @param [Hash] speeds 
     # @option speeds :vx forward speed (m/s)
@@ -165,10 +157,10 @@ module Player
     # @return self
     def set_speed(speeds)
       data = [
-        speeds[:vx] || @pos2d[:vx],
-        speeds[:vy] || @pos2d[:vy],
-        speeds[:va] || @pos2d[:va],
-        speeds[:stall] || @pos2d[:stall]
+        speeds[:vx] || @position[:vx],
+        speeds[:vy] || @position[:vy],
+        speeds[:va] || @position[:va],
+        speeds[:stall] || @position[:stall]
       ]
       send_message(PLAYER_MSGTYPE_CMD, PLAYER_POSITION2D_CMD_VEL, data.pack("GGGN"))
       self
@@ -180,8 +172,8 @@ module Player
     # @option speeds :a turning angle (rad).     
     def set_car(speeds)
       data = [ 
-        speeds[:vx] || @pos2d[:vx],
-        speeds[:a] || @pos2d[:pa]
+        speeds[:vx] || @position[:vx],
+        speeds[:a] || @position[:pa]
       ]
       send_message(PLAYER_MSGTYPE_CMD, PLAYER_POSITION2D_CMD_CAR, data.pack("GG"))
       self
@@ -194,8 +186,8 @@ module Player
     # @option speeds :a absolutle angle (rad).     
     def set_speed_head(speeds)
       data = [ 
-        speeds[:vx] || @pos2d[:vx],
-        speeds[:a] || @pos2d[:pa]
+        speeds[:vx] || @position[:vx],
+        speeds[:a] || @position[:pa]
       ]
       send_message(PLAYER_MSGTYPE_CMD, PLAYER_POSITION2D_CMD_VEL_HEAD, data.pack("GG"))
       self
@@ -205,7 +197,7 @@ module Player
     # State of motor
     # @return [Boolean] true - on
     def power
-      @pos2d[:stall] == 1 
+      @position[:stall] == 1 
     end
 
     # Stop robot set speed to 0
@@ -226,7 +218,7 @@ module Player
       when PLAYER_POSITION2D_DATA_GEOM
         read_geom(msg)
       else
-        warn "Get unexception data subtype=#{hdr.subtype}"
+        unexpected_message hdr
       end
     end
 
@@ -237,25 +229,17 @@ module Player
       when 2..9
         nil #null response
       else
-        warn "Handle unexception response subtype=#{hdr.subtype}"
+        unexpected_message hdr
       end
     end
 
     private
     def read_position(msg)
       data = msg.unpack("GGGGGGN")
-      @pos2d.keys.each_with_index do |k,i|
-        @pos2d[k] = data[i]
+      @position.keys.each_with_index do |k,i|
+        @position[k] = data[i]
       end
-      debug("Get position px=%.2f py=%.2f pa=%.2f; vx=%.2f, vy=%.2f, va=%.2f, stall=%d" % @pos2d.values)
-    end
-
-    def read_geom(msg)
-      data = msg.unpack("G*")
-      @geom.keys.each_with_index do |k,i|
-        @geom[k] = data[i]
-      end
-      debug("Get geom px=%.2f py=%.2f pz=%.2f; roll=%.2f, pitch=%.2f, yaw=%.2f, sw=%.f, sl=%.2f, sh=%.2f" % @geom.values)
+      debug("Get position px=%.2f py=%.2f pa=%.2f; vx=%.2f, vy=%.2f, va=%.2f, stall=%d" % position.values)
     end
   end
 end

@@ -3,8 +3,7 @@ For supported devices
 -------------------------------------
 **ranger** - The ranger proxy provides an interface to ranger sensor devices.
 
-1. Get geometry of device and sensors
-2. Get 3d scan points (x,y,z)
+Implement PLAYER_RANGER_DATA_RANGESTAMPED and PLAYER_RANGER_DATA_INTNSTAMPED
 
 Candidates for support
 --------------------------------------

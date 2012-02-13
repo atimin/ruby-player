@@ -16,7 +16,7 @@ module Player
   class Header
     include Common
 
-    attr_reader :dev_addr, :type, :subtype, :time, :seq, :size
+    attr_reader :dev_addr, :type, :subtype, :time, :seq, :size, :type_name, :subtype_name
 
     def initialize(param = {})
       @dev_addr = param[:dev_addr]
@@ -55,13 +55,21 @@ module Player
     private
     def search_msg_type_name(type)
       name = search_const_name type, /PLAYER_MSGTYPE_[\w]*/
-      name[7..-1]
+      if name != ""
+        name[7..-1]
+      else
+        type.to_s
+      end
     end
 
     def search_msg_subtype_name(interface_name, type_name, subtype)
       type_prefix = type_name == "MSGTYPE_RESP_ACK" ? "" : type_name.split("_")[-1] 
       name = search_const_name subtype, "PLAYER_" + interface_name.upcase + "_" + type_prefix + ".*"
-      name[7..-1]
+      if name != ""
+        name[7..-1]
+      else
+        subtype.to_s
+      end
     end
   end
 end 

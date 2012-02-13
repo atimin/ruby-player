@@ -20,16 +20,12 @@ module Player
     # Device address
     attr_reader :addr
 
-    # Device geometry
-    # @return [Hash] geometry { :px, :py. :pz, :proll, :ppitch, :pyaw, :sw, :sl, :sh }
-    attr_reader :geom
- 
+     
 
     def initialize(addr, client, log_level)
       @addr, @client =  addr, client
       @log_level = log_level
 
-      @geom = {px: 0.0, py: 0.0, pz: 0.0, proll: 0.0, ppitch: 0.0, pyaw: 0.0, sw: 0.0, sl: 0.0, sh: 0.0}
     end
 
     def fill(hdr,msg)
@@ -47,14 +43,6 @@ module Player
           type: type,
           subtype: subtype,
           size: msg.bytesize), msg)
-    end
-
-    def read_geom(msg)
-      data = msg.unpack("G*")
-      [:px,:py,:pz, :proll,:ppitch,:pyaw, :sw,:sl,:sh].each_with_index do |k,i|
-        @geom[k] = data[i]
-      end
-      debug("Get geom px=%.2f py=%.2f pz=%.2f; proll=%.2f, ppitch=%.2f, pyaw=%.2f, sw=%.2f, sl=%.2f, sh=%.2f" % @geom.values)
     end
   end
 end

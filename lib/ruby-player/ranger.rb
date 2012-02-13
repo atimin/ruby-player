@@ -33,11 +33,16 @@ module Player
     # @see set_config
     attr_reader :config
 
+
+    # Device geometry
+    # @return [Hash] geometry { :px, :py. :pz, :proll, :ppitch, :pyaw, :sw, :sl, :sh, :sensors => [geom of sensors] }
+    attr_reader :geom
+
     def initialize(addr, client, log_level)
       super
       @rangers = []
       @intensities = []
-      @geom[:sensors] = []
+      @geom = {px: 0.0, py: 0.0, pz: 0.0, proll: 0.0, ppitch: 0.0, pyaw: 0.0, sw: 0.0, sl: 0.0, sh: 0.0, sensors: []}
       @config = { min_angle: 0.0, max_angle: 0.0, angular_res: 0.0, min_range: 0.0, max_range: 0.0, range_res: 0.0, frequecy: 0.0 }
     end
     
@@ -135,7 +140,12 @@ module Player
 
     private
     def read_geom(msg)
-      super(msg[0,72])
+      data = msg[0,72].unpack("G*")
+      [:px,:py,:pz, :proll,:ppitch,:pyaw, :sw,:sl,:sh].each_with_index do |k,i|
+        @geom[k] = data[i]
+      end
+      debug("Get geom px=%.2f py=%.2f pz=%.2f; proll=%.2f, ppitch=%.2f, pyaw=%.2f, sw=%.2f, sl=%.2f, sh=%.2f" % @geom.values)
+
 
       p_count =  msg[72,8].unpack("NN")
       p_count = p_count[0] + p_count[1] * 256

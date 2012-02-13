@@ -16,14 +16,13 @@ module Player
   class DevAddr
     include Common
 
-    attr_reader :host, :robot, :interface, :index, :interface_name
+    attr_reader :host, :robot, :interface, :index
 
     def initialize(addr = {})
       @host = addr[:host].to_i
       @robot = addr[:robot].to_i
       @interface = addr[:interface].to_i
       @index = addr[:index].to_i
-      @interface_name = search_interface_name(@interface)
     end
 
     def DevAddr.decode(str)
@@ -33,6 +32,10 @@ module Player
 
     def encode
       [@host, @robot, @interface, @index].pack("NNNN")
+    end
+
+    def interface_name
+      @interface_name ||= search_interface_name(@interface)
     end
 
     def ==(other)

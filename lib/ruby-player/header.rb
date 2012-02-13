@@ -16,7 +16,7 @@ module Player
   class Header
     include Common
 
-    attr_reader :dev_addr, :type, :subtype, :time, :seq, :size, :type_name, :subtype_name
+    attr_reader :dev_addr, :type, :subtype, :time, :seq, :size
 
     def initialize(param = {})
       @dev_addr = param[:dev_addr]
@@ -26,8 +26,6 @@ module Player
       @seq = param[:seq].to_i
       @size = param[:size].to_i
 
-      @type_name = search_msg_type_name(@type)
-      @subtype_name = search_msg_subtype_name(dev_addr.interface_name, @type_name, @subtype)
     end
 
     def Header.decode(str)
@@ -49,7 +47,15 @@ module Player
     end
 
     def to_s
-      "header to #@dev_addr of message [type=#@type_name, subtype=#@subtype_name, size=#@size]"
+      "header to #@dev_addr of message [type=#{type_name}, subtype=#{subtype_name}, size=#@size]"
+    end
+
+    def type_name
+      @type_name ||= search_msg_type_name(@type)
+    end
+
+    def subtype_name
+      @subtype_name ||= search_msg_subtype_name(dev_addr.interface_name, type_name, @subtype)
     end
 
     private

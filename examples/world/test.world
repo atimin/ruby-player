@@ -75,11 +75,11 @@ define bender2dx position
   size [1 1 1]
 )
 
-#carton
-#(
-#  name "c0"
-#  pose [ 1 0 0 0.0]
-#)
+carton
+(
+  name "c0"
+  pose [ 3 0 0 0.0]
+)
 
 bender2dx
 (

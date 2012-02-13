@@ -1,4 +1,4 @@
-Ruby Player - Ruby client library for Player (tools for robots) 
+Ruby Player - Ruby client library for Player (tools for robots) [![Build Status](https://secure.travis-ci.org/flipback/ruby-player.png)](http://travis-ci.org/flipback/ruby-player)
 
 Summary
 -------------------------------------
@@ -23,10 +23,12 @@ Example
     require 'ruby-player'
     Player::Client.connect("localhost") do |robot|
       pos2d = robot.subscribe("position2d", index: 0)
+      ranger = robot.subscribe(:ranger)
       pos2d.set_speed(vx: 1, vy: 0, va: 0.2)
       #main loop
       robot.loop do
         puts "Position: x=%{px}, y=%{py}, a=%{pa}" % pos2d.position
+        puts "Rangers: #{ranger.rangers}"
       end
     end
 

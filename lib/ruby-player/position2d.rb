@@ -37,7 +37,7 @@ module Player
     attr_reader :geom
 
 
-    def initialize(addr, client, log_level)
+    def initialize(addr, client)
       super
       @position = {px: 0.0, py: 0.0, pa: 0.0, vx: 0.0, vy: 0.0, va: 0.0, stall: 0}
       @geom = {px: 0.0, py: 0.0, pz: 0.0, proll: 0.0, ppitch: 0.0, pyaw: 0.0, sw: 0.0, sl: 0.0, sh: 0.0}

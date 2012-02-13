@@ -1,15 +1,12 @@
-require "ruby-player"
+require File.dirname(__FILE__) + "/spec_helper"
 
 include Player
 describe Player::Ranger do
   before do
-    @client = mock("Client")
-    @client.stub!(:write)
-
+    @client = mock_client
     @ranger = Player::Ranger.new(
       Player::DevAddr.new(host: 0, robot:0, interface: PLAYER_RANGER_CODE, index: 0),
-      @client,
-      :debug
+      @client
     )
   end
 

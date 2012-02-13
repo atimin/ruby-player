@@ -20,12 +20,9 @@ module Player
     # Device address
     attr_reader :addr
 
-     
-
-    def initialize(addr, client, log_level)
+    def initialize(addr, client)
       @addr, @client =  addr, client
-      @log_level = log_level
-
+      @log_level = client.log_level
     end
 
     def fill(hdr,msg)

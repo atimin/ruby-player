@@ -38,7 +38,7 @@ module Player
     # @return [Hash] geometry { :px, :py. :pz, :proll, :ppitch, :pyaw, :sw, :sl, :sh, :sensors => [geom of sensors] }
     attr_reader :geom
 
-    def initialize(addr, client, log_level)
+    def initialize(addr, client)
       super
       @rangers = []
       @intensities = []

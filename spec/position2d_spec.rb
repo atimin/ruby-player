@@ -1,15 +1,12 @@
-require "ruby-player"
+require File.dirname(__FILE__) + "/spec_helper"
 
 include Player
 describe Player::Position2d do
   before do
-    @client = mock("Client")
-    @client.stub!(:write)
-
+    @client = mock_client
     @pos2d = Player::Position2d.new(
       Player::DevAddr.new(host: 0, robot:0, interface: 4, index: 0),
-      @client,
-      :debug
+      @client
     )
   end
 

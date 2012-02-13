@@ -29,6 +29,8 @@ module Player
   class Client < Device
     include Common 
 
+    attr_reader :log_level
+
     # Initialize client
     # @param [String] host host of Player server 
     # @param [Hash] opts client options
@@ -153,7 +155,7 @@ module Player
     
     private
     def make_device(dev)
-      instance_eval(dev.interface_name.capitalize).send(:new, dev, self, @log_level)
+      instance_eval(dev.interface_name.capitalize).send(:new, dev, self)
     end
 
     def read

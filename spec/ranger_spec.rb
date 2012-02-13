@@ -6,7 +6,7 @@ describe Player::Ranger do
     client = mock_client
     @ranger = Player::Ranger.new(
       Player::DevAddr.new(host: 0, robot:0, interface: PLAYER_RANGER_CODE, index: 0),
-      @client
+      client
     )
 
     mock_sending_message(@ranger)

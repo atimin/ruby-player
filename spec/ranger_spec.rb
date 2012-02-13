@@ -33,7 +33,7 @@ describe Player::Ranger do
     @ranger.turn_off!
   end
 
-   it 'should  enable\disable intensity ' do
+  it 'should  enable\disable intensity ' do
     should_send_message(PLAYER_MSGTYPE_REQ, PLAYER_RANGER_REQ_INTNS, [1].pack("N"))
     @ranger.intensity_enable!
 
@@ -41,7 +41,7 @@ describe Player::Ranger do
     @ranger.intensity_disable!
   end
 
-   it 'should set config' do
+  it 'should set config' do
      config  = { 
         min_angle:    0.1,
         max_angle:    0.9,            
@@ -66,7 +66,7 @@ describe Player::Ranger do
     rangers = [0.4, 0.3, 0.2, 0.1]
     @ranger.fill(
       Player::Header.from_a([0,0,PLAYER_RANGER_CODE,0, PLAYER_MSGTYPE_DATA, PLAYER_RANGER_DATA_RANGE, 0.0, 0, 20]),
-      ([4] + rangers).pack("NG*")
+      ([4,0] + rangers).pack("NNG*")
     )
     @ranger.rangers.should eql(rangers)
   end
@@ -75,7 +75,7 @@ describe Player::Ranger do
     intns = [0.1, 0.2, 0.3, 0.4]
     @ranger.fill(
       Player::Header.from_a([0,0,PLAYER_RANGER_CODE,0, PLAYER_MSGTYPE_DATA, PLAYER_RANGER_DATA_INTNS, 0.0, 0, 20]),
-      ([4] + intns).pack("NG*")
+      ([4,0] + intns).pack("NNG*")
     )
    
     @ranger.intensities.should eql(intns)

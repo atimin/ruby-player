@@ -14,10 +14,11 @@
 
 module Player
   # The ranger proxy provides an interface to the ranger sensors built into robots
+  # TODO Implement PLAYER_RANGER_DATA_RANGESTAMPED and PLAYER_RANGER_DATA_INTNSTAMPED
   #
   # @example
-  #
-  # TODO Implement PLAYER_RANGER_DATA_RANGESTAMPED and PLAYER_RANGER_DATA_INTNSTAMPED
+  #   ranger = robot.subscribe(:ranger, index: 0)
+  #   ranger.rangers #=> [0.2, 0.1, 0.2]
   class Ranger < Device
 
     # Range data [m]
@@ -102,12 +103,12 @@ module Player
     def fill(hdr, msg)
       case hdr.subtype
       when PLAYER_RANGER_DATA_RANGE
-        data = msg.unpack("NG*")
-        @rangers = data[1..-1]
+        data = msg.unpack("NNG*")
+        @rangers = data[2..-1]
         debug "Get rangers #{@rangers.inspect}"
       when PLAYER_RANGER_DATA_INTNS
-        data = msg.unpack("NG*")
-        @intensities = data[1..-1]
+        data = msg.unpack("NNG*")
+        @intensities = data[2..-1]
         debug "Get intensities #{@rangers.inspect}"
       when PLAYER_RANGER_DATA_GEOM
         read_geom(msg)

@@ -3,11 +3,13 @@ require File.dirname(__FILE__) + "/spec_helper"
 include Player
 describe Player::Ranger do
   before do
-    @client = mock_client
+    client = mock_client
     @ranger = Player::Ranger.new(
       Player::DevAddr.new(host: 0, robot:0, interface: PLAYER_RANGER_CODE, index: 0),
       @client
     )
+
+    mock_sending_message(@ranger)
   end
 
   it 'should have default values' do
@@ -146,10 +148,5 @@ describe Player::Ranger do
         Player::Header.from_a([0,0,4,0, PLAYER_MSGTYPE_RESP_ACK, i, 0.0, 0, 0]),
         "")
     end
-  end
-
-  def should_send_message(*args)
-    @ranger.should_receive(:send_message)
-      .with(*args)
   end
 end

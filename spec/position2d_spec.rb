@@ -3,11 +3,13 @@ require File.dirname(__FILE__) + "/spec_helper"
 include Player
 describe Player::Position2d do
   before do
-    @client = mock_client
+    client = mock_client
     @pos2d = Player::Position2d.new(
       Player::DevAddr.new(host: 0, robot:0, interface: 4, index: 0),
-      @client
+      client
     )
+
+    mock_sending_message(@pos2d)
   end
 
   it 'should have default values' do
@@ -136,8 +138,4 @@ describe Player::Position2d do
     end
   end
 
-  def should_send_message(*args)
-    @pos2d.should_receive(:send_message)
-      .with(*args)
-  end
 end

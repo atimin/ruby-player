@@ -15,7 +15,7 @@ describe Player::Position2d do
 
   it 'should have default values' do
     @pos2d.position.should eql(px:0.0, py:0.0, pa:0.0, vx:0.0, vy:0.0, va:0.0, stall: 0)
-    @pos2d.geom.should eql(px:0.0, py:0.0, pz:0.0, roll:0.0, pitch:0.0, yaw:0.0, sw:0.0, sl:0.0, sh:0.0)
+    @pos2d.geom.should eql(px:0.0, py:0.0, pz:0.0, proll:0.0, ppitch:0.0, pyaw:0.0, sw:0.0, sl:0.0, sh:0.0)
   end
 
   it 'should query geometry' do
@@ -87,7 +87,7 @@ describe Player::Position2d do
   end
 
   it 'should fill geom data' do
-    geom = {px: 1.0, py: 2.0, pz: 3.0, roll: 4.0, pitch: 5.0, yaw: 6.0, sw: 7.0, sl: 8.0, sh: 9.0}
+    geom = {px: 1.0, py: 2.0, pz: 3.0, proll: 4.0, ppitch: 5.0, pyaw: 6.0, sw: 7.0, sl: 8.0, sh: 9.0}
     @pos2d.fill(
       Player::Header.from_a([0,0,4,0, PLAYER_MSGTYPE_DATA, PLAYER_POSITION2D_DATA_GEOM, 0.0, 0, 72]),
       geom.values.pack("G*")
@@ -96,7 +96,7 @@ describe Player::Position2d do
   end
 
   it 'should get geom by request' do
-    geom = {px: 1.0, py: 2.0, pz: 3.0, roll: 4.0, pitch: 5.0, yaw: 6.0, sw: 7.0, sl: 8.0, sh: 9.0}
+    geom = {px: 1.0, py: 2.0, pz: 3.0, proll: 4.0, ppitch: 5.0, pyaw: 6.0, sw: 7.0, sl: 8.0, sh: 9.0}
     @pos2d.handle_response(
       Player::Header.from_a([0,0,4,0, PLAYER_MSGTYPE_RESP_ACK, PLAYER_POSITION2D_REQ_GET_GEOM, 0.0, 0, 72]),
       geom.values.pack("G*")

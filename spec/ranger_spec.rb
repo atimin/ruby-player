@@ -16,7 +16,7 @@ describe Player::Ranger do
   it 'should have default values' do
     @ranger.rangers.should eql([])
     @ranger.intensities.should eql([])
-    @ranger.geom.should eql(px:0.0, py:0.0, pz:0.0, roll:0.0, pitch:0.0, yaw:0.0, sw:0.0, sl:0.0, sh:0.0, sensors: [])
+    @ranger.geom.should eql(px:0.0, py:0.0, pz:0.0, proll:0.0, ppitch:0.0, pyaw:0.0, sw:0.0, sl:0.0, sh:0.0, sensors: [])
     @ranger.config.should eql(min_angle: 0.0, max_angle: 0.0, angular_res: 0.0, min_range: 0.0, max_range: 0.0, range_res: 0.0, frequecy: 0.0)
   end
 
@@ -83,42 +83,41 @@ describe Player::Ranger do
 
   it 'should fill geom data' do
     geom = [1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 2.0, 2.0, 2.0,
-      2, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0,  2.0, 1.0, 1.0, 0.0, 0.0, -1.0,
-      2, 0.5,
-      0.5, 0.5,  0.5, 0.5, 0.5]
+      2, 0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0,  2.0, 1.0, 1.0, 0.0, 0.0, -1.0,
+      2, 0, 0.5, 0.5, 0.5,  0.5, 0.5, 0.5]
 
-    msg = geom.pack("G9NG12NG6")
+    msg = geom.pack("G9NNG12NNG6")
     @ranger.fill(
       Player::Header.from_a([0,0,PLAYER_RANGER_CODE,0, PLAYER_MSGTYPE_DATA, PLAYER_RANGER_DATA_GEOM, 0.0, 0, msg.bytesize]),
       msg
     )
 
     @ranger.geom.should eql(
-      px: 1.0, py: 1.0, pz: 1.0, roll: 0.0, pitch: 0.0, yaw: 0.0, sw: 2.0, sl: 2.0, sh: 2.0,
+      px: 1.0, py: 1.0, pz: 1.0, proll: 0.0, ppitch: 0.0, pyaw: 0.0, sw: 2.0, sl: 2.0, sh: 2.0,
       sensors: [
-        { px: 1.0, py: 1.0, pz: 1.0, roll: 0.0, pitch: 0.0, yaw: 1.0, sw: 0.5, sl: 0.5, sh: 0.5 },
-        { px: 2.0, py: 1.0, pz: 1.0, roll: 0.0, pitch: 0.0, yaw: -1.0, sw: 0.5, sl: 0.5, sh: 0.5 }
+        { px: 1.0, py: 1.0, pz: 1.0, proll: 0.0, ppitch: 0.0, pyaw: 1.0, sw: 0.5, sl: 0.5, sh: 0.5 },
+        { px: 2.0, py: 1.0, pz: 1.0, proll: 0.0, ppitch: 0.0, pyaw: -1.0, sw: 0.5, sl: 0.5, sh: 0.5 }
       ]
     )
   end
 
   it 'should get geom by request' do
    geom = [1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 2.0, 2.0, 2.0,
-      2, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0,  2.0, 1.0, 1.0, 0.0, 0.0, -1.0,
-      2, 0.5,
+      2, 0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0,  2.0, 1.0, 1.0, 0.0, 0.0, -1.0,
+      2, 0, 0.5,
       0.5, 0.5,  0.5, 0.5, 0.5]
 
-    msg = geom.pack("G9NG12NG6")
+    msg = geom.pack("G9NNG12NNG6")
     @ranger.handle_response(
       Player::Header.from_a([0,0,PLAYER_RANGER_CODE,0, PLAYER_MSGTYPE_RESP_ACK, PLAYER_RANGER_REQ_GET_GEOM, 0.0, 0, msg.bytesize]),
       msg
     )
 
     @ranger.geom.should eql(
-      px: 1.0, py: 1.0, pz: 1.0, roll: 0.0, pitch: 0.0, yaw: 0.0, sw: 2.0, sl: 2.0, sh: 2.0,
+      px: 1.0, py: 1.0, pz: 1.0, proll: 0.0, ppitch: 0.0, pyaw: 0.0, sw: 2.0, sl: 2.0, sh: 2.0,
       sensors: [
-        { px: 1.0, py: 1.0, pz: 1.0, roll: 0.0, pitch: 0.0, yaw: 1.0, sw: 0.5, sl: 0.5, sh: 0.5 },
-        { px: 2.0, py: 1.0, pz: 1.0, roll: 0.0, pitch: 0.0, yaw: -1.0, sw: 0.5, sl: 0.5, sh: 0.5 }
+        { px: 1.0, py: 1.0, pz: 1.0, proll: 0.0, ppitch: 0.0, pyaw: 1.0, sw: 0.5, sl: 0.5, sh: 0.5 },
+        { px: 2.0, py: 1.0, pz: 1.0, proll: 0.0, ppitch: 0.0, pyaw: -1.0, sw: 0.5, sl: 0.5, sh: 0.5 }
       ]
     )
   end

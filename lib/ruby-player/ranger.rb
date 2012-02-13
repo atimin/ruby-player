@@ -136,17 +136,20 @@ module Player
     def read_geom(msg)
       super(msg[0,72])
 
-      p_count = msg[72,4].unpack("N")[0]
-      poses = msg[76, 48*p_count].unpack("G" + (6*p_count).to_s)
-      s_count = msg[76 + 48*p_count, 4].unpack("N")[0]
-      sizes = msg[80 + 48*p_count, 24*s_count].unpack("G" +(3* s_count).to_s)
+      p_count =  msg[72,8].unpack("NN")
+      p_count = p_count[0] + p_count[1] * 256
+      poses = msg[80, 48*p_count].unpack("G" + (6*p_count).to_s)
+
+      s_count = msg[80 + 48*p_count, 8].unpack("NN")
+      s_count = s_count[0] + s_count[1] * 256
+      sizes = msg[88 + 48*p_count, 24*s_count].unpack("G" +(3* s_count).to_s)
 
       p_count.times do |i|
         @geom[:sensors][i] ||= {}
-        [:px, :py, :pz, :roll, :pitch, :yaw].each_with_index do |k,j|
+        [:px, :py, :pz, :proll, :ppitch, :pyaw].each_with_index do |k,j|
           @geom[:sensors][i][k] = poses[6*i + j]
         end
-        debug("Get poses for ##{i} sensor: px=%.2f, py=%.2f, pz=%.2f, roll=%.2f, pitch=%.2f, yaw=%.2f" % @geom[:sensors][i].values[0,6])
+        debug("Get poses for ##{i} sensor: px=%.2f, py=%.2f, pz=%.2f, proll=%.2f, ppitch=%.2f, pyaw=%.2f" % @geom[:sensors][i].values[0,6])
       end
       
       s_count.times do |i|

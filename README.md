@@ -2,7 +2,8 @@ Ruby Player - Ruby client library for Player (tools for robots) [![Build Status]
 
 Summary
 -------------------------------------
-Ruby Player provide high level client library to access to Player server in pure Ruby
+Ruby Player provide high level client library to access to Player server in pure Ruby.
+
 Currently (2012-01-07) the Ruby Player are developing and testing with Player 3.1.0 latest svn version
 
 API coverage 

@@ -24,7 +24,7 @@ require "ruby-player/client"
 
 #interfaces
 require "ruby-player/position2d"
+require "ruby-player/power"
 require "ruby-player/ranger"
-
 
 

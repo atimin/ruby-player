@@ -66,7 +66,7 @@ module Player
         outer_size: { sw: 0.0, sl: 0.0, sh: 0.0 },
         inner_size: { sw: 0.0, sl: 0.0, sh: 0.0 },
         number_beams: 0,
-        capasity: 0
+        capacity: 0
       }
     end
 
@@ -88,6 +88,80 @@ module Player
     # Check error
     def error?
       state[:state] & PLAYER_GRIPPER_STATE_ERROR > 0
+    end
+
+    # Tells the gripper to open
+    def open!
+      send_message(PLAYER_MSGTYPE_CMD, PLAYER_GRIPPER_CMD_OPEN)
+      self
+    end
+
+    # Tells the gripper to close
+    def close!
+      send_message(PLAYER_MSGTYPE_CMD, PLAYER_GRIPPER_CMD_CLOSE)
+      self
+    end
+    
+    # Tells the gripper to stop
+    def stop!
+      send_message(PLAYER_MSGTYPE_CMD, PLAYER_GRIPPER_CMD_STOP)
+      self
+    end
+
+    # Tells the gripper to store whatever it is holding.
+    def store!
+      send_message(PLAYER_MSGTYPE_CMD, PLAYER_GRIPPER_CMD_STORE)
+      self
+    end
+
+    # Tells the gripper to retrieve a stored object (so that it can be put back into the world).
+    # The opposite of store.
+    def retrieve!
+      send_message(PLAYER_MSGTYPE_CMD, PLAYER_GRIPPER_CMD_RETRIEVE)
+      self
+    end
+
+    def fill(hdr, msg)
+      case hdr.subtype
+      when PLAYER_GRIPPER_DATA_STATE
+        read_state(msg)
+      else
+        undexpected_message hdr
+      end
+    end
+
+    def handle_response(hdr, msg)
+      case hdr.subtype
+      when PLAYER_GRIPPER_REQ_GET_GEOM
+        read_geom(msg)
+      else
+        undexpected_message hdr
+      end
+
+    end
+
+    private
+    def read_state(msg)
+      data = msg.unpack("NNN")
+      @state.keys.each { |k| @state[k] = data.shift }
+
+      debug("Get gripper state state=%d, beams=%d, stored=%d" % @state.values)
+    end
+
+    def read_geom(msg)
+      data = msg.unpack("G12NN")
+      @geom[:pose].keys.each { |k| @geom[:pose][k] = data.shift }
+      debug "Get gripper pose: " + pose_to_s(@geom[:pose])
+
+      @geom[:outer_size].keys.each { |k| @geom[:outer_size][k] = data.shift }
+      debug "Get gripper outer size: " + size_to_s(@geom[:outer_size])
+
+      @geom[:inner_size].keys.each { |k| @geom[:inner_size][k] = data.shift }
+      debug "Get gripper inner size: " + size_to_s(@geom[:inner_size])
+
+      @geom[:number_beams] = data.shift
+      @geom[:capacity] = data.shift
+      debug("Get number_beams=%{number_beams}, capacity=%{capacity}" % @geom)
     end
   end
 end

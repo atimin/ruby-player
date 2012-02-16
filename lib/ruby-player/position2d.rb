@@ -259,7 +259,7 @@ module Player
       [:px,:py,:pz, :proll,:ppitch,:pyaw, :sw,:sl,:sh].each_with_index do |k,i|
         @geom[k] = data[i]
       end
-      debug("Get geom px=%.2f py=%.2f pz=%.2f; proll=%.2f, ppitch=%.2f, pyaw=%.2f, sw=%.2f, sl=%.2f, sh=%.2f" % @geom.values)
+      debug "Get geom " + geom_to_s(@geom)
     end
   end
 end

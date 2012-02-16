@@ -142,21 +142,19 @@ module Player
 
     private
     def read_state(msg)
-      data = msg.unpack("NNN")
-      @state.keys.each { |k| @state[k] = data.shift }
-
+      fill_hash!(@state, msg.unpack("NNN"))
       debug("Get gripper state state=%d, beams=%d, stored=%d" % @state.values)
     end
 
     def read_geom(msg)
       data = msg.unpack("G12NN")
-      @geom[:pose].keys.each { |k| @geom[:pose][k] = data.shift }
+      fill_hash!(@geom[:pose], data)
       debug "Get gripper pose: " + pose_to_s(@geom[:pose])
 
-      @geom[:outer_size].keys.each { |k| @geom[:outer_size][k] = data.shift }
+      fill_hash!(@geom[:outer_size], data)
       debug "Get gripper outer size: " + size_to_s(@geom[:outer_size])
 
-      @geom[:inner_size].keys.each { |k| @geom[:inner_size][k] = data.shift }
+      fill_hash!(@geom[:inner_size], data)
       debug "Get gripper inner size: " + size_to_s(@geom[:inner_size])
 
       @geom[:number_beams] = data.shift

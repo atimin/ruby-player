@@ -59,6 +59,16 @@ module Player
       ""
     end
 
+    def fill_hash!(hash, ary)
+      hash.keys.each do |k| 
+        if ary.empty?
+          break
+        else
+          hash[k] = ary.shift 
+        end
+      end
+    end
+
     def unexpected_message(hdr)
       warn "Get unexpection message type #{hdr.type_name}::#{hdr.subtype_name} for #@addr"
     end

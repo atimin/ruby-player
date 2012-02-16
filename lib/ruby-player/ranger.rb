@@ -129,22 +129,21 @@ module Player
       when 2..4
         nil
       when PLAYER_RANGER_REQ_GET_CONFIG 
-        data = msg.unpack("G*")
-        [:min_angle, :max_angle, :angular_res, :min_range, :max_range, :range_res, :frequecy].each_with_index do |k,i|
-          @config[k] = data[i]
-        end
+        read_config(msg)
       else
         unexpected_message hdr
       end
     end
 
     private
+    def read_config(msg)
+      fill_hash!(@config, msg.unpack("G*"))
+    end
+  
     def read_geom(msg)
       data = msg[0,72].unpack("G*")
-      [:px,:py,:pz, :proll,:ppitch,:pyaw, :sw,:sl,:sh].each_with_index do |k,i|
-        @geom[k] = data[i]
-      end
-      debug("Get geom px=%.2f py=%.2f pz=%.2f; proll=%.2f, ppitch=%.2f, pyaw=%.2f, sw=%.2f, sl=%.2f, sh=%.2f" % @geom.values)
+      fill_hash!(@geom, data)
+      debug("Get geom: " + geom_to_s(@geom))
 
 
       p_count =  msg[72,8].unpack("NN")

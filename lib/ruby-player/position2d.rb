@@ -247,18 +247,12 @@ module Player
 
     private
     def read_state(msg)
-      data = msg.unpack("GGGGGGN")
-      @state.keys.each_with_index do |k,i|
-        @state[k] = data[i]
-      end
+      fill_hash!(@state, msg.unpack("GGGGGGN"))
       debug("Get state px=%.2f py=%.2f pa=%.2f; vx=%.2f, vy=%.2f, va=%.2f, stall=%d" % @state.values)
     end
 
     def read_geom(msg)
-      data = msg.unpack("G*")
-      [:px,:py,:pz, :proll,:ppitch,:pyaw, :sw,:sl,:sh].each_with_index do |k,i|
-        @geom[k] = data[i]
-      end
+      fill_hash!(@geom, msg.unpack("G*"))
       debug "Get geom " + geom_to_s(@geom)
     end
   end

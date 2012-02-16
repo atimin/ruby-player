@@ -59,8 +59,6 @@ Device proxies are not started to develop
 
 **position3d** - The position3d proxy provides an interface to a mobile robot base, such as the Segway RMP series.
 
-**power** - The power proxy provides an interface through which battery levels can be monitored.
-
 **ptz** - The ptz proxy provides an interface to pan-tilt units such as the Sony PTZ camera.
 
 **wifi** - The wifi proxy is used to query the state of a wireless network.

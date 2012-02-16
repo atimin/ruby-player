@@ -12,6 +12,8 @@ The list of support objects and devices of Player.
 
 * Client object
 * Position2d
+* Power
+* Ranger
 
 Install
 -------------------------------------

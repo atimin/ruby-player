@@ -133,6 +133,15 @@ describe Player::Client do
       ranger.addr.interface_name.should eql("ranger")
       ranger.addr.index.should eql(1)
     end
+
+    it "should describe to power:2" do
+      mock_subscribe(PLAYER_POWER_CODE, 2)
+
+      power = @cl.subscribe(:power, index: 2)
+      power.addr.interface_name.should eql("power")
+      power.addr.index.should eql(2)
+    end
+
   end
 
   private

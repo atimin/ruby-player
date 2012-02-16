@@ -22,11 +22,72 @@ module Player
   # Some grippers can detect whether an objcet is within the gripper (using, for example, light beams). 
   # Some grippers also have the ability to move the a carried object into a storage system, 
   # freeing the gripper to pick up a new object, and move objects from the storage system back into the gripper.
-  class Gripper
+  class Gripper < Device
+    # The gripper interface returns the current state of the gripper 
+    # and information on a potential object in the gripper. 
+    #
+    # *:state* may be PLAYER_GRIPPER_STATE_OPEN, PLAYER_GRIPPER_STATE_CLOSED, 
+    # PLAYER_GRIPPER_STATE_MOVING or PLAYER_GRIPPER_STATE_ERROR. 
+    #
+    # *:beams* provides information on how far into the gripper an object is. 
+    # For most grippers, this will be a bit mask, with each bit representing whether 
+    # a beam has been interrupted or not.
+    #
+    # *:stored* - Number of currently stored objects
+    #
+    # @return [Hash] { :state, :beams, :stored }
+    attr_reader :state
+
+
+    # Geometry data of gripper
+    #
+    # *:pose* - Gripper pose, in robot cs (m, m, m, rad, rad, rad). 
+    #
+    # *:outer_size* - Outside dimensions of gripper (m, m, m). 
+    #
+    # *:inner_size* - Inside dimensions of gripper, i.e. 
+    #
+    # *:number_beams* - Number of breakbeams the gripper has.
+    #
+    # *:capacity* - Capacity for storing objects - if 0, then the gripper can't store. 
+    #
+    # @return [Hash] { :pose => {:px,:py,:pz,:proll,:ppitch,:pyaw,
+    #   :outer_size => { :sw, :sl, :sh },
+    #   :inner_size => { :sw, :sl, :sh },
+    #   :number_beams, :capacity
+    #   }
+    attr_reader :geom
+
     def initialize(addr, client)
       super
-      @data = { state: PLAYER_GRIPPER_STATE_OPEN, beams: 0, stored: 0 }
+      @state = { state: PLAYER_GRIPPER_STATE_OPEN, beams: 0, stored: 0 }
+      @geom = {
+        pose: { px: 0.0, py: 0.0, pz: 0.0, proll: 0.0, ppitch: 0.0, pyaw: 0.0 },
+        outer_size: { sw: 0.0, sl: 0.0, sh: 0.0 },
+        inner_size: { sw: 0.0, sl: 0.0, sh: 0.0 },
+        number_beams: 0,
+        capasity: 0
+      }
     end
- 
+
+    # Check openinig
+    def open?
+      state[:state] & PLAYER_GRIPPER_STATE_OPEN > 0
+    end
+
+    # Check closing
+    def closed?
+      state[:state] & PLAYER_GRIPPER_STATE_CLOSED > 0
+    end
+    
+    # Check moving
+    def moving?
+      state[:state] & PLAYER_GRIPPER_STATE_MOVING > 0
+    end
+
+    # Check error
+    def error?
+      state[:state] & PLAYER_GRIPPER_STATE_ERROR > 0
+    end
   end
 end

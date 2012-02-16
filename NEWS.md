@@ -1,4 +1,4 @@
-## Next version 0.2.0
+## 2012-02-16 0.2.0
 
 * Added power interface
 

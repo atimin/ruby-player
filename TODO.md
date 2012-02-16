@@ -16,8 +16,6 @@ Candidates for support
 
 **graphics3d** - The graphics3d proxy provides an interface to the graphics3d.
 
-**gripper** - The gripper proxy provides an interface to the gripper.
-
 **simulation** - The simulation proxy is used to interact with objects in a simulation.
 
 Device proxies are not started to develop

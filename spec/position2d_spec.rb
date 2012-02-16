@@ -13,7 +13,7 @@ describe Player::Position2d do
   end
 
   it 'should have default values' do
-    @pos2d.position.should eql(px:0.0, py:0.0, pa:0.0, vx:0.0, vy:0.0, va:0.0, stall: 0)
+    @pos2d.state.should eql(px:0.0, py:0.0, pa:0.0, vx:0.0, vy:0.0, va:0.0, stall: 0)
     @pos2d.geom.should eql(px:0.0, py:0.0, pz:0.0, proll:0.0, ppitch:0.0, pyaw:0.0, sw:0.0, sl:0.0, sh:0.0)
   end
 
@@ -82,7 +82,7 @@ describe Player::Position2d do
       Player::Header.from_a([0,0,4,0, PLAYER_MSGTYPE_DATA, PLAYER_POSITION2D_DATA_STATE, 0.0, 0, 52]),
       pos.values.pack("GGGGGGN")
     )
-    @pos2d.position.should eql(pos)
+    @pos2d.state.should eql(pos)
   end
 
   it 'should fill geom data' do

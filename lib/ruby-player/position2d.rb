@@ -24,13 +24,13 @@ module Player
   #   #update data from server
   #   client.read!
   #   #read velocityand position by X,Y and angle
-  #   pos2d.position #=> { :px => 0.2321, :py => 0,01, :pa => 0.2, :vx => 1.2, :vy => 0.1, :va => 0.3, :stall => 1  }
+  #   pos2d.state #=> { :px => 0.2321, :py => 0,01, :pa => 0.2, :vx => 1.2, :vy => 0.1, :va => 0.3, :stall => 1  }
   #   pos2d.stop!
   class Position2d < Device
 
     # Position of robot
     # @return [Hash] hash position {:px, :py, :pa, :vx, :vy, :va, :stall }
-    attr_reader :position
+    attr_reader :state
     
     # Device geometry
     # @return [Hash] geometry { :px, :py. :pz, :proll, :ppitch, :pyaw, :sw, :sl, :sh }
@@ -39,8 +39,14 @@ module Player
 
     def initialize(addr, client)
       super
-      @position = {px: 0.0, py: 0.0, pa: 0.0, vx: 0.0, vy: 0.0, va: 0.0, stall: 0}
+      @state = {px: 0.0, py: 0.0, pa: 0.0, vx: 0.0, vy: 0.0, va: 0.0, stall: 0}
       @geom = {px: 0.0, py: 0.0, pz: 0.0, proll: 0.0, ppitch: 0.0, pyaw: 0.0, sw: 0.0, sl: 0.0, sh: 0.0}
+    end
+
+    # Depricated alias for data
+    def position
+      warn "Method `position` is deprecated. Pleas use `data` for access to position"
+      state
     end
 
     # Query robot geometry 
@@ -163,10 +169,10 @@ module Player
     # @return self
     def set_speed(speeds)
       data = [
-        speeds[:vx] || @position[:vx],
-        speeds[:vy] || @position[:vy],
-        speeds[:va] || @position[:va],
-        speeds[:stall] || @position[:stall]
+        speeds[:vx] || @state[:vx],
+        speeds[:vy] || @state[:vy],
+        speeds[:va] || @state[:va],
+        speeds[:stall] || @state[:stall]
       ]
       send_message(PLAYER_MSGTYPE_CMD, PLAYER_POSITION2D_CMD_VEL, data.pack("GGGN"))
       self
@@ -178,8 +184,8 @@ module Player
     # @option speeds :a turning angle (rad).     
     def set_car(speeds)
       data = [ 
-        speeds[:vx] || @position[:vx],
-        speeds[:a] || @position[:pa]
+        speeds[:vx] || @state[:vx],
+        speeds[:a] || @state[:pa]
       ]
       send_message(PLAYER_MSGTYPE_CMD, PLAYER_POSITION2D_CMD_CAR, data.pack("GG"))
       self
@@ -192,8 +198,8 @@ module Player
     # @option speeds :a absolutle angle (rad).     
     def set_speed_head(speeds)
       data = [ 
-        speeds[:vx] || @position[:vx],
-        speeds[:a] || @position[:pa]
+        speeds[:vx] || @state[:vx],
+        speeds[:a] || @state[:pa]
       ]
       send_message(PLAYER_MSGTYPE_CMD, PLAYER_POSITION2D_CMD_VEL_HEAD, data.pack("GG"))
       self
@@ -203,7 +209,7 @@ module Player
     # State of motor
     # @return [Boolean] true - on
     def power
-      @position[:stall] == 1 
+      @state[:stall] == 1 
     end
 
     # Stop robot set speed to 0
@@ -214,13 +220,13 @@ module Player
 
     # Check of robot state
     def stoped?
-      speed[:vx] == 0 && speed[:vy] == 0 && speed[:va] == 0
+      @state[:vx] == 0 && @state[:vy] == 0 && @state[:va] == 0
     end
 
     def fill(hdr, msg)
       case hdr.subtype
       when PLAYER_POSITION2D_DATA_STATE
-        read_position(msg)
+        read_state(msg)
       when PLAYER_POSITION2D_DATA_GEOM
         read_geom(msg)
       else
@@ -240,12 +246,12 @@ module Player
     end
 
     private
-    def read_position(msg)
+    def read_state(msg)
       data = msg.unpack("GGGGGGN")
-      @position.keys.each_with_index do |k,i|
-        @position[k] = data[i]
+      @state.keys.each_with_index do |k,i|
+        @state[k] = data[i]
       end
-      debug("Get position px=%.2f py=%.2f pa=%.2f; vx=%.2f, vy=%.2f, va=%.2f, stall=%d" % position.values)
+      debug("Get state px=%.2f py=%.2f pa=%.2f; vx=%.2f, vy=%.2f, va=%.2f, stall=%d" % @state.values)
     end
 
     def read_geom(msg)
@@ -255,6 +261,5 @@ module Player
       end
       debug("Get geom px=%.2f py=%.2f pz=%.2f; proll=%.2f, ppitch=%.2f, pyaw=%.2f, sw=%.2f, sl=%.2f, sh=%.2f" % @geom.values)
     end
-
   end
 end

@@ -11,6 +11,7 @@ API coverage
 The list of support objects and devices of Player.
 
 * Client object
+* Gripper
 * Position2d
 * Power
 * Ranger

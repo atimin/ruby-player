@@ -54,6 +54,11 @@ define bender_ranger ranger
   )
 )
 
+define bender_gripper gripper
+(
+  size [0.5 0.5 0.5]
+)
+
 define bender2dx position
 (
   color "grey"
@@ -72,6 +77,12 @@ define bender2dx position
   drive "omni"
 
   bender_ranger()
+
+  bender_gripper
+  (
+    pose [0.8 0 -0.80 0]
+    color "blue"
+  )
   size [1 1 1]
 )
 
@@ -79,6 +90,14 @@ carton
 (
   name "c0"
   pose [ 3 0 0 0.0]
+)
+
+carton
+(
+  name "b1"
+  pose [1 1 0 0.0]
+  size [0.2 0.2 0.5]
+  
 )
 
 bender2dx

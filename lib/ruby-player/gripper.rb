@@ -70,6 +70,13 @@ module Player
       }
     end
 
+    # Query gripper geometry 
+    # @return self
+    def query_geom
+      send_message(PLAYER_MSGTYPE_REQ, PLAYER_RANGER_REQ_GET_GEOM)
+      self
+    end
+
     # Check openinig
     def open?
       state[:state] & PLAYER_GRIPPER_STATE_OPEN > 0
@@ -137,7 +144,6 @@ module Player
       else
         undexpected_message hdr
       end
-
     end
 
     private

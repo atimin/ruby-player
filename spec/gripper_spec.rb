@@ -79,6 +79,11 @@ describe Player::Position2d do
     @gripper.retrieve!
   end
 
+  it 'should query geom' do
+    should_send_message(PLAYER_MSGTYPE_REQ, PLAYER_GRIPPER_REQ_GET_GEOM)
+    @gripper.query_geom
+  end
+
   it 'should fill state data' do
     state = { state: PLAYER_GRIPPER_STATE_CLOSED, beams: 3, stored: 4 }
 
@@ -114,5 +119,4 @@ describe Player::Position2d do
         Player::Header.from_a([0,0,PLAYER_GRIPPER_CODE,0, PLAYER_MSGTYPE_RESP_ACK, PLAYER_GRIPPER_REQ_GET_GEOM, 0.0, 0, 0]),
         "")
   end
-
 end

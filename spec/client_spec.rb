@@ -158,7 +158,7 @@ describe Player::Client do
       mock_subscribe(PLAYER_ACTARRAY_CODE, 4)
 
       actarray = @cl.subscribe(:actarray, index: 4)
-      actarray.should be_an_instance_of(Player::Actarray)
+      actarray.should be_an_instance_of(Player::ActArray)
       actarray.addr.interface_name.should eql("actarray")
       actarray.addr.index.should eql(4)
     end

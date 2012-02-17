@@ -155,7 +155,9 @@ module Player
     
     private
     def make_device(dev)
-      instance_eval(dev.interface_name.capitalize).send(:new, dev, self)
+      intf = dev.interface_name
+      klass = Player.constants.each { |c| break c if c.to_s.downcase == intf }
+      instance_eval(klass.to_s).send(:new, dev, self)
     end
 
     def read

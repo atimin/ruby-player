@@ -6,16 +6,6 @@ Ruby Player provide high level client library to access to Player server in pure
 
 Currently (2012-01-07) the Ruby Player are developing and testing with Player 3.1.0 latest svn version
 
-API coverage 
--------------------------------------
-The list of support objects and devices of Player.
-
-* Client object
-* Gripper
-* Position2d
-* Power
-* Ranger
-
 Install
 -------------------------------------
 
@@ -36,10 +26,30 @@ Example
       end
     end
 
+API coverage 
+-------------------------------------
+The list of support objects and devices of Player.
+
+* Client object
+* Gripper
+* Position2d
+* Power
+* Ranger
+
+
+Requirements
+-------------------------------------
+
+* Ruby 1.9.2 or later 
+* Player 3.1.0 or later
+* For examples Stage 4.1.0 or later
+
 References
 -------------------------------------
 
 [Home page](http://www.github.com/flipback/ruby-player)
+
+[Documentation](http://rubydoc.info/gems/ruby-player/)
 
 [Player project](http://playerstage.sourceforge.net/)
 

@@ -122,6 +122,7 @@ describe Player::Client do
       mock_subscribe(PLAYER_POSITION2D_CODE)
    
       pos2d = @cl.subscribe("position2d")
+      pos2d.should be_an_instance_of(Player::Position2d)
       pos2d.addr.interface_name.should eql("position2d")
       pos2d.addr.index.should eql(0)
     end
@@ -130,6 +131,7 @@ describe Player::Client do
       mock_subscribe(PLAYER_RANGER_CODE, 1)
 
       ranger = @cl.subscribe(:ranger, index: 1)
+      ranger.should be_an_instance_of(Player::Ranger)
       ranger.addr.interface_name.should eql("ranger")
       ranger.addr.index.should eql(1)
     end
@@ -138,6 +140,7 @@ describe Player::Client do
       mock_subscribe(PLAYER_POWER_CODE, 2)
 
       power = @cl.subscribe(:power, index: 2)
+      power.should be_an_instance_of(Player::Power)
       power.addr.interface_name.should eql("power")
       power.addr.index.should eql(2)
     end
@@ -146,11 +149,19 @@ describe Player::Client do
       mock_subscribe(PLAYER_GRIPPER_CODE, 3)
 
       gripper = @cl.subscribe(:gripper, index: 3)
+      gripper.should be_an_instance_of(Player::Gripper)
       gripper.addr.interface_name.should eql("gripper")
       gripper.addr.index.should eql(3)
-
     end
 
+    it "should describe to actarray:4" do
+      mock_subscribe(PLAYER_ACTARRAY_CODE, 4)
+
+      actarray = @cl.subscribe(:actarray, index: 4)
+      actarray.should be_an_instance_of(Player::Actarray)
+      actarray.addr.interface_name.should eql("actarray")
+      actarray.addr.index.should eql(4)
+    end
   end
 
   private

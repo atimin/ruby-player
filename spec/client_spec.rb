@@ -142,6 +142,15 @@ describe Player::Client do
       power.addr.index.should eql(2)
     end
 
+    it "should describe to gripper:3" do
+      mock_subscribe(PLAYER_GRIPPER_CODE, 3)
+
+      gripper = @cl.subscribe(:gripper, index: 3)
+      gripper.addr.interface_name.should eql("gripper")
+      gripper.addr.index.should eql(3)
+
+    end
+
   end
 
   private

@@ -26,10 +26,10 @@ describe Player::Ranger do
 
   it 'should set power state' do
     should_send_message(PLAYER_MSGTYPE_REQ, PLAYER_RANGER_REQ_POWER, [1].pack("N"))
-    @ranger.turn_on!
+    @ranger.power_on!
 
     should_send_message(PLAYER_MSGTYPE_REQ, PLAYER_RANGER_REQ_POWER, [0].pack("N"))
-    @ranger.turn_off!
+    @ranger.power_off!
   end
 
   it 'should  enable\disable intensity ' do

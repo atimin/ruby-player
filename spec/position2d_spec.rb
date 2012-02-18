@@ -24,10 +24,10 @@ describe Player::Position2d do
 
   it 'should set motor power state' do
     should_send_message(PLAYER_MSGTYPE_REQ, PLAYER_POSITION2D_REQ_MOTOR_POWER, [0].pack("N"))
-    @pos2d.turn_off!
+    @pos2d.power_off!
 
     should_send_message(PLAYER_MSGTYPE_REQ, PLAYER_POSITION2D_REQ_MOTOR_POWER, [1].pack("N"))
-    @pos2d.turn_on!
+    @pos2d.power_on!
   end
 
   it 'should set velocity mode' do

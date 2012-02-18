@@ -19,7 +19,8 @@ module Player
     # Turn on all actuators
     # Be careful when turning power on that the array is not obstructed 
     # from its home position in case it moves to it (common behaviour)
-    def turn_on!
+    # @return self
+    def power_on!
       send_message(PLAYER_MSGTYPE_REQ, PLAYER_ACTARRAY_REQ_POWER, [1].pack("N"))
       self
     end
@@ -27,9 +28,11 @@ module Player
     # Turn off all actuators
     # Be careful when turning power on that the array is not obstructed 
     # from its home position in case it moves to it (common behaviour)
-    def turn_off!
+    # @return self
+    def power_off!
       send_message(PLAYER_MSGTYPE_REQ, PLAYER_ACTARRAY_REQ_POWER, [0].pack("N"))
       self
     end
+
   end
 end

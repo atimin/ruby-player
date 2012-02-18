@@ -55,15 +55,25 @@ module Player
 
     # Turn on ranger
     # @return self
-    def turn_on!
+    def power_on!
       send_message(PLAYER_MSGTYPE_REQ, PLAYER_RANGER_REQ_POWER, [1].pack("N")) 
       self
     end
     
+    def turn_on!
+      warn "Method `turn_on!` is deprecated. Pleas use `power_on!`"
+      power_on!
+    end
+
     # Turn off ranger
-    def turn_off!
+    def power_off!
       send_message(PLAYER_MSGTYPE_REQ, PLAYER_RANGER_REQ_POWER, [0].pack("N")) 
       self
+    end
+
+    def turn_off!
+      warn "Method `turn_off!` is deprecated. Pleas use `power_off!`"
+      power_off!
     end
 
     def intensity_enable!

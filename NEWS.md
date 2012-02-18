@@ -1,6 +1,10 @@
+## Next 0.4.0
+
+* Methods #turn_on! ans #turn_off! are renamed to #power_on! and #power_off!. #turn_on! and #turn_off! is deprecated
+* Method Position2d::position is renamed to Position2d::state. Position2d::position is deprecated
+
 ## 2012-02-17 0.3.0
 
-* Method Position2d::position is renamed to Position2d::state. Position2d::position is deprecated
 * Added gripper interface
 
 ## 2012-02-16 0.2.0

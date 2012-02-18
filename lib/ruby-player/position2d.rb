@@ -58,15 +58,25 @@ module Player
    
     # Turn on motor
     # @return self
-    def turn_on!
+    def power_on!
       send_message(PLAYER_MSGTYPE_REQ, PLAYER_POSITION2D_REQ_MOTOR_POWER, [1].pack("N")) 
       self
     end
     
+    def turn_on!
+      warn "Method `turn_on!` is deprecated. Pleas use `power_on!`"
+      power_on!
+    end
+
     # Turn off motor
-    def turn_off!
+    def power_off!
       send_message(PLAYER_MSGTYPE_REQ, PLAYER_POSITION2D_REQ_MOTOR_POWER, [0].pack("N")) 
       self
+    end
+
+    def turn_off!
+      warn "Method `turn_off!` is deprecated. Pleas use `power_off!`"
+      power_off!
     end
 
     def direct_speed_control!

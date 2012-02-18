@@ -34,7 +34,6 @@ module Player
       raise_error "Method `handle_response` isn't implemented for `#{self.class}`"
     end
    
-    private
     def send_message(type, subtype, msg="")
       @client.write( Header.new(
           dev_addr: @addr,

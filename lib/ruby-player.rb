@@ -23,6 +23,7 @@ require "ruby-player/device"
 require "ruby-player/client"
 
 #interfaces
+require "ruby-player/actuator"
 require "ruby-player/actarray"
 require "ruby-player/gripper"
 require "ruby-player/position2d"

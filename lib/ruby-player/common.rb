@@ -73,18 +73,6 @@ module Player
       warn "Get unexpection message type #{hdr.type_name}::#{hdr.subtype_name} for #@addr"
     end
 
-    def geom_to_s(geom)
-      "px=%.2f, py=%.2f, pz=%.2f, proll=%.2f, ppitch=%.2f, pyaw=%.2f, sw=%.2f, sl=%.2f, sh=%.2f" % geom.values
-    end
-
-    def pose_to_s(pose)
-      "px=%.2f, py=%.2f, pz=%.2f, proll=%.2f, ppitch=%.2f, pyaw=%.2f" % pose.values
-    end
-
-    def size_to_s(size)
-      "sw=%.2f, sl=%.2f, sh=%.2f" % size.values
-    end
-
     def hash_to_sft(hash)
       tmpls = []
       values = []

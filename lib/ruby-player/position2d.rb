@@ -260,12 +260,12 @@ module Player
     private
     def read_state(msg)
       fill_hash!(@state, msg.unpack("GGGGGGN"))
-      debug("Get state px=%.2f py=%.2f pa=%.2f; vx=%.2f, vy=%.2f, va=%.2f, stall=%d" % @state.values)
+      debug "Get state: " + hash_to_sft(@state)
     end
 
     def read_geom(msg)
       fill_hash!(@geom, msg.unpack("G*"))
-      debug "Get geom " + geom_to_s(@geom)
+      debug "Get geom: " + hash_to_sft(@geom)
     end
   end
 end

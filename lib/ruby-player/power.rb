@@ -96,7 +96,7 @@ module Player
     private
     def read_state(msg)
       fill_hash!(@state, msg.unpack("NggggN"))
-      debug("Get power state valid=%x volts=%.2f, percent=%.2f, joules=%.2f; watts=%.2f,  charging=%d" % @state.values)
+      debug "Get state: " + hash_to_sft(@state)
     end
   end
 end

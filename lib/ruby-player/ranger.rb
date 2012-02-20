@@ -155,7 +155,7 @@ module Player
     def read_geom(msg)
       data = msg[0,72].unpack("G*")
       fill_hash!(@geom, data)
-      debug("Get geom: " + geom_to_s(@geom))
+      debug "Get geom: " + hash_to_sft(@geom)
 
 
       p_count =  msg[72,8].unpack("NN")

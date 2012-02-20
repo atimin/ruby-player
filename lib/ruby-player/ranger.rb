@@ -60,6 +60,7 @@ module Player
       self
     end
     
+    # @deprecated Use {#power_on!}
     def turn_on!
       warn "Method `turn_on!` is deprecated. Pleas use `power_on!`"
       power_on!
@@ -71,6 +72,7 @@ module Player
       self
     end
 
+    # @deprecated Use {#power_off!}
     def turn_off!
       warn "Method `turn_off!` is deprecated. Pleas use `power_off!`"
       power_off!

@@ -22,7 +22,7 @@ Example
       #main loop
       robot.loop do
         puts "Position: x=%{px}, y=%{py}, a=%{pa}" % pos2d.state
-        puts "Rangers: #{ranger.rangers}"
+        puts "Rangers: #{ranger.collect { |r| r.range }}"
       end
     end
 
@@ -31,6 +31,7 @@ API coverage
 The list of support objects and devices of Player.
 
 * Client object
+* ActArray
 * Gripper
 * Position2d
 * Power

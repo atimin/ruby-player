@@ -8,8 +8,6 @@ Implement PLAYER_RANGER_DATA_RANGESTAMPED and PLAYER_RANGER_DATA_INTNSTAMPED
 Candidates for support
 --------------------------------------
 
-**actarray** - The actarray proxy provides an interface to actuator arrays such as the ActivMedia Pioneer Arm.
-
 **blobfinder** - The blobfinder proxy provides an interface to color blob detectors such as the ACTS vision system.
 
 **graphics2d** - The graphics2d proxy provides an interface to the graphics2d.

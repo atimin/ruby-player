@@ -25,7 +25,7 @@ module Player
     # Turn on power all actuators
     # Be careful when turning power on that the array is not obstructed 
     # from its home position in case it moves to it (common behaviour)
-    # @return self
+    # @return [ActArray] self
     def power_on!
       send_message(PLAYER_MSGTYPE_REQ, PLAYER_ACTARRAY_REQ_POWER, [1].pack("N"))
       self
@@ -34,28 +34,28 @@ module Player
     # Turn off power all actuators
     # Be careful when turning power on that the array is not obstructed 
     # from its home position in case it moves to it (common behaviour)
-    # @return self
+    # @return [ActArray] self
     def power_off!
       send_message(PLAYER_MSGTYPE_REQ, PLAYER_ACTARRAY_REQ_POWER, [0].pack("N"))
       self
     end
 
     # Turn on brakes all actuators
-    # @return self
+    # @return [ActArray] self
     def brakes_on!
       send_message(PLAYER_MSGTYPE_REQ, PLAYER_ACTARRAY_REQ_BRAKES, [1].pack("N"))
       self
     end
 
     # Turn off brakes all actuators
-    # @return self
+    # @return [ActArray] self
     def brakes_off!
       send_message(PLAYER_MSGTYPE_REQ, PLAYER_ACTARRAY_REQ_BRAKES, [0].pack("N"))
       self
     end
 
     # Query actarray geometry 
-    # @return self
+    # @return [ActArray] self
     def query_geom
       send_message(PLAYER_MSGTYPE_REQ, PLAYER_ACTARRAY_REQ_GET_GEOM)
       self
@@ -70,7 +70,7 @@ module Player
 
     # Tells all joints/actuators to attempt to move to the given positions.
     # @param [Array] poses
-    # @return self
+    # @return [ActArray] self
     def set_positions(poses)
       send_message(
         PLAYER_MSGTYPE_REQ, PLAYER_ACTARRAY_CMD_MULTI_POS,
@@ -81,7 +81,7 @@ module Player
 
     # Tells all joints/actuators to attempt to move with the given speed.
     # @param [Array] speeds
-    # @return self
+    # @return [ActArray] self
     def set_speeds(speeds)
       send_message(
         PLAYER_MSGTYPE_REQ, PLAYER_ACTARRAY_CMD_MULTI_SPEED,
@@ -91,7 +91,7 @@ module Player
     end
 
     # Command to go to home position for all joints
-    # @return self
+    # @return [ActArray] self
     def go_home!
       send_message(PLAYER_MSGTYPE_REQ, PLAYER_ACTARRAY_CMD_HOME, [-1].pack("N"))
       self
@@ -99,7 +99,7 @@ module Player
 
     # Command all joints to attempt to move with the given current
     # @param curr -current to move with
-    # @return self
+    # @return [ActArray] self
     def set_current_all(curr)
       send_message(PLAYER_MSGTYPE_REQ, PLAYER_ACTARRAY_CMD_CURRENT, [-1, curr].pack("Ng"))
       self
@@ -107,7 +107,7 @@ module Player
     
     # Tells all joints/actuators to attempt to move with the given current.
     # @param [Array] currents
-    # @return self
+    # @return [ActArray] self
     def set_currents(currents)
       send_message(
         PLAYER_MSGTYPE_REQ, PLAYER_ACTARRAY_CMD_MULTI_CURRENT,

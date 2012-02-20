@@ -102,10 +102,10 @@ module Player
     end
 
     # Set odometry of robot.
-    # @param [Hash] odometry 
-    # @option odometry :px x position (m)
-    # @option odometry :py y position (m)
-    # @option odometry :pa angle (rad).     
+    # @param [Hash] odom odometry 
+    # @option odom :px x position (m)
+    # @option odom :py y position (m)
+    # @option odom :pa angle (rad).     
     # @return self
     def set_odometry(odom)
       data = [

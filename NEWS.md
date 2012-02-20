@@ -1,5 +1,6 @@
 ## Next 0.4.0
 
+* Added actarray interface
 * Methods #turn_on! ans #turn_off! are renamed to #power_on! and #power_off!. #turn_on! and #turn_off! is deprecated
 * Method Position2d::position is renamed to Position2d::state. Position2d::position is deprecated
 

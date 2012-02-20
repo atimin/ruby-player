@@ -80,6 +80,30 @@ module Player
       self
     end
 
+    # Check idle state
+    # @return [Boolean]
+    def idle?
+      state[:state] & PLAYER_ACTARRAY_ACTSTATE_IDLE > 0
+    end
+    
+    # Check moving state
+    # @return [Boolean]
+    def moving?
+      state[:state] & PLAYER_ACTARRAY_ACTSTATE_MOVING > 0
+    end
+    
+    # Check braked state
+    # @return [Boolean]
+    def braked?
+      state[:state] & PLAYER_ACTARRAY_ACTSTATE_BRAKED > 0
+    end
+    
+    # Check braked state
+    # @return [Boolean]
+    def stalled?
+      state[:state] & PLAYER_ACTARRAY_ACTSTATE_STALLED > 0
+    end
+
     def read_state(msg)
       data = msg.unpack("g4N")
       fill_hash!(@state, data)

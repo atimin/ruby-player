@@ -15,7 +15,7 @@ describe Player::Ranger do
   it 'should have default values' do
     @ranger.rangers.should eql([])
     @ranger.intensities.should eql([])
-    @ranger.geom.should eql(px:0.0, py:0.0, pz:0.0, proll:0.0, ppitch:0.0, pyaw:0.0, sw:0.0, sl:0.0, sh:0.0, sensors: [])
+    @ranger.geom.should eql(px:0.0, py:0.0, pz:0.0, proll:0.0, ppitch:0.0, pyaw:0.0, sw:0.0, sl:0.0, sh:0.0)
     @ranger.config.should eql(min_angle: 0.0, max_angle: 0.0, angular_res: 0.0, min_range: 0.0, max_range: 0.0, range_res: 0.0, frequecy: 0.0)
   end
 
@@ -67,7 +67,7 @@ describe Player::Ranger do
       Player::Header.from_a([0,0,PLAYER_RANGER_CODE,0, PLAYER_MSGTYPE_DATA, PLAYER_RANGER_DATA_RANGE, 0.0, 0, 20]),
       ([4,0] + rangers).pack("NNG*")
     )
-    @ranger.rangers.should eql(rangers)
+    @ranger.collect { |r| r.range }.should eql(rangers)
   end
 
   it 'should fill intensities data' do
@@ -77,7 +77,7 @@ describe Player::Ranger do
       ([4,0] + intns).pack("NNG*")
     )
    
-    @ranger.intensities.should eql(intns)
+    @ranger.collect { |r| r.intensity }.should eql(intns)
   end
 
   it 'should fill geom data' do
@@ -91,13 +91,9 @@ describe Player::Ranger do
       msg
     )
 
-    @ranger.geom.should eql(
-      px: 1.0, py: 1.0, pz: 1.0, proll: 0.0, ppitch: 0.0, pyaw: 0.0, sw: 2.0, sl: 2.0, sh: 2.0,
-      sensors: [
-        { px: 1.0, py: 1.0, pz: 1.0, proll: 0.0, ppitch: 0.0, pyaw: 1.0, sw: 0.5, sl: 0.5, sh: 0.5 },
-        { px: 2.0, py: 1.0, pz: 1.0, proll: 0.0, ppitch: 0.0, pyaw: -1.0, sw: 0.5, sl: 0.5, sh: 0.5 }
-      ]
-    )
+    @ranger.geom.should eql(px: 1.0, py: 1.0, pz: 1.0, proll: 0.0, ppitch: 0.0, pyaw: 0.0, sw: 2.0, sl: 2.0, sh: 2.0)
+    @ranger[0].geom.should eql(px: 1.0, py: 1.0, pz: 1.0, proll: 0.0, ppitch: 0.0, pyaw: 1.0, sw: 0.5, sl: 0.5, sh: 0.5) 
+    @ranger[1].geom.should eql(px: 2.0, py: 1.0, pz: 1.0, proll: 0.0, ppitch: 0.0, pyaw: -1.0, sw: 0.5, sl: 0.5, sh: 0.5) 
   end
 
   it 'should get geom by request' do
@@ -112,13 +108,9 @@ describe Player::Ranger do
       msg
     )
 
-    @ranger.geom.should eql(
-      px: 1.0, py: 1.0, pz: 1.0, proll: 0.0, ppitch: 0.0, pyaw: 0.0, sw: 2.0, sl: 2.0, sh: 2.0,
-      sensors: [
-        { px: 1.0, py: 1.0, pz: 1.0, proll: 0.0, ppitch: 0.0, pyaw: 1.0, sw: 0.5, sl: 0.5, sh: 0.5 },
-        { px: 2.0, py: 1.0, pz: 1.0, proll: 0.0, ppitch: 0.0, pyaw: -1.0, sw: 0.5, sl: 0.5, sh: 0.5 }
-      ]
-    )
+    @ranger.geom.should eql(px: 1.0, py: 1.0, pz: 1.0, proll: 0.0, ppitch: 0.0, pyaw: 0.0, sw: 2.0, sl: 2.0, sh: 2.0)
+    @ranger[0].geom.should eql(px: 1.0, py: 1.0, pz: 1.0, proll: 0.0, ppitch: 0.0, pyaw: 1.0, sw: 0.5, sl: 0.5, sh: 0.5) 
+    @ranger[1].geom.should eql(px: 2.0, py: 1.0, pz: 1.0, proll: 0.0, ppitch: 0.0, pyaw: -1.0, sw: 0.5, sl: 0.5, sh: 0.5) 
   end
 
   it 'should get config  by request' do

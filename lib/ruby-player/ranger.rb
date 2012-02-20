@@ -18,19 +18,13 @@ module Player
   #
   # @example
   #   ranger = robot.subscribe(:ranger, index: 0)
-  #   ranger.rangers #=> [0.2, 0.1, 0.2]
+  #   ranger[0].range #=> 0.2
   class Ranger < Device
+    include Enumerable
 
-    # Range data [m]
-    # @return [Array] fot each sensor
-    attr_reader :rangers
-
-    # Intensity data [m]. 
-    # @return [Array] fot each sensor
-    attr_reader :intensities
  
     # Configuration of ranger
-    # @see set_config
+    # @see #set_config
     attr_reader :config
 
 
@@ -40,12 +34,23 @@ module Player
 
     def initialize(addr, client)
       super
-      @rangers = []
-      @intensities = []
-      @geom = {px: 0.0, py: 0.0, pz: 0.0, proll: 0.0, ppitch: 0.0, pyaw: 0.0, sw: 0.0, sl: 0.0, sh: 0.0, sensors: []}
+      @sensors = []
+      @geom = {px: 0.0, py: 0.0, pz: 0.0, proll: 0.0, ppitch: 0.0, pyaw: 0.0, sw: 0.0, sl: 0.0, sh: 0.0 }
       @config = { min_angle: 0.0, max_angle: 0.0, angular_res: 0.0, min_range: 0.0, max_range: 0.0, range_res: 0.0, frequecy: 0.0 }
     end
+
+    # @deprecated use `ranger.collect { |r| r.range }
+    def rangers
+      warn "Method `rangers` is deprecated. Pleas use `ranger.collect { |r| r.state[:range] }`"
+      @sensors.collect { |s| s.range }
+    end
     
+    # @deprecated use `ranger.collect { |r| r.intensity }
+    def intensities
+      warn "Method `intensities` is deprecated. Pleas use `ranger.collect { |r| r.state[:intensity] }`"
+      @sensors.collect { |s| s.intensity }
+    end
+
     # Query ranger geometry 
     # @return self
     def query_geom
@@ -121,12 +126,18 @@ module Player
       case hdr.subtype
       when PLAYER_RANGER_DATA_RANGE
         data = msg.unpack("NNG*")
-        @rangers = data[2..-1]
-        debug "Get rangers #{@rangers.inspect}"
+        data[2..-1].each_with_index do |r, i|
+          self[i].state[:range] = r
+        end
+
+        debug "Get rangers #{@sensors.collect { |s| s.state[:range] }}"
       when PLAYER_RANGER_DATA_INTNS
         data = msg.unpack("NNG*")
-        @intensities = data[2..-1]
-        debug "Get intensities #{@rangers.inspect}"
+        data[2..-1].each_with_index do |ints, i|
+          self[i].state[:intensity] = ints
+        end
+
+        debug "Get intensities #{@sensors.collect { |s| s.state[:intensity]}}"
       when PLAYER_RANGER_DATA_GEOM
         read_geom(msg)
       else
@@ -145,6 +156,14 @@ module Player
       else
         unexpected_message hdr
       end
+    end
+
+    def [](index)
+      @sensors[index] ||= Sensor.new(index, self)
+    end
+
+    def each
+      @sensors.each { |s| yield s }
     end
 
     private
@@ -167,21 +186,18 @@ module Player
       sizes = msg[88 + 48*p_count, 24*s_count].unpack("G" +(3* s_count).to_s)
 
       p_count.times do |i|
-        @geom[:sensors][i] ||= {}
-        [:px, :py, :pz, :proll, :ppitch, :pyaw].each_with_index do |k,j|
-          @geom[:sensors][i][k] = poses[6*i + j]
-        end
-        debug("Get poses for ##{i} sensor: px=%.2f, py=%.2f, pz=%.2f, proll=%.2f, ppitch=%.2f, pyaw=%.2f" % @geom[:sensors][i].values[0,6])
+        [:px, :py, :pz, :proll, :ppitch, :pyaw]
+          .each_with_index { |k,j| self[i].geom[k] = poses[6*i + j] }
+        debug("Get poses for ##{i} sensor: px=%.2f, py=%.2f, pz=%.2f, proll=%.2f, ppitch=%.2f, pyaw=%.2f" % @sensors[i].geom.values[0,6])
       end
       
       s_count.times do |i|
-        @geom[:sensors][i] ||= {}
-        [:sw, :sl, :sh].each_with_index do |k,j|
-          @geom[:sensors][i][k] = sizes[3*i + j]
-        end
-        debug("Get sizes for ##{i} sensor: sw=%.2f, sl=%.2f, sh=%.2f" % @geom[:sensors][i].values[6,3])
+        [:sw, :sl, :sh]
+          .each_with_index { |k,j| self[i].geom[k] = sizes[3*i + j] }
+        debug("Get sizes for ##{i} sensor: sw=%.2f, sl=%.2f, sh=%.2f" % @sensors[i].geom.values[6,3])
       end
 
     end
+
   end
 end 

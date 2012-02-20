@@ -12,23 +12,32 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 
-require "ruby-player/version"
-require "ruby-player/constants"
-require "ruby-player/common"
+module Player
+  class Sensor
 
-#basic classes
-require "ruby-player/dev_addr"
-require "ruby-player/header"
-require "ruby-player/device"
-require "ruby-player/client"
+    # State of sensor
+    # @return [Hash] { :range, :intensity }
+    attr_reader :state
+    attr_reader :geom
 
-#interfaces
-require "ruby-player/actuator"
-require "ruby-player/actarray"
-require "ruby-player/gripper"
-require "ruby-player/position2d"
-require "ruby-player/power"
-require "ruby-player/sensor"
-require "ruby-player/ranger"
+    def initialize(index, ranger)
+      @index, @ranger = index, ranger
+      @state = { ranger: 0.0, intensity: 0.0 }
+      @geom = {px: 0.0, py: 0.0, pz: 0.0, proll: 0.0, ppitch: 0.0, pyaw: 0.0,
+        sw: 0.0, sl: 0.0, sh: 0.0
+      }
+    end
+    
+    # Range data [m]
+    # @return [Float]
+    def range
+      @state[:range]
+    end
 
-
+    # Intensity data [m]. 
+    # @return [Float]
+    def intensity
+      @state[:intensity]
+    end
+  end
+end

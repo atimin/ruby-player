@@ -13,6 +13,11 @@ describe Player::ActArray do
     mock_sending_message(@actarray)
   end
 
+  it 'should have default state' do
+    @actarray.state.should eql(motor_state: 0)
+    @actarray.geom.should eql(px: 0.0, py: 0.0, pz: 0.0, proll: 0.0, ppitch: 0.0, pyaw: 0.0)
+  end
+
   it 'should set power state for all actuators' do
     should_send_message(PLAYER_MSGTYPE_REQ, PLAYER_ACTARRAY_REQ_POWER, [0].pack("N"))
     @actarray.power_off!
@@ -100,5 +105,48 @@ describe Player::ActArray do
 
     @actarray.each_with_index { |a,i| a.joint.should eql(i) }
     @actarray.count.should eql(2)
+  end
+  
+  it 'should fill state data' do
+    state = [2, 1.0, 2.0, 3.0, 4.0, PLAYER_ACTARRAY_ACTSTATE_IDLE, 
+      5.0, 6.0, 7.0, 8.0, PLAYER_ACTARRAY_ACTSTATE_MOVING, 
+      1]
+
+    msg = state.pack("Ng4Ng4NN")
+    @actarray.fill(
+      Player::Header.from_a([0,0,PLAYER_ACTARRAY_CODE,0, PLAYER_MSGTYPE_DATA, PLAYER_ACTARRAY_DATA_STATE, 0.0, 0, msg.bytesize]),
+      msg
+    )
+
+    @actarray[0].state.should eql(position: 1.0, speed: 2.0, acceleration: 3.0, current: 4.0, state: PLAYER_ACTARRAY_ACTSTATE_IDLE)
+    @actarray[1].state.should eql(position: 5.0, speed: 6.0, acceleration: 7.0, current: 8.0, state: PLAYER_ACTARRAY_ACTSTATE_MOVING)
+    @actarray.state[:motor_state].should eql(1)
+  end
+  
+  it 'should get geom by request' do
+   geom = [2,
+     PLAYER_ACTARRAY_TYPE_LINEAR, 2.0, 0.1, 0.2, 0.3, 1.0, 2.0, 3.0, 0.0, 0.5, 1.0, 0.0, 2.0, 0, 
+     PLAYER_ACTARRAY_TYPE_ROTARY, 4.0, 1.1, 1.2, 1.3, 1.1, 2.1, 3.1, 0.0, 0.5, 1.0, 1.0, 1.0, 1,
+     0.5, 0.6, 0.7, 1.5, 1.6, 1.7]
+
+    msg = geom.pack("NNgG6g5NNgG6g5NG6")
+    @actarray.handle_response(
+      Player::Header.from_a([0,0,PLAYER_ACTARRAY_CODE,0, PLAYER_MSGTYPE_RESP_ACK, PLAYER_ACTARRAY_REQ_GET_GEOM, 0.0, 0, msg.bytesize]),
+      msg
+    )
+
+    @actarray[0].geom.should eql(type: PLAYER_ACTARRAY_TYPE_LINEAR, length: 2.0, 
+                                 proll: 0.1, ppitch: 0.2, pyaw: 0.3,
+                                 px: 1.0, py: 2.0, pz: 3.0, 
+                                 min: 0.0, centre: 0.5, max: 1.0, home: 0.0,
+                                 config_speed: 2.0, hasbreaks: 0)
+
+    @actarray[1].geom.should eql(type: PLAYER_ACTARRAY_TYPE_ROTARY, length: 4.0, 
+                                 proll: 1.1, ppitch: 1.2, pyaw: 1.3,
+                                 px: 1.1, py: 2.1, pz: 3.1, 
+                                 min: 0.0, centre: 0.5, max: 1.0, home: 1.0,
+                                 config_speed: 1.0, hasbreaks: 1)
+
+    @actarray.geom.should eql(px: 0.5, py: 0.6, pz: 0.7, proll: 1.5, ppitch: 1.6, pyaw: 1.7)
   end
 end

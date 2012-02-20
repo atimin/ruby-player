@@ -84,5 +84,22 @@ module Player
     def size_to_s(size)
       "sw=%.2f, sl=%.2f, sh=%.2f" % size.values
     end
+
+    def hash_to_sft(hash)
+      tmpls = []
+      values = []
+      hash.each_pair do |k,v| 
+        tmpls << k.to_s + "=%"  + case v.class
+        when Integer
+          "d"
+        when Float
+          ".2f"
+        else
+          "s"
+        end
+        values << v
+      end
+      tmpls.join(", ") % values
+    end
   end
 end

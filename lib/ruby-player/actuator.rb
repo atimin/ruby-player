@@ -16,10 +16,21 @@ module Player
   # The actuator of actarray
   # @see Player::ActArray
   class Actuator
+    include Common
+
     attr_reader :joint
+    attr_reader :state
+    attr_reader :geom
 
     def initialize(joint, actarray)
       @joint, @actarray = joint, actarray
+      @state  = { position: 0.0, speed: 0.0, acceleration: 0.0, current: 0.0, state: 0 }
+      @geom   = { type: 0, length: 0.0, 
+        proll: 0.0, ppitch: 0.0, pyaw: 0.0, 
+        px: 0.0, py: 0.0, pz: 0.0,
+        min: 0.0, centre: 0.0, max: 0.0, home: 0.0,
+        config_speed: 0.0, hasbreaks: 0
+      }
     end
 
     # Set speed for a joint for all subsequent movements
@@ -67,6 +78,16 @@ module Player
     def set_current(curr)
       @actarray.send_message(PLAYER_MSGTYPE_REQ, PLAYER_ACTARRAY_CMD_CURRENT, [@joint, curr].pack("Ng"))
       self
+    end
+
+    def read_state(msg)
+      data = msg.unpack("g4N")
+      fill_hash!(@state, data)
+    end
+
+    def read_geom(msg)
+      data = msg.unpack("NgG6g5N")
+      fill_hash!(@geom, data)
     end
   end
 end 

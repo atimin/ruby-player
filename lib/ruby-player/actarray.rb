@@ -17,9 +17,14 @@ module Player
   class ActArray < Device
     include Enumerable
 
+    attr_reader :state
+    attr_reader :geom
+
     def initialize(dev, client)
       super
-      @acts = []
+      @actuators = []
+      @state  = { motor_state: 0 }
+      @geom   = { px: 0.0, py: 0.0, pz: 0.0, proll: 0.0, ppitch: 0.0, pyaw: 0.0 }
     end
 
     # Turn on power all actuators
@@ -65,7 +70,7 @@ module Player
     # @param joint - number of actuator
     # @return [Actuator] actuator
     def [](joint)
-      @acts[joint] ||= Actuator.new(joint, self)
+      @actuators[joint] ||= Actuator.new(joint, self)
     end
 
     # Tells all joints/actuators to attempt to move to the given positions.
@@ -117,7 +122,48 @@ module Player
     end
 
     def each
-      @acts.each { |a| yield a }
+      @actuators.each { |a| yield a }
+    end
+
+    def fill(hdr, msg)
+      case hdr.subtype
+      when PLAYER_ACTARRAY_DATA_STATE
+        read_state(msg)
+      else
+        unexpected_message hdr
+      end
+    end
+
+    def handle_response(hdr, msg)
+      case hdr.subtype
+      when PLAYER_ACTARRAY_REQ_GET_GEOM
+        read_geom(msg)
+      else
+        unexpected_message hdr
+      end
+    end
+
+    private
+    def read_state(msg)
+      c = msg[0,4].unpack("N")[0]
+      msg[4..-5].unpack("a20" * c).each_with_index do |s,i|
+        @actuators[i] ||= Actuator.new(i,self)
+        @actuators[i].read_state(s)
+        debug "Get state for actuator ##{i}: " + hash_to_sft(@actuators[i].state)
+      end
+      @state[:motor_state] = msg[-4,4].unpack("N")[0]
+      debug "Get state: motor_state=%d" % @state[:motor_state]
+    end
+
+    def read_geom(msg)
+      c = msg[0,4].unpack("N")[0]
+      msg[4..-48].unpack("a80" * c).each_with_index do |s, i|
+        @actuators[i] ||= Actuator.new(i,self)
+        @actuators[i].read_geom(s)
+        debug "Get geom for actuator ##{i}: " + hash_to_sft(@actuators[i].geom)
+      end
+      fill_hash!(@geom, msg[-48..-1].unpack("G6"))
+      debug("Get geom: " + hash_to_sft(@geom))
     end
   end
 end

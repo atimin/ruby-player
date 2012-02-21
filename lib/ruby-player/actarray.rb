@@ -18,6 +18,8 @@ module Player
     include Enumerable
 
     attr_reader :state
+
+    # Geometry of base actarray
     attr_reader :geom
 
     def initialize(dev, client)

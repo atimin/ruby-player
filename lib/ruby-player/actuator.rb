@@ -18,8 +18,24 @@ module Player
   class Actuator
     include Common
 
+    # Number in actarray
+    # @return [Integer]
     attr_reader :joint
+
+    # State of actuator
+    #
+    # *:position* - The position of the actuator in m or rad depending on the type. 
+    #
+    # *:speed* - The speed of the actuator in m/s or rad/s depending on the type. 
+    #     
+    # *:acceleration* - The acceleration of the actuator in m/s^2 or rad/s^2 depending on the type.
+    #
+    # *:current* - The current of the actuator in A.
+    #
+    # *:state* - The current state of the actuator. @see #idle?, #moving?, #braked?, #stalled?
     attr_reader :state
+
+    # Geometry of actuator
     attr_reader :geom
 
     def initialize(joint, actarray)
@@ -35,7 +51,7 @@ module Player
 
     # Set speed for a joint for all subsequent movements
     # @param speed - speed setting in rad/s or m/s
-    # @return self
+    # @return [Actuator] self
     def set_speed_config(speed)
       @actarray.send_message(PLAYER_MSGTYPE_REQ, PLAYER_ACTARRAY_REQ_SPEED, [@joint, speed].pack("Ng"))
       self
@@ -43,7 +59,7 @@ module Player
     
     # Set accelelarion for a joint for all subsequent movements
     # @param  accel - accelelarion setting in rad/s^2 or m/s^2
-    # @return self
+    # @return [Actuator] self
     def set_accel_config(accel)
       @actarray.send_message(PLAYER_MSGTYPE_REQ, PLAYER_ACTARRAY_REQ_ACCEL, [@joint, accel].pack("Ng"))
       self
@@ -51,7 +67,7 @@ module Player
     
     # Set position for a joint
     # @param pos - position setting in rad or m
-    # @return self
+    # @return [Actuator] self
     def set_position(pos)
       @actarray.send_message(PLAYER_MSGTYPE_CMD, PLAYER_ACTARRAY_CMD_POS, [@joint, pos].pack("Ng"))
       self
@@ -59,14 +75,14 @@ module Player
     
     # Set speed for a joint
     # @param seepd - speed setting in rad/s or m/s
-    # @return self
+    # @return [Actuator] self
     def set_speed(speed)
       @actarray.send_message(PLAYER_MSGTYPE_CMD, PLAYER_ACTARRAY_CMD_SPEED, [@joint, speed].pack("Ng"))
       self
     end
 
     # Command to go to home position
-    # @return self
+    # @return [Actuator] self
     def go_home!
       @actarray.send_message(PLAYER_MSGTYPE_CMD, PLAYER_ACTARRAY_CMD_HOME, [@joint].pack("N"))
       self
@@ -74,7 +90,7 @@ module Player
 
     # Command a joint to attempt to move with the given current
     # @param curr -current to move with
-    # @return self
+    # @return [Actuator] self
     def set_current(curr)
       @actarray.send_message(PLAYER_MSGTYPE_CMD, PLAYER_ACTARRAY_CMD_CURRENT, [@joint, curr].pack("Ng"))
       self

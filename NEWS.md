@@ -1,4 +1,4 @@
-## Next 0.4.0
+## 2012-02-21 0.4.0
 
 * Changed API for Ranger. Now ranger[0].geom intead of ranger.geom[:sensors][0]! Methods #ranger, #intenities is depricated.
 * Added actarray interface

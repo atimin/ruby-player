@@ -78,7 +78,7 @@ module Player
     # @return [ActArray] self
     def set_positions(poses)
       send_message(
-        PLAYER_MSGTYPE_REQ, PLAYER_ACTARRAY_CMD_MULTI_POS,
+        PLAYER_MSGTYPE_CMD, PLAYER_ACTARRAY_CMD_MULTI_POS,
         ([poses.size] + poses).pack("Ng*")
       )
       self
@@ -89,7 +89,7 @@ module Player
     # @return [ActArray] self
     def set_speeds(speeds)
       send_message(
-        PLAYER_MSGTYPE_REQ, PLAYER_ACTARRAY_CMD_MULTI_SPEED,
+        PLAYER_MSGTYPE_CMD, PLAYER_ACTARRAY_CMD_MULTI_SPEED,
         ([speeds.size] + speeds).pack("Ng*")
       )
       self
@@ -98,7 +98,7 @@ module Player
     # Command to go to home position for all joints
     # @return [ActArray] self
     def go_home!
-      send_message(PLAYER_MSGTYPE_REQ, PLAYER_ACTARRAY_CMD_HOME, [-1].pack("N"))
+      send_message(PLAYER_MSGTYPE_CMD, PLAYER_ACTARRAY_CMD_HOME, [-1].pack("N"))
       self
     end
 
@@ -106,7 +106,7 @@ module Player
     # @param curr -current to move with
     # @return [ActArray] self
     def set_current_all(curr)
-      send_message(PLAYER_MSGTYPE_REQ, PLAYER_ACTARRAY_CMD_CURRENT, [-1, curr].pack("Ng"))
+      send_message(PLAYER_MSGTYPE_CMD, PLAYER_ACTARRAY_CMD_CURRENT, [-1, curr].pack("Ng"))
       self
     end
     
@@ -115,7 +115,7 @@ module Player
     # @return [ActArray] self
     def set_currents(currents)
       send_message(
-        PLAYER_MSGTYPE_REQ, PLAYER_ACTARRAY_CMD_MULTI_CURRENT,
+        PLAYER_MSGTYPE_CMD, PLAYER_ACTARRAY_CMD_MULTI_CURRENT,
         ([currents.size] + currents).pack("Ng*")
       )
       self
@@ -145,8 +145,8 @@ module Player
 
     private
     def read_state(msg)
-      c = msg[0,4].unpack("N")[0]
-      msg[4..-5].unpack("a20" * c).each_with_index do |s,i|
+      c = msg[0,4].unpack("NN")[0]
+      msg[8..-5].unpack("a20" * c).each_with_index do |s,i|
         @actuators[i] ||= Actuator.new(i,self)
         @actuators[i].read_state(s)
         debug "Get state for actuator ##{i}: " + hash_to_sft(@actuators[i].state)
@@ -157,7 +157,7 @@ module Player
 
     def read_geom(msg)
       c = msg[0,4].unpack("N")[0]
-      msg[4..-48].unpack("a80" * c).each_with_index do |s, i|
+      msg[8..-48].unpack("a80" * c).each_with_index do |s, i|
         @actuators[i] ||= Actuator.new(i,self)
         @actuators[i].read_geom(s)
         debug "Get geom for actuator ##{i}: " + hash_to_sft(@actuators[i].geom)

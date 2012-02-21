@@ -53,7 +53,7 @@ module Player
     # @param pos - position setting in rad or m
     # @return self
     def set_position(pos)
-      @actarray.send_message(PLAYER_MSGTYPE_REQ, PLAYER_ACTARRAY_CMD_POS, [@joint, pos].pack("Ng"))
+      @actarray.send_message(PLAYER_MSGTYPE_CMD, PLAYER_ACTARRAY_CMD_POS, [@joint, pos].pack("Ng"))
       self
     end
     
@@ -61,14 +61,14 @@ module Player
     # @param seepd - speed setting in rad/s or m/s
     # @return self
     def set_speed(speed)
-      @actarray.send_message(PLAYER_MSGTYPE_REQ, PLAYER_ACTARRAY_CMD_SPEED, [@joint, speed].pack("Ng"))
+      @actarray.send_message(PLAYER_MSGTYPE_CMD, PLAYER_ACTARRAY_CMD_SPEED, [@joint, speed].pack("Ng"))
       self
     end
 
     # Command to go to home position
     # @return self
     def go_home!
-      @actarray.send_message(PLAYER_MSGTYPE_REQ, PLAYER_ACTARRAY_CMD_HOME, [@joint].pack("N"))
+      @actarray.send_message(PLAYER_MSGTYPE_CMD, PLAYER_ACTARRAY_CMD_HOME, [@joint].pack("N"))
       self
     end
 
@@ -76,7 +76,7 @@ module Player
     # @param curr -current to move with
     # @return self
     def set_current(curr)
-      @actarray.send_message(PLAYER_MSGTYPE_REQ, PLAYER_ACTARRAY_CMD_CURRENT, [@joint, curr].pack("Ng"))
+      @actarray.send_message(PLAYER_MSGTYPE_CMD, PLAYER_ACTARRAY_CMD_CURRENT, [@joint, curr].pack("Ng"))
       self
     end
 

@@ -42,35 +42,35 @@ describe Player::ActArray do
   
   it 'should set position for all joints' do
     data = [3, 1.0, 2.0, 3.0]
-    should_send_message(PLAYER_MSGTYPE_REQ, PLAYER_ACTARRAY_CMD_MULTI_POS, data.pack("Ng*"))
+    should_send_message(PLAYER_MSGTYPE_CMD, PLAYER_ACTARRAY_CMD_MULTI_POS, data.pack("Ng*"))
     @actarray.set_positions(data[1..-1])
   end
 
   it 'should set speed for all joints' do
     data = [2, 2.0, 3.0]
-    should_send_message(PLAYER_MSGTYPE_REQ, PLAYER_ACTARRAY_CMD_MULTI_SPEED, data.pack("Ng*"))
+    should_send_message(PLAYER_MSGTYPE_CMD, PLAYER_ACTARRAY_CMD_MULTI_SPEED, data.pack("Ng*"))
     @actarray.set_speeds(data[1..-1])
   end
 
   it 'should tell all joint go to nome' do
-    should_send_message(PLAYER_MSGTYPE_REQ, PLAYER_ACTARRAY_CMD_HOME, [-1].pack("N"))
+    should_send_message(PLAYER_MSGTYPE_CMD, PLAYER_ACTARRAY_CMD_HOME, [-1].pack("N"))
     @actarray.go_home!
   end
 
 
   it 'should tell all joints to attempt to move with the given current.' do
-    should_send_message(PLAYER_MSGTYPE_REQ, PLAYER_ACTARRAY_CMD_CURRENT, [-1, 0.3].pack("Ng"))
+    should_send_message(PLAYER_MSGTYPE_CMD, PLAYER_ACTARRAY_CMD_CURRENT, [-1, 0.3].pack("Ng"))
     @actarray.set_current_all(0.3)
   end
 
   it 'should tell a joint to attempt to move with the given current.' do
-    should_send_message(PLAYER_MSGTYPE_REQ, PLAYER_ACTARRAY_CMD_CURRENT, [0, 0.3].pack("Ng"))
+    should_send_message(PLAYER_MSGTYPE_CMD, PLAYER_ACTARRAY_CMD_CURRENT, [0, 0.3].pack("Ng"))
     @actarray[0].set_current(0.3)
   end
   
   it 'should set current for all joints' do
     data = [2, 2.0, 3.0]
-    should_send_message(PLAYER_MSGTYPE_REQ, PLAYER_ACTARRAY_CMD_MULTI_CURRENT, data.pack("Ng*"))
+    should_send_message(PLAYER_MSGTYPE_CMD, PLAYER_ACTARRAY_CMD_MULTI_CURRENT, data.pack("Ng*"))
     @actarray.set_currents(data[1..-1])
   end
 
@@ -85,11 +85,11 @@ describe Player::ActArray do
   end
   
   it 'should fill state data' do
-    state = [2, 1.0, 2.0, 3.0, 4.0, PLAYER_ACTARRAY_ACTSTATE_IDLE, 
+    state = [2, 0, 1.0, 2.0, 3.0, 4.0, PLAYER_ACTARRAY_ACTSTATE_IDLE, 
       5.0, 6.0, 7.0, 8.0, PLAYER_ACTARRAY_ACTSTATE_MOVING, 
       1]
 
-    msg = state.pack("Ng4Ng4NN")
+    msg = state.pack("NNg4Ng4NN")
     @actarray.fill(
       Player::Header.from_a([0,0,PLAYER_ACTARRAY_CODE,0, PLAYER_MSGTYPE_DATA, PLAYER_ACTARRAY_DATA_STATE, 0.0, 0, msg.bytesize]),
       msg
@@ -101,12 +101,12 @@ describe Player::ActArray do
   end
   
   it 'should get geom by request' do
-   geom = [2,
+   geom = [2, 0,
      PLAYER_ACTARRAY_TYPE_LINEAR, 2.0, 0.1, 0.2, 0.3, 1.0, 2.0, 3.0, 0.0, 0.5, 1.0, 0.0, 2.0, 0, 
      PLAYER_ACTARRAY_TYPE_ROTARY, 4.0, 1.1, 1.2, 1.3, 1.1, 2.1, 3.1, 0.0, 0.5, 1.0, 1.0, 1.0, 1,
      0.5, 0.6, 0.7, 1.5, 1.6, 1.7]
 
-    msg = geom.pack("NNgG6g5NNgG6g5NG6")
+    msg = geom.pack("NNNgG6g5NNgG6g5NG6")
     @actarray.handle_response(
       Player::Header.from_a([0,0,PLAYER_ACTARRAY_CODE,0, PLAYER_MSGTYPE_RESP_ACK, PLAYER_ACTARRAY_REQ_GET_GEOM, 0.0, 0, msg.bytesize]),
       msg

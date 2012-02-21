@@ -39,17 +39,17 @@ describe Player::Actuator do
   end
 
   it 'should set position joint' do
-    should_send_message(PLAYER_MSGTYPE_REQ, PLAYER_ACTARRAY_CMD_POS, [0, 0.4].pack("Ng"))
+    should_send_message(PLAYER_MSGTYPE_CMD, PLAYER_ACTARRAY_CMD_POS, [0, 0.4].pack("Ng"))
     @act.set_position(0.4)
   end
 
   it 'should set speed ' do
-    should_send_message(PLAYER_MSGTYPE_REQ, PLAYER_ACTARRAY_CMD_SPEED, [0, 0.5].pack("Ng"))
+    should_send_message(PLAYER_MSGTYPE_CMD, PLAYER_ACTARRAY_CMD_SPEED, [0, 0.5].pack("Ng"))
     @act.set_speed(0.5)
   end
 
   it 'should go to nome' do
-    should_send_message(PLAYER_MSGTYPE_REQ, PLAYER_ACTARRAY_CMD_HOME, [0].pack("N"))
+    should_send_message(PLAYER_MSGTYPE_CMD, PLAYER_ACTARRAY_CMD_HOME, [0].pack("N"))
     @act.go_home!
   end
 

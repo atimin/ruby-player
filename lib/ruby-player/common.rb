@@ -30,19 +30,19 @@ module Player
     end
 
     def warn(msg)
-      if [:debug, :log, :warn].include?(@log_level)
+      if [:debug, :notice, :warn].include?(@log_level)
         puts log_msg(:warn, msg).to_ansi.blue
       end
     end
 
     def error(msg)
-      if [:debug, :log, :warn, :debug].include?(@log_level)
+      if [:debug, :notice, :warn, :debug].include?(@log_level)
         puts log_msg(:error, msg).to_ansi.red
       end
     end
 
     def log_msg(level, msg)
-        "[ruby-player][#{level}]\t #{@addr.interface_name}:#{@addr.index}\t#{msg}"
+      "[ruby-player][#{level}]\t #{@addr.interface_name}:#{@addr.index}\t#{msg}"
     end
 
     def raise_error(err_msg)

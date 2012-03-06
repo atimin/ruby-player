@@ -1,3 +1,7 @@
+## 2012-03-06 0.4.1
+
+* Fixed bug in logging of warn and error messages
+
 ## 2012-02-21 0.4.0
 
 * Changed API for Ranger. Now ranger[0].geom intead of ranger.geom[:sensors][0]! Methods #ranger, #intenities is depricated.

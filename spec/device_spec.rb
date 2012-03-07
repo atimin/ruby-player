@@ -14,7 +14,7 @@ describe Player::Device do
 
   it "should send message" do
     Time.stub!(:now).and_return(0)
-    @client.should_receive(:write).with(
+    @client.should_receive(:send_message_with_hdr).with(
       Header.new(
         dev_addr: @dev_addr,
         type: PLAYER_MSGTYPE_REQ,

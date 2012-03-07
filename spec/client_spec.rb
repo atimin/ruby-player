@@ -45,6 +45,25 @@ describe Player::Client do
     end
   end
 
+  it "should write header to socket" do
+    hdr = Header.new
+    @socket.should_receive(:write).with(hdr.encode)
+    @socket.should_receive(:write).with("")
+
+    @cl.send_message_with_hdr(hdr, "")
+  end
+
+  it "shoul write message with header to socket" do
+    msg = "Hello"
+    hdr = Header.new(size: msg.bytesize)
+
+    @cl.should_receive(:send_header).with(hdr)
+    @socket.should_receive(:write).with(msg)
+    @socket.should_receive(:flush)
+
+    @cl.send_message_with_hdr(hdr, msg)
+  end
+
   describe "Device manage" do
     before do
       #subscribe two position2d

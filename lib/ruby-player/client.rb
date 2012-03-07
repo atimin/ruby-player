@@ -120,7 +120,7 @@ module Player
       end
     end
 
-    def write(hdr, msg)
+    def send_message_with_hdr(hdr, msg)
       send_header hdr
       @socket.write msg 
       @socket.flush

@@ -34,7 +34,7 @@ module Player
     end
    
     def send_message(type, subtype, msg="")
-      @client.write( Header.new(
+      @client.send_message_with_hdr( Header.new(
           dev_addr: @addr,
           type: type,
           subtype: subtype,

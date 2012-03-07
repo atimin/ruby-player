@@ -39,7 +39,7 @@ describe Player::Header do
     Header.decode(@data.pack("NNNNNNGNN")).should == @hdr
   end
 
-  it "should be maked form array" do
+  it "should be made form array" do
     Header.from_a(@data).should == @hdr
   end
 

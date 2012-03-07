@@ -35,7 +35,7 @@ module Player
     # @param [String] host host of Player server 
     # @param [Hash] opts client options
     # @option opts :port port of connection
-    # @option opts :log_level level of log messages [:debug, :info, :warn, :error] default :notice
+    # @option opts :log_level level of log messages [:debug, :info, :warn, :error] default :info
     def initialize(host, opts = {})
       port = opts[:port] || 6665
       @log_level = (opts[:log_level] || :info).to_sym

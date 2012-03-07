@@ -20,7 +20,7 @@ module Player
     attr_reader :dev_addr, :type, :subtype, :time, :seq, :size
 
     def initialize(param = {})
-      @dev_addr = param[:dev_addr]
+      @dev_addr = param[:dev_addr] || DevAddr.new
       @type = param[:type].to_i
       @subtype = param[:subtype].to_i
       @time = param[:time] || Time.now.to_f / 1000

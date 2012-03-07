@@ -43,7 +43,7 @@ module Player
     end
 
     def to_s
-      "device addr [#@host:#@robot] #@interface_name:#@index"
+      "device addr [#@host:#@robot] #{interface_name}:#@index"
     end
 
     def to_a

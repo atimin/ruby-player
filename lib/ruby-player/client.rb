@@ -35,10 +35,10 @@ module Player
     # @param [String] host host of Player server 
     # @param [Hash] opts client options
     # @option opts :port port of connection
-    # @option opts :log_level level of log messages [:debug,:notice, :warn, :error] default :notice
+    # @option opts :log_level level of log messages [:debug, :info, :warn, :error] default :notice
     def initialize(host, opts = {})
       port = opts[:port] || 6665
-      @log_level = (opts[:log_level] || :notice).to_sym
+      @log_level = (opts[:log_level] || :info).to_sym
 
       @socket = TCPSocket.new(host, port)
       @addr = DevAddr.new(host: 0, robot: 0, interface: PLAYER_PLAYER_CODE, index: 0)
@@ -46,7 +46,7 @@ module Player
       @devices = []
 
       banner = @socket.read(PLAYER_IDENT_STRLEN)
-      notice "Connect with #{banner} in #{host}:#{port}"
+      info "Connect with #{banner} in #{host}:#{port}"
       send_message PLAYER_MSGTYPE_REQ, PLAYER_PLAYER_REQ_DATAMODE, [PLAYER_DATAMODE_PULL].pack("N")
 
       debug "Set delivery mode in PULL"
@@ -85,7 +85,7 @@ module Player
       index = opts[:index] || 0
       access = opts[:access] || PLAYER_OPEN_MODE
 
-      notice "Subscribing to #{type}:#{index}"
+      info "Subscribing to #{type}:#{index}"
       data = DevAddr.new(interface: code, index: index).to_a + [access, 0, 0]
       send_message PLAYER_MSGTYPE_REQ, PLAYER_PLAYER_REQ_DEV, data.pack("N*")
 

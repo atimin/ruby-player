@@ -23,20 +23,20 @@ module Player
       end
     end
 
-    def notice(msg)
-      if [:debug, :notice].include?(@log_level)
-        puts log_msg(:notice, msg).to_ansi.normal
+    def info(msg)
+      if [:debug, :info].include?(@log_level)
+        puts log_msg(:info, msg).to_ansi.normal
       end
     end
 
     def warn(msg)
-      if [:debug, :notice, :warn].include?(@log_level)
+      if [:debug, :info, :warn].include?(@log_level)
         puts log_msg(:warn, msg).to_ansi.blue
       end
     end
 
     def error(msg)
-      if [:debug, :notice, :warn, :debug].include?(@log_level)
+      if [:debug, :info, :warn, :debug].include?(@log_level)
         puts log_msg(:error, msg).to_ansi.red
       end
     end

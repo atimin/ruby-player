@@ -5,7 +5,7 @@ Player::Client.connect("localhost") do |robot|
   #main loop
   robot.loop(0.05) do
     puts "Position: x=%{px}, y=%{py}, a=%{pa}" % pos2d.state
-    r = ranger.rangers
+    r = ranger.collect { |r| r.range }
     puts "Rangers: #{r}"
 
     if r[0] < 2.5

@@ -13,8 +13,6 @@ describe Player::Ranger do
   end
 
   it 'should have default values' do
-    @ranger.rangers.should eql([])
-    @ranger.intensities.should eql([])
     @ranger.geom.should eql(px:0.0, py:0.0, pz:0.0, proll:0.0, ppitch:0.0, pyaw:0.0, sw:0.0, sl:0.0, sh:0.0)
     @ranger.config.should eql(min_angle: 0.0, max_angle: 0.0, angular_res: 0.0, min_range: 0.0, max_range: 0.0, range_res: 0.0, frequecy: 0.0)
   end

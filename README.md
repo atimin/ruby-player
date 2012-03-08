@@ -4,7 +4,15 @@ Summary
 -------------------------------------
 Ruby Player provide high level client library to access to Player server in pure Ruby.
 
-Currently (2012-01-07) the Ruby Player are developing and testing with Player 3.1.0 latest svn version
+This project is active developing now! *Please don't use it in serious projects.*
+
+Why?
+-------------------------------------
+The Player project distributes wrappings of client libraries for Ruby and Python but I think that this project has several reasons to be:
+
+1. Pure implementation didn't require C\C++ libraries of Player, SWIG and compilators. You can use it on any platform with installed Ruby.
+2. In contrast to standard wrapping Ruby Player is spreaded as gem and you can use it with Bundle, RVM and others tools which we all are loving.
+3. Standard wrapping don't use the expression of Ruby. Calls of function in C style without blocks, hashes and exceptions. 
 
 Install
 -------------------------------------

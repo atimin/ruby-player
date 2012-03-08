@@ -12,6 +12,8 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 
+require "socket"
+
 module Player
   # The client object manages the connection with the Player server
   #
@@ -47,6 +49,7 @@ module Player
 
       banner = @socket.read(PLAYER_IDENT_STRLEN)
       info "Connect with #{banner} in #{host}:#{port}"
+      warn "This software required Player version >= 3.1.0" if banner[/\d.\d/].to_f < 3.1
       send_message PLAYER_MSGTYPE_REQ, PLAYER_PLAYER_REQ_DATAMODE, [PLAYER_DATAMODE_PULL].pack("N")
 
       debug "Set delivery mode in PULL"

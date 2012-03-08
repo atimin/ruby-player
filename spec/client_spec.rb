@@ -5,7 +5,7 @@ describe Player::Client do
   before do 
     @socket = mock("Socket")
 
-    TCPSocket.stub!(:new).with("localhost", 6665).and_return(@socket) 
+    TCPSocket.should_receive(:new).with("localhost", 6665).and_return(@socket) 
     @socket.stub! :flush
     Time.stub!(:now).and_return(0)
     
@@ -19,10 +19,12 @@ describe Player::Client do
     @cl = Player::Client.new("localhost", log_level: "debug")
   end
 
-#  it "should raise error if connection doesn't success" do
-#    lambda{ Player::Client.new(host: "localhost", post: 6666) }.should raise_error(StandardError, 
-#      "connect call on [localhost:6666] failed with error [111:Connection refused]")
-#  end
+=begin
+  it "should raise error if connection doesn't success" do
+    lambda{ Player::Client.new("localhost", port: 6666) }.should raise_error(StandardError, 
+      "connect call on [localhost:6666] failed with error [111:Connection refused]")
+  end
+=end
 
   it "should have close method" do
     @socket.should_receive(:closed?).and_return(false)
@@ -35,7 +37,8 @@ describe Player::Client do
   end
 
   it "should have block for connection" do
-    @socket.stub!(:read)
+    TCPSocket.should_receive(:new).with("localhost", 6665).and_return(@socket) 
+    @socket.should_receive(:read).with(PLAYER_IDENT_STRLEN).and_return("Mock player for 3.1-svn")
     @socket.stub!(:write)
     @socket.should_receive(:closed?).and_return(false)
     @socket.should_receive(:close)

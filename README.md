@@ -8,11 +8,11 @@ This project is active developing now! *Please don't use it in serious projects.
 
 Why?
 -------------------------------------
-The Player project distributes wrappings of client libraries for Ruby and Python but I think that this project has several reasons to be:
+The Player project distributes bindings of client libraries for Ruby and Python but I think that this project has several reasons to be:
 
-1. Pure implementation didn't require C\C++ libraries of Player, SWIG and compilators. You can use it on any platform with installed Ruby.
-2. In contrast to standard wrapping Ruby Player is spreaded as gem and you can use it with Bundle, RVM and others tools which we all are loving.
-3. Standard wrapping don't use the expression of Ruby. Calls of function in C style without blocks, hashes and exceptions. 
+1. Pure implementation doesn't require C\C++ libraries of Player, SWIG and compilator. You can use it on any platform with installed Ruby.
+2. In contrast to standard bindings Ruby Player is spreaded as gem and you can use it with Bundle, RVM and others tools which we all are loving.
+3. Standard bindings doesn't use the expression of Ruby. Calls of function in C style without blocks, hashes and exceptions. 
 
 Install
 -------------------------------------

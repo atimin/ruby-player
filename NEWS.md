@@ -1,6 +1,7 @@
 ## Next 0.5.0
 
 * Log level by default :notice is removed. Use :info. 
+* Added ActArray#power? method
 
 ## 2012-03-06 0.4.1
 

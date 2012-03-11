@@ -29,6 +29,12 @@ module Player
       @geom   = { px: 0.0, py: 0.0, pz: 0.0, proll: 0.0, ppitch: 0.0, pyaw: 0.0 }
     end
 
+    # Check common power
+    # @return [Boolean]
+    def power?
+      state[:motor_state] != 0
+    end
+
     # Turn on power all actuators
     # Be careful when turning power on that the array is not obstructed 
     # from its home position in case it moves to it (common behaviour)

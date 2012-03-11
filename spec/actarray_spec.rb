@@ -18,6 +18,14 @@ describe Player::ActArray do
     @actarray.geom.should eql(px: 0.0, py: 0.0, pz: 0.0, proll: 0.0, ppitch: 0.0, pyaw: 0.0)
   end
 
+  it 'should have :power? method' do
+    @actarray.should_receive(:state).and_return(motor_state: 0)
+    @actarray.power?.should be_false
+    
+    @actarray.should_receive(:state).and_return(motor_state: 1)
+    @actarray.power?.should be_true
+  end
+
   it 'should set power state for all actuators' do
     should_send_message(PLAYER_MSGTYPE_REQ, PLAYER_ACTARRAY_REQ_POWER, [0].pack("N"))
     @actarray.power_off!

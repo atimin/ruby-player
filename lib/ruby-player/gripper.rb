@@ -77,6 +77,22 @@ module Player
       self
     end
 
+    # Provides information on how far into the gripper an object is. 
+    # For most grippers, this will be a bit mask, with each bit representing whether 
+    # a beam has been interrupted or not.
+    # @see #state
+    # @retun [Integer]
+    def beams
+      state[:beams]
+    end
+
+    # Number of currently stored objects
+    # @see #state
+    # @retun [Integer]
+    def stored
+      state[:stored]
+    end
+
     # Check openinig
     def open?
       state[:state] & PLAYER_GRIPPER_STATE_OPEN > 0
@@ -98,24 +114,28 @@ module Player
     end
 
     # Tells the gripper to open
+    # @return [Gripper] self
     def open!
       send_message(PLAYER_MSGTYPE_CMD, PLAYER_GRIPPER_CMD_OPEN)
       self
     end
 
     # Tells the gripper to close
+    # @return [Gripper] self
     def close!
       send_message(PLAYER_MSGTYPE_CMD, PLAYER_GRIPPER_CMD_CLOSE)
       self
     end
     
     # Tells the gripper to stop
+    # @return [Gripper] self
     def stop!
       send_message(PLAYER_MSGTYPE_CMD, PLAYER_GRIPPER_CMD_STOP)
       self
     end
 
     # Tells the gripper to store whatever it is holding.
+    # @return [Gripper] self
     def store!
       send_message(PLAYER_MSGTYPE_CMD, PLAYER_GRIPPER_CMD_STORE)
       self
@@ -123,6 +143,7 @@ module Player
 
     # Tells the gripper to retrieve a stored object (so that it can be put back into the world).
     # The opposite of store.
+    # @return [Gripper] self
     def retrieve!
       send_message(PLAYER_MSGTYPE_CMD, PLAYER_GRIPPER_CMD_RETRIEVE)
       self

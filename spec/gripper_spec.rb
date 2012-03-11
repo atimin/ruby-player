@@ -22,7 +22,7 @@ describe Player::Position2d do
     )
   end
   
-  it 'should have open? attribute' do
+  it 'should have #open? method' do
     @gripper.should_receive(:state).and_return(state: PLAYER_GRIPPER_STATE_OPEN)
     @gripper.open?.should be_true
 
@@ -30,7 +30,7 @@ describe Player::Position2d do
     @gripper.open?.should be_false
   end
   
-  it 'should have closed? attribute' do
+  it 'should have #closed? method' do
     @gripper.should_receive(:state).and_return(state: PLAYER_GRIPPER_STATE_CLOSED)
     @gripper.closed?.should be_true
 
@@ -38,7 +38,7 @@ describe Player::Position2d do
     @gripper.closed?.should be_false
   end
 
-  it 'should have moving? attribute' do
+  it 'should have #moving? method' do
     @gripper.should_receive(:state).and_return(state: PLAYER_GRIPPER_STATE_MOVING)
     @gripper.moving?.should be_true
 
@@ -46,12 +46,22 @@ describe Player::Position2d do
     @gripper.moving?.should be_false
   end
 
-  it 'should have error? attribute' do
+  it 'should have #error? method' do
     @gripper.should_receive(:state).and_return(state: PLAYER_GRIPPER_STATE_ERROR)
     @gripper.error?.should be_true
 
     @gripper.should_receive(:state).and_return(state: 0)
     @gripper.error?.should be_false
+  end
+
+  it 'should have #beams attr' do
+    @gripper.should_receive(:state).and_return(beams: 4)
+    @gripper.beams.should eql(4)
+  end
+
+  it 'should have #stored attr' do
+    @gripper.should_receive(:state).and_return(stored: 2)
+    @gripper.stored.should eql(2)
   end
 
   it 'should open gripper' do

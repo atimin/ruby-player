@@ -28,6 +28,26 @@ describe Player::Actuator do
     )
   end
 
+  it 'should have #position attr' do
+    @act.should_receive(:state).and_return(position: 1.2)
+    @act.position.should eql(1.2)
+  end
+
+  it 'should have #speed attr' do
+    @act.should_receive(:state).and_return(speed: 1.8)
+    @act.speed.should eql(1.8)
+  end
+
+  it 'should have #acceleration attr' do
+    @act.should_receive(:state).and_return(acceleration: 0.2)
+    @act.acceleration.should eql(0.2)
+  end
+
+  it 'should have #current attr' do
+    @act.should_receive(:state).and_return(current: 3.2)
+    @act.current.should eql(3.2)
+  end
+
   it 'should set speed config ' do
     should_send_message(PLAYER_MSGTYPE_REQ, PLAYER_ACTARRAY_REQ_SPEED, [0, 0.2].pack("Ng"))
     @act.set_speed_config(0.2)

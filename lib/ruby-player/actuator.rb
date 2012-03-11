@@ -49,6 +49,34 @@ module Player
       }
     end
 
+    # The position of the actuator in m or rad depending on the type.
+    # @see #state
+    # @return [Float]
+    def position
+      state[:position]
+    end
+
+    # The speed of the actuator in m/s or rad/s depending on the type. 
+    # @see #state
+    # @return [Float]
+    def speed
+      state[:speed]
+    end
+
+    # The acceleration of the actuator in m/s^2 or rad/s^2 depending on the type.
+    # @see #state
+    # @return [Float]
+    def acceleration
+      state[:acceleration]
+    end
+
+    # The current of the actuator in A.
+    # @see #state
+    # @return [Float]
+    def current
+      state[:current]
+    end
+
     # Set speed for a joint for all subsequent movements
     # @param speed - speed setting in rad/s or m/s
     # @return [Actuator] self

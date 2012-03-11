@@ -43,6 +43,54 @@ module Player
       @geom = {px: 0.0, py: 0.0, pz: 0.0, proll: 0.0, ppitch: 0.0, pyaw: 0.0, sw: 0.0, sl: 0.0, sh: 0.0}
     end
 
+    # X position [m]
+    # @return [Float]
+    def px
+      state[:px]
+    end
+    
+    # Y position [m]
+    # @return [Float]
+    def py
+      state[:py]
+    end
+    
+    # Yaw [rad]
+    # @return [Float]
+    def pa
+      state[:pa]
+    end
+
+    # X speed [m/s]
+    # @return [Float]
+    def vx
+      state[:vx]
+    end
+    
+    # Y speed [m/s]
+    # @return [Float]
+    def vy
+      state[:vy]
+    end
+    
+    # Yaw speed [rad/s]
+    # @return [Float]
+    def va
+      state[:va]
+    end
+
+    # State of motor
+    # @return [Boolean] true - on
+    def power?
+      state[:stall] != 0 
+    end
+
+    # @deprecated Use {#power?}
+    def power
+      warn "Method `power` is deprecated. Pleas use `power?`"
+      power?
+    end
+
     # @deprecated Use {#state}
     def position
       warn "Method `position` is deprecated. Pleas use `data` for access to position"
@@ -50,14 +98,14 @@ module Player
     end
 
     # Query robot geometry 
-    # @return self
+    # @return [Position2d] self
     def query_geom
       send_message(PLAYER_MSGTYPE_REQ, PLAYER_POSITION2D_REQ_GET_GEOM)
       self
     end
    
     # Turn on motor
-    # @return self
+    # @return [Position2d] self
     def power_on!
       send_message(PLAYER_MSGTYPE_REQ, PLAYER_POSITION2D_REQ_MOTOR_POWER, [1].pack("N")) 
       self
@@ -70,6 +118,7 @@ module Player
     end
 
     # Turn off motor
+    # @return [Position2d] self
     def power_off!
       send_message(PLAYER_MSGTYPE_REQ, PLAYER_POSITION2D_REQ_MOTOR_POWER, [0].pack("N")) 
       self
@@ -81,21 +130,25 @@ module Player
       power_off!
     end
 
+    # @return [Position2d] self
     def direct_speed_control!
       send_message(PLAYER_MSGTYPE_REQ, PLAYER_POSITION2D_REQ_VELOCITY_MODE, [0].pack("N"))
       self
     end
 
+    # @return [Position2d] self
     def separate_speed_control!
       send_message(PLAYER_MSGTYPE_REQ, PLAYER_POSITION2D_REQ_VELOCITY_MODE, [1].pack("N"))
       self
     end
 
+    # @return [Position2d] self
     def position_control!
       send_message(PLAYER_MSGTYPE_REQ, PLAYER_POSITION2D_REQ_POSITION_MODE, [0].pack("N"))
       self
     end
 
+    # @return [Position2d] self
     def speed_control!
       send_message(PLAYER_MSGTYPE_REQ, PLAYER_POSITION2D_REQ_POSITION_MODE, [1].pack("N"))
       self
@@ -106,7 +159,7 @@ module Player
     # @option odom :px x position (m)
     # @option odom :py y position (m)
     # @option odom :pa angle (rad).     
-    # @return self
+    # @return [Position2d] self
     def set_odometry(odom)
       data = [
         odom[:px].to_f,
@@ -123,7 +176,7 @@ module Player
     # @option params :kp P
     # @option params :ki I
     # @option params :kd D
-    # @return self
+    # @return [Position2d] self
     def set_speed_pid(params={})
       data = [
         params[:kp].to_f,
@@ -139,7 +192,7 @@ module Player
     # @option params :kp P
     # @option params :ki I
     # @option params :kd D
-    # @return self
+    # @return [Position2d] self
     def set_position_pid(params={})
       data = [
         params[:kp].to_f,
@@ -154,7 +207,7 @@ module Player
     # @param [Hash] params profile prarams
     # @option params :spped max speed (m/s)
     # @option params :acc max acceleration (m/s^2)
-    # @return self
+    # @return [Position2d] self
     def set_speed_profile(params={})
       data = [
         params[:speed].to_f,
@@ -166,7 +219,7 @@ module Player
     end
 
     # Reset odometry to zero
-    # @return self
+    # @return [Position2d] self
     def reset_odometry
       send_message(PLAYER_MSGTYPE_REQ, PLAYER_POSITION2D_REQ_RESET_ODOM)
       self
@@ -178,7 +231,7 @@ module Player
     # @option speeds :vy sideways speed (m/s); this field is used by omni-drive robots only. 
     # @option speeds :va rotational speed (rad/s).     
     # @option speeds :stall state of motor
-    # @return self
+    # @return [Position2d] self
     def set_speed(speeds)
       data = [
         speeds[:vx] || @state[:vx],
@@ -194,6 +247,7 @@ module Player
     # @param [Hash] speeds 
     # @option speeds :vx forward speed (m/s)
     # @option speeds :a turning angle (rad).     
+    # @return [Position2d] self
     def set_car(speeds)
       data = [ 
         speeds[:vx] || @state[:vx],
@@ -208,6 +262,7 @@ module Player
     # @param [Hash] speeds 
     # @option speeds :vx forward speed (m/s)
     # @option speeds :a absolutle angle (rad).     
+    # @return [Position2d] self
     def set_speed_head(speeds)
       data = [ 
         speeds[:vx] || @state[:vx],
@@ -217,15 +272,8 @@ module Player
       self
     end
 
-
-    # State of motor
-    # @return [Boolean] true - on
-    def power
-      @state[:stall] == 1 
-    end
-
     # Stop robot set speed to 0
-    # @return self
+    # @return [Position2d] self
     def stop!
       set_speed(vx: 0, vy: 0, va: 0)
     end

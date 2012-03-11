@@ -17,6 +17,44 @@ describe Player::Position2d do
     @pos2d.geom.should eql(px:0.0, py:0.0, pz:0.0, proll:0.0, ppitch:0.0, pyaw:0.0, sw:0.0, sl:0.0, sh:0.0)
   end
 
+  it 'should have #px attributes' do
+    @pos2d.should_receive(:state).and_return(px: 2.2)
+    @pos2d.px.should eql(2.2)
+  end
+
+  it 'should have #py attributes' do
+    @pos2d.should_receive(:state).and_return(py: 2.9)
+    @pos2d.py.should eql(2.9)
+  end
+
+  it 'should have #pa attributes' do
+    @pos2d.should_receive(:state).and_return(pa: 0.2)
+    @pos2d.pa.should eql(0.2)
+  end
+
+  it 'should have #vx attributes' do
+    @pos2d.should_receive(:state).and_return(vx: 0.1)
+    @pos2d.vx.should eql(0.1)
+  end
+
+  it 'should have #vy attributes' do
+    @pos2d.should_receive(:state).and_return(vy: 0.9)
+    @pos2d.vy.should eql(0.9)
+  end
+
+  it 'should have #va attributes' do
+    @pos2d.should_receive(:state).and_return(va: 4.2)
+    @pos2d.va.should eql(4.2)
+  end
+
+  it 'should have #power? method' do
+    @pos2d.should_receive(:state).and_return(stall: 0)
+    @pos2d.power?.should be_false
+
+    @pos2d.should_receive(:state).and_return(stall: 1)
+    @pos2d.power?.should be_true
+  end
+
   it 'should query geometry' do
     should_send_message(PLAYER_MSGTYPE_REQ, PLAYER_POSITION2D_REQ_GET_GEOM)
     @pos2d.query_geom

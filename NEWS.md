@@ -1,9 +1,10 @@
 ## Next 0.5.0
 
 * Log level by default :notice is removed. Use :info. 
-* Added ActArray#power? method
-* Added #beams and #stored attributes for Gripper class
-* Added #position, #speed, #acceleration and #current attributes for Actor class
+* Added ActArray#power? method.
+* Added #beams and #stored attributes for Gripper class.
+* Added #position, #speed, #acceleration and #current attributes for Actor class.
+* Added #px, #py, #pa, #vx, #vy, #va and #power? attributes for Actor class. Method #power is deprecated.
 
 ## 2012-03-06 0.4.1
 

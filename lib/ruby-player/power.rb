@@ -37,7 +37,35 @@ module Player
       super
       @state = { valid: 0, volts: 0.0, percent: 0.0, joules: 0.0, watts: 0.0, charging: 0 }
     end
+
+    # Battery voltage [V]. 
+    # @see #state
+    # @retrun [Float]
+    def volts
+      state[:volts]
+    end
     
+    # Percent of full charge [%].
+    # @see #state
+    # @retrun [Float]
+    def percent
+      state[:percent]
+    end
+    
+    # Energy stored [J]. 
+    # @see #state
+    # @retrun [Float]
+    def joules
+      state[:joules]
+    end
+    
+    # Estimated current energy consumption (negative values) or aquisition (positive values) [W]. 
+    # @see #state
+    # @retrun [Float]
+    def watts
+      state[:watts]
+    end
+
     # Request to change the charging policy
     # @param [Hash] policy
     # @option policy [Boolean] :enable_input boolean controlling recharging

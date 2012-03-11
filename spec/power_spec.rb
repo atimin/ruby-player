@@ -17,6 +17,26 @@ describe Player::Power do
     @power.state.should eql(valid: 0, volts: 0.0, percent: 0.0, joules: 0.0, watts: 0.0, charging: 0)
   end
 
+  it 'should have #volts attr' do
+    @power.should_receive(:state).and_return(volts: 3.3)
+    @power.volts.should eql(3.3)
+  end
+  
+  it 'should have #percent attr' do
+    @power.should_receive(:state).and_return(percent: 90.0)
+    @power.percent.should eql(90.0)
+  end
+  
+  it 'should have #joules attr' do
+    @power.should_receive(:state).and_return(joules: 23.2)
+    @power.joules.should eql(23.2)
+  end
+  
+  it 'should have #watts attr' do
+    @power.should_receive(:state).and_return(watts: 9.4)
+    @power.watts.should eql(9.4)
+  end
+
   it 'should have volts_valid? attribute' do
     @power.should_receive(:state).and_return(valid: 1)
     @power.volts_valid?.should be_true

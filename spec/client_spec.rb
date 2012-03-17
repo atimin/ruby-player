@@ -184,6 +184,16 @@ describe Player::Client do
       actarray.addr.interface_name.should eql("actarray")
       actarray.addr.index.should eql(4)
     end
+
+    it "should describe to actarray:5" do
+      mock_subscribe(PLAYER_BLOBFINDER_CODE, 5)
+
+      bf = @cl.subscribe(:blobfinder, index: 5)
+      bf.should be_an_instance_of(Player::BlobFinder)
+      bf.addr.interface_name.should eql("blobfinder")
+      bf.addr.index.should eql(5)
+    end
+
   end
 
   private

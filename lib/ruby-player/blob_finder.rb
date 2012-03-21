@@ -129,18 +129,19 @@ module Player
       state[:width] = data[0]
       state[:height] = data[1]
 
-      debug "Get image size #{state[:width]}x#{state[:height]}"
+      debug "Got image size #{state[:width]}x#{state[:height]}"
 
       blob_count = data[2] + data[3]*256
       blob_count.times do |i|
         blob_data = msg[i*40 + 16, 40].unpack("N9g")
         fill_hash!(self[i].state, blob_data)
-        debug "Get blob: " + hash_to_sft(self[i].state) 
+        debug "Got blob: " + hash_to_sft(self[i].state) 
       end
     end
 
     def read_color(msg)
       fill_hash!(@color, msg.unpack("N7"))
+        debug "Got color: " + hash_to_sft(@color) 
     end
   end
 end

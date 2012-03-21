@@ -127,14 +127,14 @@ module Player
           self[i].state[:range] = r
         end
 
-        debug "Get rangers #{@sensors.collect { |s| s.state[:range] }}"
+        debug "Got rangers #{@sensors.collect { |s| s.state[:range] }}"
       when PLAYER_RANGER_DATA_INTNS
         data = msg.unpack("NNG*")
         data[2..-1].each_with_index do |ints, i|
           self[i].state[:intensity] = ints
         end
 
-        debug "Get intensities #{@sensors.collect { |s| s.state[:intensity]}}"
+        debug "Got intensities #{@sensors.collect { |s| s.state[:intensity]}}"
       when PLAYER_RANGER_DATA_GEOM
         read_geom(msg)
       else
@@ -171,7 +171,7 @@ module Player
     def read_geom(msg)
       data = msg[0,72].unpack("G*")
       fill_hash!(@geom, data)
-      debug "Get geom: " + hash_to_sft(@geom)
+      debug "Got geom: " + hash_to_sft(@geom)
 
 
       p_count =  msg[72,8].unpack("NN")
@@ -185,13 +185,13 @@ module Player
       p_count.times do |i|
         [:px, :py, :pz, :proll, :ppitch, :pyaw]
           .each_with_index { |k,j| self[i].geom[k] = poses[6*i + j] }
-        debug("Get poses for ##{i} sensor: px=%.2f, py=%.2f, pz=%.2f, proll=%.2f, ppitch=%.2f, pyaw=%.2f" % @sensors[i].geom.values[0,6])
+        debug("Got poses for ##{i} sensor: px=%.2f, py=%.2f, pz=%.2f, proll=%.2f, ppitch=%.2f, pyaw=%.2f" % @sensors[i].geom.values[0,6])
       end
       
       s_count.times do |i|
         [:sw, :sl, :sh]
           .each_with_index { |k,j| self[i].geom[k] = sizes[3*i + j] }
-        debug("Get sizes for ##{i} sensor: sw=%.2f, sl=%.2f, sh=%.2f" % @sensors[i].geom.values[6,3])
+        debug("Got sizes for ##{i} sensor: sw=%.2f, sl=%.2f, sh=%.2f" % @sensors[i].geom.values[6,3])
       end
 
     end

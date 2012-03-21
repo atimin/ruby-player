@@ -157,10 +157,10 @@ module Player
       msg[8..-5].unpack("a20" * c).each_with_index do |s,i|
         @actuators[i] ||= Actuator.new(i,self)
         @actuators[i].read_state(s)
-        debug "Get state for actuator ##{i}: " + hash_to_sft(@actuators[i].state)
+        debug "Got state for actuator ##{i}: " + hash_to_sft(@actuators[i].state)
       end
       @state[:motor_state] = msg[-4,4].unpack("N")[0]
-      debug "Get state: motor_state=%d" % @state[:motor_state]
+      debug "Got state: motor_state=%d" % @state[:motor_state]
     end
 
     def read_geom(msg)
@@ -168,10 +168,10 @@ module Player
       msg[8..-48].unpack("a80" * c).each_with_index do |s, i|
         @actuators[i] ||= Actuator.new(i,self)
         @actuators[i].read_geom(s)
-        debug "Get geom for actuator ##{i}: " + hash_to_sft(@actuators[i].geom)
+        debug "Got geom for actuator ##{i}: " + hash_to_sft(@actuators[i].geom)
       end
       fill_hash!(@geom, msg[-48..-1].unpack("G6"))
-      debug("Get geom: " + hash_to_sft(@geom))
+      debug("Got geom: " + hash_to_sft(@geom))
     end
   end
 end

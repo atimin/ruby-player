@@ -74,7 +74,7 @@ module Player
     end
 
     def unexpected_message(hdr)
-      warn "Get unexpection message type #{hdr.type_name}::#{hdr.subtype_name} for #@addr"
+      warn "Got unexpection message type #{hdr.type_name}::#{hdr.subtype_name} for #@addr"
     end
 
     def hash_to_sft(hash)

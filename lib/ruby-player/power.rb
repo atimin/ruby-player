@@ -126,7 +126,7 @@ module Player
     private
     def read_state(msg)
       fill_hash!(@state, msg.unpack("NggggN"))
-      debug "Get state: " + hash_to_sft(@state)
+      debug "Got state: " + hash_to_sft(@state)
     end
   end
 end

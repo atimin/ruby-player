@@ -170,23 +170,23 @@ module Player
     private
     def read_state(msg)
       fill_hash!(@state, msg.unpack("NNN"))
-      debug "Get state: " + hash_to_sft(@state)
+      debug "Got state: " + hash_to_sft(@state)
     end
 
     def read_geom(msg)
       data = msg.unpack("G12NN")
       fill_hash!(@geom[:pose], data)
-      debug "Get pose: " + hash_to_sft(@geom[:pose])
+      debug "Got pose: " + hash_to_sft(@geom[:pose])
 
       fill_hash!(@geom[:outer_size], data)
-      debug "Get outer size: " + hash_to_sft(@geom[:outer_size])
+      debug "Got outer size: " + hash_to_sft(@geom[:outer_size])
 
       fill_hash!(@geom[:inner_size], data)
-      debug "Get inner size: " + hash_to_sft(@geom[:inner_size])
+      debug "Got inner size: " + hash_to_sft(@geom[:inner_size])
 
       @geom[:number_beams] = data.shift
       @geom[:capacity] = data.shift
-      debug("Get number_beams=%{number_beams}, capacity=%{capacity}" % @geom)
+      debug("Got number_beams=%{number_beams}, capacity=%{capacity}" % @geom)
     end
   end
 end

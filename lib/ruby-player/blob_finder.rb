@@ -15,6 +15,7 @@
 module Player
   # The blobfinder interface provides access to devices that detect blobs in images
   class BlobFinder < Device
+    include Enumerable
     
     # Blobfinder data
     # @return [Hash] iby defult{ width: 0.0, height: 0.0, blobs: [] }
@@ -33,9 +34,27 @@ module Player
     def initialize(dev, client)
       super
       @blobs = []
-      @state = { width: 0.0, height: 0.0, blobs: @blobs }
+      @state = { width: 0, height: 0, blobs: @blobs }
       @color = { channel: 0, rmin: 0, rmax: 0, gmin: 0, gmax: 0, bmin: 0, bmax: 0 }
       @imager_params = { brightness: 0, contrast: 0, colormode: 0, autogain: 0 }
+    end
+
+    # The image width. 
+    # @return [Integer]
+    def width
+      state[:width] 
+    end
+
+    # The image height. 
+    # @return [Integer]
+    def height
+      state[:height] 
+    end
+
+    # The list of blobs.
+    # @return [Array] 
+    def blobs
+      state[:blobs] 
     end
 
     # Query color settings
@@ -46,7 +65,7 @@ module Player
     end
 
     # Set tracking color.
-    #`@param [Hash] color
+    # @param [Hash] color
     # @option [Integer] color :chanel For devices that can track multiple colors, indicate which color channel we are defining with this structure. 
     # @option [Integer] color :rmin RGB minimum and max values (0-255) 
     # @option [Integer] color :rmax RGB maximum and max values (0-255) 
@@ -88,6 +107,54 @@ module Player
 
       send_message(PLAYER_MSGTYPE_REQ, PLAYER_BLOBFINDER_REQ_SET_IMAGER_PARAMS, data.pack("N*"))
       self
+    end
+
+    def [](index)
+      @blobs[index] ||= Blob.new(index, self) 
+    end
+
+    def each
+      @blobs.each { |b| yield b }
+    end
+
+    def fill(hdr, msg)
+      case hdr.subtype
+      when PLAYER_BLOBFINDER_DATA_BLOBS
+        read_data(msg)
+      else
+        unexpected_message hdr
+      end
+    end
+
+    def handle_response(hdr, msg)
+      case hdr.subtype
+      when PLAYER_BLOBFINDER_REQ_GET_COLOR
+        read_color(msg)
+      when 1,2
+        nil
+      else
+        unexpected_message hdr
+      end
+    end
+
+    private
+    def read_data(msg)
+      data = msg[0..16].unpack("N*")
+      state[:width] = data[0]
+      state[:height] = data[1]
+
+      debug "Get image size #{state[:width]}x#{state[:height]}"
+
+      blob_count = data[2] + data[3]*256
+      blob_count.times do |i|
+        blob_data = msg[i*40 + 16, 40].unpack("N9g")
+        fill_hash!(self[i].state, blob_data)
+        debug "Get blob: " + hash_to_sft(self[i].state) 
+      end
+    end
+
+    def read_color(msg)
+      fill_hash!(@color, msg.unpack("N7"))
     end
   end
 end

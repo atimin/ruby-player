@@ -8,8 +8,6 @@ Implement PLAYER_RANGER_DATA_RANGESTAMPED and PLAYER_RANGER_DATA_INTNSTAMPED
 Candidates for support
 --------------------------------------
 
-**blobfinder** - The blobfinder proxy provides an interface to color blob detectors such as the ACTS vision system.
-
 **graphics2d** - The graphics2d proxy provides an interface to the graphics2d.
 
 **graphics3d** - The graphics3d proxy provides an interface to the graphics3d.

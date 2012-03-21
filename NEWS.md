@@ -6,6 +6,7 @@
 * Added #position, #speed, #acceleration and #current attributes for Actor class.
 * Added #px, #py, #pa, #vx, #vy, #va and #power? attributes for Position2d class. Method #power is deprecated.
 * Added #volts, #percent, #joules and #watts attributes for Power class.
+* Added blobfinder interface
 
 ## 2012-03-06 0.4.1
 

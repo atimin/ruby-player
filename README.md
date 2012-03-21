@@ -40,6 +40,7 @@ The list of support objects and devices of Player.
 
 * Client object
 * ActArray
+* BlobFinder
 * Gripper
 * Position2d
 * Power

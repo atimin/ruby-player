@@ -14,6 +14,7 @@
 
 module Player
   # The position2d proxy provides an interface to a mobile robot base
+  # TODO: Implement PLAYER_POSITION2D_CMD_POS command
   #
   # @example
   #   # get proxy object

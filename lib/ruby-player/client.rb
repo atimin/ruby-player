@@ -94,7 +94,7 @@ module Player
 
       read!
       
-      @devices.select { |d| d.addr.interface == code && d.addr.index == index}.first
+      @dev
     end
 
     # Check connection
@@ -135,7 +135,7 @@ module Player
         nil
       when PLAYER_PLAYER_REQ_DEV
         # read device identifier
-        dev = DevAddr.decode(msg[0,PLAYERXDR_DEVADDR_SIZE])
+        dev_addr = DevAddr.decode(msg[0,PLAYERXDR_DEVADDR_SIZE])
         # read the granted access and driver name
         data = msg[PLAYERXDR_DEVADDR_SIZE,8].unpack("N*")
         access = data[0]
@@ -143,12 +143,18 @@ module Player
         drv_name = msg[-data[1]-2..-1]
 
         if access == PLAYER_ERROR_MODE
-          raise_error "Error subscribing to " + dev.interface_name + ":" + dev.index 
+          raise_error "Error subscribing to " + dev_addr.interface_name + ":" + dev_addr.index 
         end
         
-        debug "Got response: #{dev.interface_name}:#{dev.index} (driver name - #{drv_name})"
+        debug "Got response: #{dev_addr.interface_name}:#{dev_addr.index} (driver name - #{drv_name})"
 
-        @devices << make_device(dev)
+        @dev = make_device(dev_addr)
+        if @devices.one? { |d| d.addr == dev_addr }
+          warn "The device #{dev_addr.interface_name}:#{dev_addr.index} has already been subscribed" 
+          @dev = nil 
+        else 
+          @devices << @dev
+        end
       when PLAYER_PLAYER_REQ_DATAMODE, PLAYER_PLAYER_REQ_DATA
         nil
       else

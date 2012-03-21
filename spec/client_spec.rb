@@ -140,6 +140,15 @@ describe Player::Client do
       should_recive_sync
     end
 
+    it 'should for unique devices' do
+      mock_subscribe(PLAYER_POSITION2D_CODE)
+      @cl.subscribe("position2d")
+
+
+      mock_subscribe(PLAYER_POSITION2D_CODE)
+      @cl.subscribe("position2d").should be_nil
+    end
+
     it "should describe to position2d:0" do
       mock_subscribe(PLAYER_POSITION2D_CODE)
    

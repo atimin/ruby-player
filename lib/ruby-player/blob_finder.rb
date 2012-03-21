@@ -95,6 +95,9 @@ module Player
       self
     end
 
+    # Get blob
+    # @param [Integer] blob index 
+    # @return [Blob] blob
     def [](index)
       @blobs[index] ||= Blob.new(index, self) 
     end

@@ -155,6 +155,9 @@ module Player
       end
     end
 
+    # Get sensor
+    # @param [Integer] index
+    # @retrun [Sensor] sensor
     def [](index)
       @sensors[index] ||= Sensor.new(index, self)
     end

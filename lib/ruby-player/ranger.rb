@@ -41,25 +41,25 @@ module Player
 
     # @deprecated use `ranger.collect { |r| r.range }
     def rangers
-      warn "Method `rangers` is deprecated. Pleas use `ranger.collect { |r| r.state[:range] }`"
+      warn "Method `rangers` is deprecated. Pleas use `ranger.collect { |r| r.range }`"
       @sensors.collect { |s| s.range }
     end
     
     # @deprecated use `ranger.collect { |r| r.intensity }
     def intensities
-      warn "Method `intensities` is deprecated. Pleas use `ranger.collect { |r| r.state[:intensity] }`"
+      warn "Method `intensities` is deprecated. Pleas use `ranger.collect { |r| r.intensity }`"
       @sensors.collect { |s| s.intensity }
     end
 
     # Query ranger geometry 
-    # @return self
+    # @return [Ranger] self
     def query_geom
       send_message(PLAYER_MSGTYPE_REQ, PLAYER_RANGER_REQ_GET_GEOM)
       self
     end
 
     # Turn on ranger
-    # @return self
+    # @return [Ranger] self
     def power_on!
       send_message(PLAYER_MSGTYPE_REQ, PLAYER_RANGER_REQ_POWER, [1].pack("N")) 
       self
@@ -72,6 +72,7 @@ module Player
     end
 
     # Turn off ranger
+    # @return [Ranger] self
     def power_off!
       send_message(PLAYER_MSGTYPE_REQ, PLAYER_RANGER_REQ_POWER, [0].pack("N")) 
       self
@@ -83,17 +84,20 @@ module Player
       power_off!
     end
 
+    # @return [Ranger] self
     def intensity_enable!
       send_message(PLAYER_MSGTYPE_REQ, PLAYER_RANGER_REQ_INTNS, [1].pack("N"))
       self
     end
 
+    # @return [Ranger] self
     def intensity_disable!
       send_message(PLAYER_MSGTYPE_REQ, PLAYER_RANGER_REQ_INTNS, [0].pack("N"))
       self
     end
 
     # Query ranger configuration
+    # @return [Ranger] self
     def query_config
       send_message(PLAYER_MSGTYPE_REQ, PLAYER_RANGER_REQ_GET_CONFIG)
       self
@@ -108,18 +112,11 @@ module Player
     # @option config :max_range minimum range [m]
     # @option config :range_res range resolution [m]
     # @option config :frequency scanning frequency [Hz]
-    def set_config(config)
-      data = [
-        config[:min_angle].to_f || @ranger[:min_angle],
-        config[:max_angle].to_f || @ranger[:max_angle],            
-        config[:angular_res].to_f || @ranger[:angular_res],            
-        config[:min_range].to_f || @ranger[:min_range],
-        config[:max_range].to_f || @ranger[:max_range],
-        config[:range_res].to_f || @ranger[:range_res],
-        config[:frequecy].to_f || @ranger[:frequecy] 
-      ]
-
+    # @return [Ranger] self
+    def set_config(config={})
+      data = to_a_by_default(config, @config)
       send_message(PLAYER_MSGTYPE_REQ, PLAYER_RANGER_REQ_SET_CONFIG, data.pack("G*"))
+      self
     end
 
     def fill(hdr, msg)

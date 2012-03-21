@@ -69,6 +69,10 @@ module Player
       end
     end
 
+    def to_a_by_default(src, default)
+      default.keys.map { |k| src[k] || default[k] }
+    end
+
     def unexpected_message(hdr)
       warn "Get unexpection message type #{hdr.type_name}::#{hdr.subtype_name} for #@addr"
     end

@@ -70,12 +70,14 @@ module Player
     # @param [Hash] policy
     # @option policy [Boolean] :enable_input boolean controlling recharging
     # @option policy [Boolean] :enable_output bolean controlling whether others can recharge from this device
+    # @return [Power] self
     def set_charging_policy(policy={})
       data = [
         policy[:enable_input] ? 1 : 0,
         policy[:enable_output] ? 1 : 0
       ]
       send_message(PLAYER_MSGTYPE_REQ, PLAYER_POWER_REQ_SET_CHARGING_POLICY, data.pack("NN"))
+      self
     end
 
     # Check volts valid

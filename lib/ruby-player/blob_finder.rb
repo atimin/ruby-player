@@ -75,15 +75,7 @@ module Player
     # @option [Integer] color :bmax RGB maximum and max values (0-255) 
     # @return [BlobFinder] self
     def set_color(color={})
-      data = [
-        color[:channel] || @color[:channel],
-        color[:rmin] || @color[:rmin],
-        color[:rmax] || @color[:rmax],
-        color[:gmin] || @color[:gmin],
-        color[:gmax] || @color[:gmax],
-        color[:bmin] || @color[:bmin],
-        color[:bmax] || @color[:bmax],
-      ]
+      data = to_a_by_default(color, @color)
 
       send_message(PLAYER_MSGTYPE_REQ, PLAYER_BLOBFINDER_REQ_SET_COLOR, data.pack("N*"))
       self
@@ -98,13 +90,7 @@ module Player
     # @option [Integer] params :autogain auto gain (0=off, 1=on)
     # @return [BlobFinder] self
     def set_imager_params(params={})
-      data = [
-        params[:brightness] || @imager_params[:brightness],
-        params[:contrast] || @imager_params[:contrast],
-        params[:colormode] || @imager_params[:colormode],
-        params[:autogain] || @imager_params[:autogain]
-      ]
-
+      data = to_a_by_default(params, @imager_params)
       send_message(PLAYER_MSGTYPE_REQ, PLAYER_BLOBFINDER_REQ_SET_IMAGER_PARAMS, data.pack("N*"))
       self
     end

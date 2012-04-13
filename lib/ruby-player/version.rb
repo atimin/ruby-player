@@ -13,5 +13,5 @@
 # GNU General Public License for more details.
 
 module Player
-  VERSION = "0.6.0"
+  VERSION = "0.6.0dev"
 end

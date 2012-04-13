@@ -1,3 +1,7 @@
+## Next 0.6.0
+
+* Added method Position2d#set_pose
+
 ## 2012-04-13 0.5.1
 
 * Fixed bugs in XDR array for ActArray, BlobFinder and Ranger classes.

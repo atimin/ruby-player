@@ -14,7 +14,6 @@
 
 module Player
   # The position2d proxy provides an interface to a mobile robot base
-  # TODO: Implement PLAYER_POSITION2D_CMD_POS command
   #
   # @example
   #   # get proxy object
@@ -233,7 +232,7 @@ module Player
     # @option speeds :va rotational speed (rad/s).     
     # @option speeds :stall state of motor
     # @return [Position2d] self
-    def set_speed(speeds)
+    def set_speed(speeds={})
       data = [
         speeds[:vx] || @state[:vx],
         speeds[:vy] || @state[:vy],
@@ -249,7 +248,7 @@ module Player
     # @option speeds :vx forward speed (m/s)
     # @option speeds :a turning angle (rad).     
     # @return [Position2d] self
-    def set_car(speeds)
+    def set_car(speeds={})
       data = [ 
         speeds[:vx] || @state[:vx],
         speeds[:a] || 0
@@ -264,12 +263,38 @@ module Player
     # @option speeds :vx forward speed (m/s)
     # @option speeds :a absolutle angle (rad).     
     # @return [Position2d] self
-    def set_speed_head(speeds)
+    def set_speed_head(speeds={})
       data = [ 
         speeds[:vx] || @state[:vx],
-        speeds[:a] || @state[:pa]
+        speeds[:a] || @state[:pa],
       ]
       send_message(PLAYER_MSGTYPE_CMD, PLAYER_POSITION2D_CMD_VEL_HEAD, data.pack("GG"))
+      self
+    end
+
+    # Set the target pose  with motion vel. (gx, gy, ga) is the target pose in the
+    # odometric coordinate system.
+    # @param [Hash] pose
+    # @option pose :gx x coordinate [m]
+    # @option pose :gy y coordinate [m]
+    # @option pose :ga angle [rad] 
+    # @option pose :vx forward vel [m/s] (default current)
+    # @option pose :vy sideways vel [m/s] (default current)
+    # @option pose :va rotational speed [rad/s] (default current)
+    # @option pose :stall state of motor (default current)
+    # @return [Position2d] self
+    def set_pose(pose={})
+      data = [
+        pose[:gx].to_f,
+        pose[:gy].to_f,
+        pose[:ga].to_f,
+        pose[:vx] || @state[:vx],
+        pose[:vy] || @state[:vy],
+        pose[:va] || @state[:va],
+        pose[:stall] || @state[:stall]
+      ]
+
+      send_message(PLAYER_MSGTYPE_CMD, PLAYER_POSITION2D_CMD_POS, data.pack("GGGGGGN"))
       self
     end
 

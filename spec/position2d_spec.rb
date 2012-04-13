@@ -162,6 +162,13 @@ describe Player::Position2d do
     @pos2d.set_speed_head(speed)
   end
 
+  it 'should set pose' do
+    pose = { gx: 0.4, gy: 0.5, ga: 0.7, vx: 0.1, vy: 0.2, va: 0.3, stall: 1 }
+    should_send_message(PLAYER_MSGTYPE_CMD, PLAYER_POSITION2D_CMD_POS, pose.values.pack("GGGGGGN"))
+
+    @pos2d.set_pose(pose)
+  end
+
   it 'should have stop' do
     @pos2d.should_receive(:set_speed).with(vx: 0, vy: 0, va: 0)
     @pos2d.stop!

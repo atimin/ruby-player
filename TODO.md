@@ -5,10 +5,6 @@ For supported devices
 
 Implement PLAYER_RANGER_DATA_RANGESTAMPED and PLAYER_RANGER_DATA_INTNSTAMPED
 
-**position2d** - The position2d proxy provides an interface to a mobile robot base
-
-Implement PLAYER_POSITION2D_CMD_POS command
-
 Candidates for support
 --------------------------------------
 

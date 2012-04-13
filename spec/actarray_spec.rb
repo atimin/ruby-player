@@ -93,7 +93,7 @@ describe Player::ActArray do
   end
   
   it 'should fill state data' do
-    state = [2, 0, 1.0, 2.0, 3.0, 4.0, PLAYER_ACTARRAY_ACTSTATE_IDLE, 
+    state = [2, 2, 1.0, 2.0, 3.0, 4.0, PLAYER_ACTARRAY_ACTSTATE_IDLE, 
       5.0, 6.0, 7.0, 8.0, PLAYER_ACTARRAY_ACTSTATE_MOVING, 
       1]
 
@@ -109,7 +109,7 @@ describe Player::ActArray do
   end
   
   it 'should get geom by request' do
-   geom = [2, 0,
+   geom = [2, 2,
      PLAYER_ACTARRAY_TYPE_LINEAR, 2.0, 0.1, 0.2, 0.3, 1.0, 2.0, 3.0, 0.0, 0.5, 1.0, 0.0, 2.0, 0, 
      PLAYER_ACTARRAY_TYPE_ROTARY, 4.0, 1.1, 1.2, 1.3, 1.1, 2.1, 3.1, 0.0, 0.5, 1.0, 1.0, 1.0, 1,
      0.5, 0.6, 0.7, 1.5, 1.6, 1.7]

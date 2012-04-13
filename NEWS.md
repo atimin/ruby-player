@@ -1,3 +1,7 @@
+## 2012-04-13 0.5.1
+
+* Fixed bugs in XDR array for ActArray, BlobFinder and Ranger classes.
+
 ## 2012-03-21 0.5.0
 
 * Log level by default :notice is removed. Use :info. 

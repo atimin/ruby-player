@@ -252,7 +252,7 @@ module Player
     def set_car(speeds)
       data = [ 
         speeds[:vx] || @state[:vx],
-        speeds[:a] || @state[:pa]
+        speeds[:a] || 0
       ]
       send_message(PLAYER_MSGTYPE_CMD, PLAYER_POSITION2D_CMD_CAR, data.pack("GG"))
       self

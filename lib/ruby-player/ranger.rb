@@ -178,11 +178,11 @@ module Player
 
 
       p_count =  msg[72,8].unpack("NN")
-      p_count = p_count[0] + p_count[1] * 256
+      p_count = p_count[0]
       poses = msg[80, 48*p_count].unpack("G" + (6*p_count).to_s)
 
       s_count = msg[80 + 48*p_count, 8].unpack("NN")
-      s_count = s_count[0] + s_count[1] * 256
+      s_count = s_count[0]
       sizes = msg[88 + 48*p_count, 24*s_count].unpack("G" +(3* s_count).to_s)
 
       p_count.times do |i|

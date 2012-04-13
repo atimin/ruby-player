@@ -52,7 +52,7 @@ describe Player::BlobFinder do
   end
 
   it 'should fill blobs data' do
-    blobs = [10, 20, 2, 0,
+    blobs = [10, 20, 2, 2,
       0, 222, 20, 5, 4, 10, 10, 20, 20, 0.5,
       1, 111, 40, 5, 8, 20, 30, 40, 50, 2.5]
     msg = blobs.pack("NNNNN9gN9g")

@@ -134,7 +134,7 @@ module Player
 
       debug "Got image size #{state[:width]}x#{state[:height]}"
 
-      blob_count = data[2] + data[3]*256
+      blob_count = data[2]
       blob_count.times do |i|
         blob_data = msg[i*40 + 16, 40].unpack("N9g")
         fill_hash!(self[i].state, blob_data)

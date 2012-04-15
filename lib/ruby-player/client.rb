@@ -219,5 +219,13 @@ module Player
       debug "Read #{hdr}"
       hdr
     end
+
+    def method_missing(name, *args)
+      if Player.constants.include?("PLAYER_#{name.to_s.upcase}_CODE".to_sym)
+        subscribe(name, index:args[0], access:args[1])
+      else
+        super
+      end
+    end
   end
 end

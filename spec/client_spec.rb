@@ -124,20 +124,31 @@ describe Player::Client do
   end
 
   describe "Subscribe" do
-    def mock_subscribe(code, index=0)
+    def mock_subscribe(code, index=0, mode=PLAYER_OPEN_MODE)
       should_send_message(
         hdr(0, 0, 1, 0, PLAYER_MSGTYPE_REQ, PLAYER_PLAYER_REQ_DEV, 0.0, 0, 28),
-        [0, 0, code, index, PLAYER_OPEN_MODE, 0, 0].pack("N*")
+        [0, 0, code, index, mode, 0, 0].pack("N*")
       )
 
       should_request_data
 
       should_read_message(
         hdr(16777343, 6665, PLAYER_PLAYER_CODE, 0, PLAYER_MSGTYPE_RESP_ACK, PLAYER_PLAYER_REQ_DEV, 0.0, 0, 35),
-        [0, 6665, code, index, PLAYER_OPEN_MODE, 5, 5].pack("N*") + "mock"
+        [0, 6665, code, index, mode, 5, 5].pack("N*") + "mock"
       )
 
       should_recive_sync
+    end
+
+    it 'should have alternate method for subscribing' do
+      mock_subscribe(PLAYER_POSITION2D_CODE)
+      @cl.position2d
+
+      mock_subscribe(PLAYER_RANGER_CODE, 1)
+      @cl.ranger(1)
+
+      mock_subscribe(PLAYER_GRIPPER_CODE, 2, PLAYER_CLOSE_MODE)
+      @cl.gripper(2, PLAYER_CLOSE_MODE)
     end
 
     it 'should for unique devices' do

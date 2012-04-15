@@ -22,17 +22,19 @@ Install
 Example
 -------------------------------------
 
+  ```ruby
     require 'ruby-player'
     Player::Client.connect("localhost") do |robot|
-      pos2d = robot.subscribe("position2d", index: 0)
-      ranger = robot.subscribe(:ranger)
+      pos2d = robot.position2d(1)
+      ranger = robot.ranger
       pos2d.set_speed(vx: 1, vy: 0, va: 0.2)
       #main loop
       robot.loop do
         puts "Position: x=%{px}, y=%{py}, a=%{pa}" % pos2d.state
-        puts "Rangers: #{ranger.collect { |r| r.range }}"
+        puts "Rangers: #{ranger.collect(&:range)}"
       end
     end
+  ```
 
 API coverage 
 -------------------------------------

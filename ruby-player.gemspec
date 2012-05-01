@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = Player::VERSION
   s.authors     = ["Aleksey Timin"]
   s.email       = ["atimin@gmail.com"]
-  s.homepage    = "http://www.github.com/flipback/ruby-player"
+  s.homepage    = "http://flipback.github.com/ruby-player/"
   s.summary     = %q{Ruby player - client library for the Player (operation system for robots) in pure Ruby.}
   s.description = %q{Ruby Player - client library for the Player (operation system for robots) in pure Ruby.}
 

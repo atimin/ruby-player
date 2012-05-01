@@ -59,7 +59,7 @@ Requirements
 References
 -------------------------------------
 
-[Home page](http://www.github.com/flipback/ruby-player)
+[Home page](http://flipback.github.com/ruby-player/)
 
 [Wiki](https://github.com/flipback/ruby-player/wiki)
 

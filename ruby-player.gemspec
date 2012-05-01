@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Aleksey Timin"]
   s.email       = ["atimin@gmail.com"]
   s.homepage    = "http://www.github.com/flipback/ruby-player"
-  s.summary     = %q{Ruby Player - Ruby client library for Player (tools for robots)}
-  s.description = %q{Ruby Player - Ruby client library for Player (tools for robots)}
+  s.summary     = %q{Ruby player - client library for the Player (operation system for robots) in pure Ruby.}
+  s.description = %q{Ruby Player - client library for the Player (operation system for robots) in pure Ruby.}
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")

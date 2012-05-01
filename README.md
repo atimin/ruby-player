@@ -1,4 +1,4 @@
-Ruby Player - Ruby client library for Player (operation system for robots) in pure Ruby. [![Build Status](https://secure.travis-ci.org/flipback/ruby-player.png)](http://travis-ci.org/flipback/ruby-player)
+Ruby Player - client library for the Player (operation system for robots) in pure Ruby. [![Build Status](https://secure.travis-ci.org/flipback/ruby-player.png)](http://travis-ci.org/flipback/ruby-player)
 
 Summary
 -------------------------------------

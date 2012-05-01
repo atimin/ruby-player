@@ -1,0 +1,138 @@
+<!doctype html>
+<!-- The Time Machine GitHub pages theme was designed and developed by Jon Rohan, on Feb 7, 2012. -->
+<!-- Follow him for fun. http://twitter.com/jonrohan. Tail his code on http://github.com/jonrohan -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <link rel="stylesheet" href="stylesheets/stylesheet.css" media="screen"/>
+  <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="javascripts/script.js"></script>
+
+  <title>Ruby-player</title>
+  <meta name="description" content="Client library for the Player (operation system for robots) in pure Ruby">
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <header>
+      <h1 class="title">Ruby-player</h1>
+    </header>
+    <div id="container">
+      <p class="tagline">Client library for the Player (operation system for robots) in pure Ruby</p>
+      <div id="main" role="main">
+        <div class="download-bar">
+        <div class="inner">
+          <a href="https://github.com/flipback/ruby-player/tarball/master" class="download-button tar"><span>Download</span></a>
+          <a href="https://github.com/flipback/ruby-player/zipball/master" class="download-button zip"><span>Download</span></a>
+          <a href="https://github.com/flipback/ruby-player" class="code">View Ruby-player on GitHub</a>
+        </div>
+        <span class="blc"></span><span class="trc"></span>
+        </div>
+        <article class="markdown-body">
+          <p>Ruby Player - client library for the Player (operation system for robots) in pure Ruby. <a href="http://travis-ci.org/flipback/ruby-player"><img src="https://secure.travis-ci.org/flipback/ruby-player.png" alt="Build Status"></a></p>
+
+<h2>Summary</h2>
+
+<p>Ruby Player provide high level client library to access to Player server in pure Ruby.</p>
+
+<p>This project is active developing now! <em>Please don't use it in serious projects.</em></p>
+
+<h2>Why?</h2>
+
+<p>The Player project distributes bindings of client libraries for Ruby and Python but I think that this project has several reasons to be:</p>
+
+<ol>
+<li>Pure implementation doesn't require C\C++ libraries of Player, SWIG and compilator. You can use it on any platform with installed Ruby.</li>
+<li>In contrast to standard bindings Ruby Player is spreaded as gem and you can use it with Bundle, RVM and others tools which we all are loving.</li>
+<li>Standard bindings doesn't use the expression of Ruby. Calls of function in C style without blocks, hashes and exceptions. </li>
+</ol><h2>Install</h2>
+
+<p><code>gem install ruby-player</code></p>
+
+<h2>Example</h2>
+
+<div class="highlight">
+<pre>    <span class="nb">require</span> <span class="s1">'ruby-player'</span>
+    <span class="no">Player</span><span class="o">::</span><span class="no">Client</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">"localhost"</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">robot</span><span class="o">|</span>
+      <span class="n">pos2d</span> <span class="o">=</span> <span class="n">robot</span><span class="o">.</span><span class="n">position2d</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+      <span class="n">ranger</span> <span class="o">=</span> <span class="n">robot</span><span class="o">.</span><span class="n">ranger</span>
+      <span class="n">pos2d</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="n">vx</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">vy</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">va</span><span class="p">:</span> <span class="mi">0</span><span class="o">.</span><span class="mi">2</span><span class="p">)</span>
+      <span class="c1">#main loop</span>
+      <span class="n">robot</span><span class="o">.</span><span class="n">loop</span> <span class="k">do</span>
+        <span class="nb">puts</span> <span class="s2">"Position: x=%{px}, y=%{py}, a=%{pa}"</span> <span class="o">%</span> <span class="n">pos2d</span><span class="o">.</span><span class="n">state</span>
+        <span class="nb">puts</span> <span class="s2">"Rangers: </span><span class="si">#{</span><span class="n">ranger</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:range</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+</pre>
+</div>
+
+
+<h2>API coverage </h2>
+
+<p>The list of support objects and devices of Player.</p>
+
+<ul>
+<li>Client object</li>
+<li>ActArray</li>
+<li>BlobFinder</li>
+<li>Gripper</li>
+<li>Position2d</li>
+<li>Power</li>
+<li>Ranger</li>
+</ul><h2>Requirements</h2>
+
+<ul>
+<li>Ruby 1.9.2 or later </li>
+<li>Player 3.1.0 or later</li>
+<li>For examples Stage 4.1.0 or later</li>
+</ul><h2>References</h2>
+
+<p><a href="https://github.com/flipback/ruby-player/wiki">Wiki</a></p>
+
+<p><a href="http://rubydoc.info/gems/ruby-player/">Documentation</a></p>
+
+<p><a href="http://playerstage.sourceforge.net/">Player project</a></p>
+
+<p><a href="http://playerstage.sourceforge.net/doc/Player-svn/player/group__player__clientlib__libplayerc.html">C API Player</a></p>
+
+<h2>Authors</h2>
+
+<p>Aleksey Timin <a href="mailto:atimin@gmail.com">atimin@gmail.com</a></p>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <div class="owner">
+      <p><a href="https://github.com/flipback" class="avatar"><img src="https://secure.gravatar.com/avatar/47be4ce472dce45ed98f6e704616eca9?s=30&amp;d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png" width="48" height="48"/></a> <a href="https://github.com/flipback">flipback</a> maintains <a href="https://github.com/flipback/ruby-player">Ruby-player</a></p>
+      </div>
+      <div class="creds">
+        <small>This page generated using <a href="https://pages.github.com/">GitHub Pages</a><br/>theme by <a href="http://twitter.com/jonrohan/">Jon Rohan</a></small>
+      </div>
+    </footer>
+  </div>
+  <div class="current-section">
+    <a href="#top">Scroll to top</a>
+    <a href="https://github.com/flipback/ruby-player/tarball/master" class="tar">tar</a><a href="https://github.com/flipback/ruby-player/zipball/master" class="zip">zip</a><a href="" class="code">source code</a>
+    <p class="name"></p>
+  </div>
+
+            <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-12356703-4");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+</body>
+</html>

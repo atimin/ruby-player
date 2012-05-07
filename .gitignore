@@ -1,0 +1,4 @@
+*.sw?
+Gemfile.lock
+.yardoc/
+_site/

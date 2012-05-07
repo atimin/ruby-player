@@ -1,0 +1,13 @@
+safe:       false
+auto:        true
+
+source:      .
+destination: ./_site
+plugins:     ./_plugins
+
+lsi:         false
+pygments:    true
+permalink:   date
+server:      true
+
+markdown: rdiscount

@@ -150,7 +150,7 @@ a:hover {
 #menu-wrapper {
 	overflow: hidden;
 	height: 56px;
-	background: url(/img/img01.gif) repeat-x left top;
+	background: url(img/img01.gif) repeat-x left top;
 }
 
 #menu {

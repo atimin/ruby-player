@@ -1,9 +1,10 @@
-safe:       false
+safe:       true
 auto:        true
 
-lsi:         false
 pygments:    true
 permalink:   date
 server:      true
-baseurl:     /ruby-player
+
+baseurl: /ruby-player
+
 markdown:    rdiscount

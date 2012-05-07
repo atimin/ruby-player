@@ -5,5 +5,5 @@ lsi:         false
 pygments:    true
 permalink:   date
 server:      true
-
-markdown: rdiscount
+baseurl:     /ruby-player
+markdown:    rdiscount

@@ -13,21 +13,22 @@ Released   : 20120401
 -->
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+<base href="{{ site.baseurl }}" />
 <meta name="keywords" content="ruby robots playerstage" />
 <meta name="description" content="PlayerRuby is client library for the Player servre (robot's OS) in pure Ruby" />
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <title>{{ page.title }}</title>
 <link href="http://fonts.googleapis.com/css?family=Arvo" rel="stylesheet" type="text/css" />
 <link href="http://fonts.googleapis.com/css?family=Coda:400,800" rel="stylesheet" type="text/css" />
-<link href="/css/style.css" rel="stylesheet" type="text/css" media="screen" />
-<link href="/css/pyg.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="{{ site.baseurl }}/css/style.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="{{ site.baseurl }}/css/pyg.css" rel="stylesheet" type="text/css" media="screen" />
 </head>
 <body>
 <div id="menu-wrapper">
 	<div id="menu">
 		<ul>
-			<li class="current_page_item"><a href="/">Homepage</a></li>
-      <li><a href="/about.html">About</a></li>
+      <li class="current_page_item"><a href="{{ site.baseurl }}/">Homepage</a></li>
+      <li><a href="{{ site.baseurl }}/about.html">About</a></li>
       <li><a href="https://github.com/flipback/ruby-player">Code</a></li>
 			<li><a href="https://github.com/flipback/ruby-player/wiki">Wiki</a></li>
 			<li><a href="http://rubydoc.info/gems/ruby-player/">API</a></li>
@@ -38,7 +39,7 @@ Released   : 20120401
 <div id="header-wrapper">
 	<div id="header">
 		<div id="logo">
-			<h1><a href="http://flipback.github.com/ruby-player">Ruby <span>Player</span></a></h1>
+      <h1><a href="{{ site.baseurl }}/">Ruby <span>Player</span></a></h1>
 			<p>Play with your robots fun</p>
 		</div>
 	</div>

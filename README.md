@@ -4,8 +4,6 @@ Summary
 -------------------------------------
 Ruby Player provide high level client library to access to Player server in pure Ruby.
 
-This project is active developing now! *Please don't use it in serious projects.*
-
 Why?
 -------------------------------------
 The Player project distributes bindings of client libraries for Ruby and Python but I think that this project has several reasons to be:

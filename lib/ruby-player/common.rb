@@ -69,6 +69,14 @@ module Player
       end
     end
 
+    def symbolize_hash(hash)
+      hash.inject({}) do |memo,(k,v)| 
+        v = symbolize_hash(v) if v.class <= Hash
+        memo[k.to_sym] = v;
+        memo
+      end
+    end
+
     def to_a_by_default(src, default)
       default.keys.map { |k| src[k] || default[k] }
     end

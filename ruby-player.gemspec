@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 1.9.2'
 
   s.add_runtime_dependency "isna", '~>0.0.4'
+  s.add_runtime_dependency "bindata"
 
   s.add_development_dependency "rspec", '~> 2.7'
   s.add_development_dependency "rake", '~> 0.9'

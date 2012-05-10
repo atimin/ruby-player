@@ -23,45 +23,6 @@ module Player
   # Some grippers also have the ability to move the a carried object into a storage system, 
   # freeing the gripper to pick up a new object, and move objects from the storage system back into the gripper.
   class Gripper < Device
-    class Size < BinData::Record
-      endian  :big
-
-      double  :sw
-      double  :sl
-      double  :sh
-    end
-    
-    class Pose < BinData::Record
-      endian  :big
-
-      double  :px
-      double  :py
-      double  :pz
-
-      double  :proll
-      double  :ppitch
-      double  :pyaw
-    end
-
-    class State < BinData::Record
-      endian  :big
-      
-      int32   :state
-      int32   :beams
-      int32   :stored
-    end
-
-    class Geom < BinData::Record
-      endian  :big
-
-      pose    :pose
-      size    :outer_size
-      size    :inner_size
-
-      uint32  :number_beams
-      uint32  :capacity
-    end
-
     # The gripper interface returns the current state of the gripper 
     # and information on a potential object in the gripper. 
     #
@@ -75,9 +36,8 @@ module Player
     # *:stored* - Number of currently stored objects
     #
     # @return [Hash] { :state, :beams, :stored }
-    def state
-      symbolize_hash(@state.snapshot)
-    end
+    attr_reader :state
+
 
     # Geometry data of gripper
     #
@@ -96,14 +56,18 @@ module Player
     #   :inner_size => { :sw, :sl, :sh },
     #   :number_beams, :capacity
     #   }
-    def geom
-      symbolize_hash(@geom.snapshot)
-    end
+    attr_reader :geom
 
     def initialize(addr, client)
       super
-      @state = State.new(state: PLAYER_GRIPPER_STATE_OPEN)
-      @geom =  Geom.new
+      @state = { state: PLAYER_GRIPPER_STATE_OPEN, beams: 0, stored: 0 }
+      @geom = {
+        pose: { px: 0.0, py: 0.0, pz: 0.0, proll: 0.0, ppitch: 0.0, pyaw: 0.0 },
+        outer_size: { sw: 0.0, sl: 0.0, sh: 0.0 },
+        inner_size: { sw: 0.0, sl: 0.0, sh: 0.0 },
+        number_beams: 0,
+        capacity: 0
+      }
     end
 
     # Query gripper geometry 
@@ -205,16 +169,24 @@ module Player
 
     private
     def read_state(msg)
-      @state.read(msg)
+      fill_hash!(@state, msg.unpack("NNN"))
       debug "Got state: " + hash_to_sft(@state)
     end
 
     def read_geom(msg)
-      @geom = Geom.read(msg)
+      data = msg.unpack("G12NN")
+      fill_hash!(@geom[:pose], data)
       debug "Got pose: " + hash_to_sft(@geom[:pose])
+
+      fill_hash!(@geom[:outer_size], data)
       debug "Got outer size: " + hash_to_sft(@geom[:outer_size])
+
+      fill_hash!(@geom[:inner_size], data)
       debug "Got inner size: " + hash_to_sft(@geom[:inner_size])
-      debug "Got number_beams=#{@geom[:number_beams]}, capacity=#{@geom[:capacity]}"
+
+      @geom[:number_beams] = data.shift
+      @geom[:capacity] = data.shift
+      debug("Got number_beams=%{number_beams}, capacity=%{capacity}" % @geom)
     end
   end
 end

@@ -12,8 +12,6 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 
-require "bindata"
-
 require "ruby-player/version"
 require "ruby-player/constants"
 require "ruby-player/common"

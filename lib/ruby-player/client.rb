@@ -137,10 +137,10 @@ module Player
         # read device identifier
         dev_addr = DevAddr.decode(msg[0,PLAYERXDR_DEVADDR_SIZE])
         # read the granted access and driver name
-        data = msg[PLAYERXDR_DEVADDR_SIZE,8].unpack("N*")
+        data = msg[PLAYERXDR_DEVADDR_SIZE,8].unpack("NN")
         access = data[0]
         # read driver name
-        drv_name = msg[-data[1]-2..-1]
+        drv_name = msg[-data[1]-3..-1]
 
         if access == PLAYER_ERROR_MODE
           raise_error "Error subscribing to " + dev_addr.interface_name + ":" + dev_addr.index 

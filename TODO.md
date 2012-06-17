@@ -17,8 +17,6 @@ Candidates for support
 Device proxies are not started to develop
 --------------------------------------
 
-**aio** - The aio proxy provides an interface to the analog input/output sensors.
-
 **audio** - The audio proxy provides access to drivers supporting the audio_interface.
 
 **blinkenlight** - The blinkenlight proxy provides an interface to a (possibly colored and/or blinking) indicator light.

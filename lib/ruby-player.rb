@@ -25,6 +25,7 @@ require "ruby-player/client"
 #interfaces
 require "ruby-player/actuator"
 require "ruby-player/actarray"
+require "ruby-player/aio"
 require "ruby-player/blob"
 require "ruby-player/blob_finder"
 require "ruby-player/gripper"

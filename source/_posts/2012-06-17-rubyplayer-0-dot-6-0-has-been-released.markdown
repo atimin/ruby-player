@@ -31,6 +31,6 @@ aio.voltages #=> [0.2, 0.6, 0.7] - Voltages from 0 to 5 V
 aio[1] = 0.3 # Set voltage on #1 output
 {% endcodeblock %}
 
-Also I have cleaned code and deleted deprecated methods.
+Also I have cleaned code and deleted all deprecated methods.
 
 Regards, [@flipback](https://github.com/flipback).

@@ -1,4 +1,4 @@
-## Next 0.6.0
+## 2012-06-17 0.6.0
 
 * Deleted deprecated methods.
 * Added method Position2d#set_pose.

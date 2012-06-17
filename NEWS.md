@@ -1,12 +1,14 @@
 ## Next 0.6.0
 
-* Deleted deprecated methods
-* Added method Position2d#set_pose
+* Deleted deprecated methods.
+* Added method Position2d#set_pose.
 * Added alternate method for subscribing:
 
   ```ruby
     robot.ranger(1) # eql robot.subscribe(:ranger, index: 1)
   ```
+
+* Added *aio* interface.
 
 ## 2012-04-13 0.5.1
 

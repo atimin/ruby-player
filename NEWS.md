@@ -1,5 +1,6 @@
 ## Next 0.6.0
 
+* Deleted deprecated methods
 * Added method Position2d#set_pose
 * Added alternate method for subscribing:
 

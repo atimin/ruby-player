@@ -85,18 +85,6 @@ module Player
       state[:stall] != 0 
     end
 
-    # @deprecated Use {#power?}
-    def power
-      warn "Method `power` is deprecated. Pleas use `power?`"
-      power?
-    end
-
-    # @deprecated Use {#state}
-    def position
-      warn "Method `position` is deprecated. Pleas use `data` for access to position"
-      state
-    end
-
     # Query robot geometry 
     # @return [Position2d] self
     def query_geom
@@ -111,23 +99,11 @@ module Player
       self
     end
     
-    # @deprecated Use {#power_on!}
-    def turn_on!
-      warn "Method `turn_on!` is deprecated. Pleas use `power_on!`"
-      power_on!
-    end
-
     # Turn off motor
     # @return [Position2d] self
     def power_off!
       send_message(PLAYER_MSGTYPE_REQ, PLAYER_POSITION2D_REQ_MOTOR_POWER, [0].pack("N")) 
       self
-    end
-
-    # @deprecated Use {#power_off!}
-    def turn_off!
-      warn "Method `turn_off!` is deprecated. Pleas use `power_off!`"
-      power_off!
     end
 
     # @return [Position2d] self

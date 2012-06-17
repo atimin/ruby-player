@@ -22,11 +22,9 @@ module Player
   class Ranger < Device
     include Enumerable
 
- 
     # Configuration of ranger
     # @see #set_config
     attr_reader :config
-
 
     # Device geometry
     # @return [Hash] geometry { :px, :py. :pz, :proll, :ppitch, :pyaw, :sw, :sl, :sh, :sensors => [geom of sensors] }
@@ -37,18 +35,6 @@ module Player
       @sensors = []
       @geom = {px: 0.0, py: 0.0, pz: 0.0, proll: 0.0, ppitch: 0.0, pyaw: 0.0, sw: 0.0, sl: 0.0, sh: 0.0 }
       @config = { min_angle: 0.0, max_angle: 0.0, angular_res: 0.0, min_range: 0.0, max_range: 0.0, range_res: 0.0, frequecy: 0.0 }
-    end
-
-    # @deprecated use `ranger.collect { |r| r.range }
-    def rangers
-      warn "Method `rangers` is deprecated. Pleas use `ranger.collect { |r| r.range }`"
-      @sensors.collect { |s| s.range }
-    end
-    
-    # @deprecated use `ranger.collect { |r| r.intensity }
-    def intensities
-      warn "Method `intensities` is deprecated. Pleas use `ranger.collect { |r| r.intensity }`"
-      @sensors.collect { |s| s.intensity }
     end
 
     # Query ranger geometry 
@@ -65,23 +51,11 @@ module Player
       self
     end
     
-    # @deprecated Use {#power_on!}
-    def turn_on!
-      warn "Method `turn_on!` is deprecated. Pleas use `power_on!`"
-      power_on!
-    end
-
     # Turn off ranger
     # @return [Ranger] self
     def power_off!
       send_message(PLAYER_MSGTYPE_REQ, PLAYER_RANGER_REQ_POWER, [0].pack("N")) 
       self
-    end
-
-    # @deprecated Use {#power_off!}
-    def turn_off!
-      warn "Method `turn_off!` is deprecated. Pleas use `power_off!`"
-      power_off!
     end
 
     # @return [Ranger] self
@@ -198,8 +172,6 @@ module Player
           .each_with_index { |k,j| self[i].geom[k] = sizes[3*i + j] }
         debug("Got sizes for ##{i} sensor: sw=%.2f, sl=%.2f, sh=%.2f" % @sensors[i].geom.values[6,3])
       end
-
     end
-
   end
 end 

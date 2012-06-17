@@ -1,0 +1,15 @@
+lib/ruby-player.rb abfaaf470efd1067b3190f8c52230af86f523111
+lib/ruby-player/power.rb 90f35eb2d29e8310802fefc26a5dbff45639d02c
+lib/ruby-player/ranger.rb 22953aae294f6c6f8d4e44679111f63be3f1829e
+lib/ruby-player/header.rb d376205669bd9e723005a8fc7b57fee5d86a00ad
+lib/ruby-player/sensor.rb 98724584ab5a0fd3c8542f2c94235464335ac023
+lib/ruby-player/common.rb 62dd5d5ac8ea5cecb38330c29e97f93a60922a9a
+lib/ruby-player/device.rb 2d6c91970e0a4454bc44adf69d23005f2c56dd61
+lib/ruby-player/client.rb cf28bf0ff364def043e457a9af19ffdbc36af741
+lib/ruby-player/version.rb b0e08d561fe19d1f17797759379622d78653c2f4
+lib/ruby-player/gripper.rb 4dbb20db4f6fd9beaa30b2c2ef70d420c55a8162
+lib/ruby-player/actuator.rb c8724035520b8b3907a0689ccfd058d58cf5d4e5
+lib/ruby-player/dev_addr.rb ee846ceb724058208f800b67564340429f81fcac
+lib/ruby-player/actarray.rb de76cbad3378bbef733bd179477eaac160977e07
+lib/ruby-player/constants.rb 29abfdd33c57731ca2fc982e62fdb971055d175d
+lib/ruby-player/position2d.rb 3b18116bb50043b5e7bf8f10a6d8d5f30477e8bc

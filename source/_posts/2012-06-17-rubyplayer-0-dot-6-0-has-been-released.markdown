@@ -6,7 +6,7 @@ comments: true
 categories: 
 ---
 
-I glad to report about a new minor release of **RubyPlayer**. Now you can subscribe interfaces with
+I'm glad to report about a new minor release of **RubyPlayer**. Now you can subscribe interfaces with
 shorter syntax:
 
 {% codeblock lang:ruby %}

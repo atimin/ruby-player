@@ -1,0 +1,2877 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Module: Player
+  
+    &mdash; Documentation by YARD 0.7.4
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '';
+  if (relpath != '') relpath += '/';
+</script>
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index (P)</a> &raquo; 
+    
+    
+    <span class="title">Player</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a id="class_list_link" href="#">Class List</a>
+  
+    <a id="method_list_link" href="#">Method List</a>
+  
+    <a id="file_list_link" href="#">File List</a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Module: Player
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/ruby-player/power.rb<span class="defines">,<br />
+  lib/ruby-player/ranger.rb,<br /> lib/ruby-player/header.rb,<br /> lib/ruby-player/sensor.rb,<br /> lib/ruby-player/common.rb,<br /> lib/ruby-player/device.rb,<br /> lib/ruby-player/client.rb,<br /> lib/ruby-player/version.rb,<br /> lib/ruby-player/gripper.rb,<br /> lib/ruby-player/actuator.rb,<br /> lib/ruby-player/dev_addr.rb,<br /> lib/ruby-player/actarray.rb,<br /> lib/ruby-player/constants.rb,<br /> lib/ruby-player/position2d.rb</span>
+</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>Ruby Player - Ruby client library for Player (tools for robots)</p>
+
+<p>Copyright (C) 2012  Aleksey Timin</p>
+
+<p>This program is free software: you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the Free
+Software Foundation, either version 3 of the License, or (at your option)
+any later version.</p>
+
+<p>This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+more details.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+   
+    
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Player/Common.html" title="Player::Common (module)">Common</a></span>
+    
+   
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Player/ActArray.html" title="Player::ActArray (class)">ActArray</a></span>, <span class='object_link'><a href="Player/Actuator.html" title="Player::Actuator (class)">Actuator</a></span>, <span class='object_link'><a href="Player/Client.html" title="Player::Client (class)">Client</a></span>, <span class='object_link'><a href="Player/DevAddr.html" title="Player::DevAddr (class)">DevAddr</a></span>, <span class='object_link'><a href="Player/Device.html" title="Player::Device (class)">Device</a></span>, <span class='object_link'><a href="Player/Gripper.html" title="Player::Gripper (class)">Gripper</a></span>, <span class='object_link'><a href="Player/Header.html" title="Player::Header (class)">Header</a></span>, <span class='object_link'><a href="Player/Position2d.html" title="Player::Position2d (class)">Position2d</a></span>, <span class='object_link'><a href="Player/Power.html" title="Player::Power (class)">Power</a></span>, <span class='object_link'><a href="Player/Ranger.html" title="Player::Ranger (class)">Ranger</a></span>, <span class='object_link'><a href="Player/Sensor.html" title="Player::Sensor (class)">Sensor</a></span>
+    
+  
+</p>
+
+  <h2>Constant Summary</h2>
+  
+    <dl class="constants">
+      
+        <dt id="VERSION-constant" class="">VERSION =
+          
+        </dt>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0.4.0dev</span><span class='tstring_end'>&quot;</span></span></pre></dd>
+      
+        <dt id="PLAYERXDR_DEVADDR_SIZE-constant" class="">PLAYERXDR_DEVADDR_SIZE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>16</span></pre></dd>
+      
+        <dt id="PLAYERXDR_MSGHDR_SIZE-constant" class="">PLAYERXDR_MSGHDR_SIZE =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>PLAYERXDR_DEVADDR_SIZE</span> <span class='op'>+</span> <span class='int'>24</span></pre></dd>
+      
+        <dt id="PLAYER_MSGTYPE_DATA-constant" class="">PLAYER_MSGTYPE_DATA =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>A data message.  Such messages are asynchronously published from devices,
+and are usually used to reflect some part of the device's</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_MSGTYPE_CMD-constant" class="">PLAYER_MSGTYPE_CMD =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>A command message.  Such messages are asynchronously published to devices,
+and are usually used to change some aspect of the device's state.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_MSGTYPE_REQ-constant" class="">PLAYER_MSGTYPE_REQ =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>A request message.  Such messages are published synchronously to devices,
+usually to get or set some aspect of the device's state that is not
+available in data or command messages.  Every request message gets a
+response message (either PLAYER_MSGTYPE_RESP_ACK or
+PLAYER_MSGTYPE_RESP_NACK).</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_MSGTYPE_RESP_ACK-constant" class="">PLAYER_MSGTYPE_RESP_ACK =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>A positive response message.  Such messages are published in response to a
+PLAYER_MSGTYPE_REQ.  This message indicates that the underlying driver
+received, interpreted, and processed the request.  Any requested data is in
+the body of this response message.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="PLAYER_MSGTYPE_SYNCH-constant" class="">PLAYER_MSGTYPE_SYNCH =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>A synch message.  @todo Deprecate this message type? */</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>5</span></pre></dd>
+      
+        <dt id="PLAYER_MSGTYPE_RESP_NACK-constant" class="">PLAYER_MSGTYPE_RESP_NACK =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>A negative response message.  Such messages are published in response to a
+PLAYER_MSGTYPE_REQ.  This messages indicates that the underlying driver did
+not process the message.  Possible causes include: the driver's message
+queue was full, the driver failed to interpret the request, or the driver
+does not support the request. This message will have no data in the body.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>6</span></pre></dd>
+      
+        <dt id="PLAYER_PLAYER_REQ_DEVLIST-constant" class="">PLAYER_PLAYER_REQ_DEVLIST =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>The request subtypes (see player.h)</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_PLAYER_REQ_DRIVERINFO-constant" class="">PLAYER_PLAYER_REQ_DRIVERINFO =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_PLAYER_REQ_DEV-constant" class="">PLAYER_PLAYER_REQ_DEV =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_PLAYER_REQ_DATA-constant" class="">PLAYER_PLAYER_REQ_DATA =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="PLAYER_PLAYER_REQ_DATAMODE-constant" class="">PLAYER_PLAYER_REQ_DATAMODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>5</span></pre></dd>
+      
+        <dt id="PLAYER_PLAYER_REQ_DATAFREQ-constant" class="">PLAYER_PLAYER_REQ_DATAFREQ =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>6</span></pre></dd>
+      
+        <dt id="PLAYER_PLAYER_REQ_AUTH-constant" class="">PLAYER_PLAYER_REQ_AUTH =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>7</span></pre></dd>
+      
+        <dt id="PLAYER_PLAYER_REQ_NAMESERVICE-constant" class="">PLAYER_PLAYER_REQ_NAMESERVICE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>8</span></pre></dd>
+      
+        <dt id="PLAYER_PLAYER_REQ_IDENT-constant" class="">PLAYER_PLAYER_REQ_IDENT =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>9</span></pre></dd>
+      
+        <dt id="PLAYER_PLAYER_REQ_ADD_REPLACE_RULE-constant" class="">PLAYER_PLAYER_REQ_ADD_REPLACE_RULE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>10</span></pre></dd>
+      
+        <dt id="PLAYER_NULL_CODE-constant" class="">PLAYER_NULL_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>256</span></pre></dd>
+      
+        <dt id="PLAYER_PLAYER_CODE-constant" class="">PLAYER_PLAYER_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_POWER_CODE-constant" class="">PLAYER_POWER_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_GRIPPER_CODE-constant" class="">PLAYER_GRIPPER_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION2D_CODE-constant" class="">PLAYER_POSITION2D_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="PLAYER_SONAR_CODE-constant" class="">PLAYER_SONAR_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>5</span></pre></dd>
+      
+        <dt id="PLAYER_LASER_CODE-constant" class="">PLAYER_LASER_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>6</span></pre></dd>
+      
+        <dt id="PLAYER_BLOBFINDER_CODE-constant" class="">PLAYER_BLOBFINDER_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>7</span></pre></dd>
+      
+        <dt id="PLAYER_PTZ_CODE-constant" class="">PLAYER_PTZ_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>8</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_CODE-constant" class="">PLAYER_AUDIO_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>9</span></pre></dd>
+      
+        <dt id="PLAYER_FIDUCIAL_CODE-constant" class="">PLAYER_FIDUCIAL_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>10</span></pre></dd>
+      
+        <dt id="PLAYER_SPEECH_CODE-constant" class="">PLAYER_SPEECH_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>12</span></pre></dd>
+      
+        <dt id="PLAYER_GPS_CODE-constant" class="">PLAYER_GPS_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>13</span></pre></dd>
+      
+        <dt id="PLAYER_BUMPER_CODE-constant" class="">PLAYER_BUMPER_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>14</span></pre></dd>
+      
+        <dt id="PLAYER_TRUTH_CODE-constant" class="">PLAYER_TRUTH_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>15</span></pre></dd>
+      
+        <dt id="PLAYER_DIO_CODE-constant" class="">PLAYER_DIO_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>20</span></pre></dd>
+      
+        <dt id="PLAYER_AIO_CODE-constant" class="">PLAYER_AIO_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>21</span></pre></dd>
+      
+        <dt id="PLAYER_IR_CODE-constant" class="">PLAYER_IR_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>22</span></pre></dd>
+      
+        <dt id="PLAYER_WIFI_CODE-constant" class="">PLAYER_WIFI_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>23</span></pre></dd>
+      
+        <dt id="PLAYER_WAVEFORM_CODE-constant" class="">PLAYER_WAVEFORM_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>24</span></pre></dd>
+      
+        <dt id="PLAYER_LOCALIZE_CODE-constant" class="">PLAYER_LOCALIZE_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>25</span></pre></dd>
+      
+        <dt id="PLAYER_MCOM_CODE-constant" class="">PLAYER_MCOM_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>26</span></pre></dd>
+      
+        <dt id="PLAYER_SOUND_CODE-constant" class="">PLAYER_SOUND_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>27</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIODSP_CODE-constant" class="">PLAYER_AUDIODSP_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>28</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIOMIXER_CODE-constant" class="">PLAYER_AUDIOMIXER_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>29</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION3D_CODE-constant" class="">PLAYER_POSITION3D_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>30</span></pre></dd>
+      
+        <dt id="PLAYER_SIMULATION_CODE-constant" class="">PLAYER_SIMULATION_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>31</span></pre></dd>
+      
+        <dt id="PLAYER_SERVICE_ADV_CODE-constant" class="">PLAYER_SERVICE_ADV_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>32</span></pre></dd>
+      
+        <dt id="PLAYER_BLINKENLIGHT_CODE-constant" class="">PLAYER_BLINKENLIGHT_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>33</span></pre></dd>
+      
+        <dt id="PLAYER_NOMAD_CODE-constant" class="">PLAYER_NOMAD_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>34</span></pre></dd>
+      
+        <dt id="PLAYER_CAMERA_CODE-constant" class="">PLAYER_CAMERA_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>40</span></pre></dd>
+      
+        <dt id="PLAYER_MAP_CODE-constant" class="">PLAYER_MAP_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>42</span></pre></dd>
+      
+        <dt id="PLAYER_PLANNER_CODE-constant" class="">PLAYER_PLANNER_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>44</span></pre></dd>
+      
+        <dt id="PLAYER_LOG_CODE-constant" class="">PLAYER_LOG_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>45</span></pre></dd>
+      
+        <dt id="PLAYER_ENERGY_CODE-constant" class="">PLAYER_ENERGY_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>46</span></pre></dd>
+      
+        <dt id="PLAYER_JOYSTICK_CODE-constant" class="">PLAYER_JOYSTICK_CODE =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>/dev/null analogue the server itself power subsystem gripper device that
+moves Ultra-sound range-finder scanning range-finder visual blobfinder
+pan-tilt-zoom unit audio system fiducial detector speech I/O GPS unit
+bumper array ground-truth (Stage) digital I/O analog I/O IR array wifi card
+status fetch raw waveforms localization multicoms sound file playback audio
+dsp I/O audio I/O 3-D position simulators LAN advertisement blinking lights
+Nomad robot camera device get a map 2D motion planner log R/W control
+energy charging Joystick</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>49</span></pre></dd>
+      
+        <dt id="PLAYER_SPEECH_RECOGNITION_CODE-constant" class="">PLAYER_SPEECH_RECOGNITION_CODE =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>speech I/O</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>50</span></pre></dd>
+      
+        <dt id="PLAYER_OPAQUE_CODE-constant" class="">PLAYER_OPAQUE_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>51</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION1D_CODE-constant" class="">PLAYER_POSITION1D_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>52</span></pre></dd>
+      
+        <dt id="PLAYER_ACTARRAY_CODE-constant" class="">PLAYER_ACTARRAY_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>53</span></pre></dd>
+      
+        <dt id="PLAYER_LIMB_CODE-constant" class="">PLAYER_LIMB_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>54</span></pre></dd>
+      
+        <dt id="PLAYER_GRAPHICS2D_CODE-constant" class="">PLAYER_GRAPHICS2D_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>55</span></pre></dd>
+      
+        <dt id="PLAYER_RFID_CODE-constant" class="">PLAYER_RFID_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>56</span></pre></dd>
+      
+        <dt id="PLAYER_WSN_CODE-constant" class="">PLAYER_WSN_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>57</span></pre></dd>
+      
+        <dt id="PLAYER_GRAPHICS3D_CODE-constant" class="">PLAYER_GRAPHICS3D_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>58</span></pre></dd>
+      
+        <dt id="PLAYER_HEALTH_CODE-constant" class="">PLAYER_HEALTH_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>59</span></pre></dd>
+      
+        <dt id="PLAYER_IMU_CODE-constant" class="">PLAYER_IMU_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>60</span></pre></dd>
+      
+        <dt id="PLAYER_POINTCLOUD3D_CODE-constant" class="">PLAYER_POINTCLOUD3D_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>61</span></pre></dd>
+      
+        <dt id="PLAYER_RANGER_CODE-constant" class="">PLAYER_RANGER_CODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>62</span></pre></dd>
+      
+        <dt id="PLAYER_STEREO_CODE-constant" class="">PLAYER_STEREO_CODE =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>user-defined messages 1-D position Actuators array interface Limb interface
+Graphics2D interface RFID reader interface WSN interface Graphics3D
+interface Statgrab Health interface Inertial Measurement Unit 3-D point
+cloud Generic range-finders array Stereo imagery</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>65</span></pre></dd>
+      
+        <dt id="PLAYER_OPEN_MODE-constant" class="">PLAYER_OPEN_MODE =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Device access mode: open.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_CLOSE_MODE-constant" class="">PLAYER_CLOSE_MODE =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Device access mode: close.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_ERROR_MODE-constant" class="">PLAYER_ERROR_MODE =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Device access mode: error.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_DATAMODE_PUSH-constant" class="">PLAYER_DATAMODE_PUSH =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Data delivery mode: Send data from all subscribed devices all the time
+(i.e. when it's ready on the server).</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_DATAMODE_PULL-constant" class="">PLAYER_DATAMODE_PULL =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Data delivery mode: Only on request, send data from all subscribed devices.
+A PLAYER_MSGTYPE_SYNCH packet follows each set of data. Request should be
+made automatically by client libraries when they begin reading.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_MAX_MESSAGE_SIZE-constant" class="">PLAYER_MAX_MESSAGE_SIZE =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>The largest possible message</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>8388608</span></pre></dd>
+      
+        <dt id="PLAYER_MAX_DRIVER_STRING_LEN-constant" class="">PLAYER_MAX_DRIVER_STRING_LEN =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Maximum length for a driver name</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>64</span></pre></dd>
+      
+        <dt id="PLAYER_MAX_DEVICES-constant" class="">PLAYER_MAX_DEVICES =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>The maximum number of devices the server will support.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>10</span></pre></dd>
+      
+        <dt id="PLAYER_MSGQUEUE_DEFAULT_MAXLEN-constant" class="">PLAYER_MSGQUEUE_DEFAULT_MAXLEN =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Default maximum length for a message queue</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>32</span></pre></dd>
+      
+        <dt id="PLAYER_IDENT_STRLEN-constant" class="">PLAYER_IDENT_STRLEN =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Length of string that is spit back as a banner on connection</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>32</span></pre></dd>
+      
+        <dt id="PLAYER_KEYLEN-constant" class="">PLAYER_KEYLEN =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Length of authentication</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>32</span></pre></dd>
+      
+        <dt id="PLAYER_MAX_REQREP_SIZE-constant" class="">PLAYER_MAX_REQREP_SIZE =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Maximum size for request/reply. this is a convenience so that the
+PlayerQueue can used fixed size elements.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>4096</span></pre></dd>
+      
+        <dt id="PLAYER_ACTARRAY_REQ_POWER-constant" class="">PLAYER_ACTARRAY_REQ_POWER =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Interface-specific constants</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_ACTARRAY_REQ_BRAKES-constant" class="">PLAYER_ACTARRAY_REQ_BRAKES =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_ACTARRAY_REQ_GET_GEOM-constant" class="">PLAYER_ACTARRAY_REQ_GET_GEOM =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_ACTARRAY_REQ_SPEED-constant" class="">PLAYER_ACTARRAY_REQ_SPEED =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="PLAYER_ACTARRAY_REQ_ACCEL-constant" class="">PLAYER_ACTARRAY_REQ_ACCEL =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>5</span></pre></dd>
+      
+        <dt id="PLAYER_ACTARRAY_CMD_POS-constant" class="">PLAYER_ACTARRAY_CMD_POS =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_ACTARRAY_CMD_MULTI_POS-constant" class="">PLAYER_ACTARRAY_CMD_MULTI_POS =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_ACTARRAY_CMD_SPEED-constant" class="">PLAYER_ACTARRAY_CMD_SPEED =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_ACTARRAY_CMD_MULTI_SPEED-constant" class="">PLAYER_ACTARRAY_CMD_MULTI_SPEED =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="PLAYER_ACTARRAY_CMD_HOME-constant" class="">PLAYER_ACTARRAY_CMD_HOME =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>5</span></pre></dd>
+      
+        <dt id="PLAYER_ACTARRAY_CMD_CURRENT-constant" class="">PLAYER_ACTARRAY_CMD_CURRENT =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>6</span></pre></dd>
+      
+        <dt id="PLAYER_ACTARRAY_CMD_MULTI_CURRENT-constant" class="">PLAYER_ACTARRAY_CMD_MULTI_CURRENT =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>7</span></pre></dd>
+      
+        <dt id="PLAYER_ACTARRAY_DATA_STATE-constant" class="">PLAYER_ACTARRAY_DATA_STATE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_ACTARRAY_ACTSTATE_IDLE-constant" class="">PLAYER_ACTARRAY_ACTSTATE_IDLE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_ACTARRAY_ACTSTATE_MOVING-constant" class="">PLAYER_ACTARRAY_ACTSTATE_MOVING =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_ACTARRAY_ACTSTATE_BRAKED-constant" class="">PLAYER_ACTARRAY_ACTSTATE_BRAKED =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>5</span></pre></dd>
+      
+        <dt id="PLAYER_ACTARRAY_ACTSTATE_STALLED-constant" class="">PLAYER_ACTARRAY_ACTSTATE_STALLED =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>8</span></pre></dd>
+      
+        <dt id="PLAYER_ACTARRAY_TYPE_LINEAR-constant" class="">PLAYER_ACTARRAY_TYPE_LINEAR =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_ACTARRAY_TYPE_ROTARY-constant" class="">PLAYER_ACTARRAY_TYPE_ROTARY =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_AIO_MAX_INPUTS-constant" class="">PLAYER_AIO_MAX_INPUTS =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>8</span></pre></dd>
+      
+        <dt id="PLAYER_AIO_MAX_OUTPUTS-constant" class="">PLAYER_AIO_MAX_OUTPUTS =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>8</span></pre></dd>
+      
+        <dt id="PLAYER_AIO_CMD_STATE-constant" class="">PLAYER_AIO_CMD_STATE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_AIO_DATA_STATE-constant" class="">PLAYER_AIO_DATA_STATE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_STATE_STOPPED-constant" class="">PLAYER_AUDIO_STATE_STOPPED =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Driver states</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>0x00</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_STATE_PLAYING-constant" class="">PLAYER_AUDIO_STATE_PLAYING =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x01</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_STATE_RECORDING-constant" class="">PLAYER_AUDIO_STATE_RECORDING =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x02</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_DESCRIPTION_BITS-constant" class="">PLAYER_AUDIO_DESCRIPTION_BITS =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Raw Audio bit flags</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>0xFF</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_BITS-constant" class="">PLAYER_AUDIO_BITS =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x03</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_8BIT-constant" class="">PLAYER_AUDIO_8BIT =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>8 bit</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>0</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_16BIT-constant" class="">PLAYER_AUDIO_16BIT =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>16 bit</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_24BIT-constant" class="">PLAYER_AUDIO_24BIT =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>24 bit</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_MONO-constant" class="">PLAYER_AUDIO_MONO =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Mono</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>0</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_STEREO-constant" class="">PLAYER_AUDIO_STEREO =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Stereo</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_FREQ-constant" class="">PLAYER_AUDIO_FREQ =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Frequency</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>18</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_FREQ_44k-constant" class="">PLAYER_AUDIO_FREQ_44k =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_FREQ_11k-constant" class="">PLAYER_AUDIO_FREQ_11k =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>8</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_FREQ_22k-constant" class="">PLAYER_AUDIO_FREQ_22k =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>16</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_FREQ_48k-constant" class="">PLAYER_AUDIO_FREQ_48k =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>24</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_FORMAT_BITS-constant" class="">PLAYER_AUDIO_FORMAT_BITS =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>AUDIO format */</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>0xFF00</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_FORMAT_NULL-constant" class="">PLAYER_AUDIO_FORMAT_NULL =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x0000</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_FORMAT_RAW-constant" class="">PLAYER_AUDIO_FORMAT_RAW =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x0100</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_FORMAT_MP3-constant" class="">PLAYER_AUDIO_FORMAT_MP3 =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x0200</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_FORMAT_OGG-constant" class="">PLAYER_AUDIO_FORMAT_OGG =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x0300</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_FORMAT_FLAC-constant" class="">PLAYER_AUDIO_FORMAT_FLAC =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x0400</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_FORMAT_AAC-constant" class="">PLAYER_AUDIO_FORMAT_AAC =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x0500</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_DATA_WAV_REC-constant" class="">PLAYER_AUDIO_DATA_WAV_REC =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_DATA_SEQ-constant" class="">PLAYER_AUDIO_DATA_SEQ =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_DATA_MIXER_CHANNEL-constant" class="">PLAYER_AUDIO_DATA_MIXER_CHANNEL =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_DATA_STATE-constant" class="">PLAYER_AUDIO_DATA_STATE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_CMD_WAV_PLAY-constant" class="">PLAYER_AUDIO_CMD_WAV_PLAY =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_CMD_WAV_STREAM_REC-constant" class="">PLAYER_AUDIO_CMD_WAV_STREAM_REC =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_CMD_SAMPLE_PLAY-constant" class="">PLAYER_AUDIO_CMD_SAMPLE_PLAY =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_CMD_SEQ_PLAY-constant" class="">PLAYER_AUDIO_CMD_SEQ_PLAY =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_CMD_MIXER_CHANNEL-constant" class="">PLAYER_AUDIO_CMD_MIXER_CHANNEL =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>5</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_REQ_WAV_REC-constant" class="">PLAYER_AUDIO_REQ_WAV_REC =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_REQ_SAMPLE_LOAD-constant" class="">PLAYER_AUDIO_REQ_SAMPLE_LOAD =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_REQ_SAMPLE_RETRIEVE-constant" class="">PLAYER_AUDIO_REQ_SAMPLE_RETRIEVE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_REQ_SAMPLE_REC-constant" class="">PLAYER_AUDIO_REQ_SAMPLE_REC =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_REQ_MIXER_CHANNEL_LIST-constant" class="">PLAYER_AUDIO_REQ_MIXER_CHANNEL_LIST =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>5</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_REQ_MIXER_CHANNEL_LEVEL-constant" class="">PLAYER_AUDIO_REQ_MIXER_CHANNEL_LEVEL =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>6</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_DATA_BUFFER_SIZE-constant" class="">PLAYER_AUDIO_DATA_BUFFER_SIZE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>20</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_COMMAND_BUFFER_SIZE-constant" class="">PLAYER_AUDIO_COMMAND_BUFFER_SIZE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>6</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIO_PAIRS-constant" class="">PLAYER_AUDIO_PAIRS =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>5</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIODSP_MAX_FREQS-constant" class="">PLAYER_AUDIODSP_MAX_FREQS =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>8</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIODSP_MAX_BITSTRING_LEN-constant" class="">PLAYER_AUDIODSP_MAX_BITSTRING_LEN =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>64</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIODSP_SET_CONFIG-constant" class="">PLAYER_AUDIODSP_SET_CONFIG =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIODSP_GET_CONFIG-constant" class="">PLAYER_AUDIODSP_GET_CONFIG =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIODSP_PLAY_TONE-constant" class="">PLAYER_AUDIODSP_PLAY_TONE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIODSP_PLAY_CHIRP-constant" class="">PLAYER_AUDIODSP_PLAY_CHIRP =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIODSP_REPLAY-constant" class="">PLAYER_AUDIODSP_REPLAY =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIODSP_DATA_TONES-constant" class="">PLAYER_AUDIODSP_DATA_TONES =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIOMIXER_SET_MASTER-constant" class="">PLAYER_AUDIOMIXER_SET_MASTER =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIOMIXER_SET_PCM-constant" class="">PLAYER_AUDIOMIXER_SET_PCM =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIOMIXER_SET_LINE-constant" class="">PLAYER_AUDIOMIXER_SET_LINE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIOMIXER_SET_MIC-constant" class="">PLAYER_AUDIOMIXER_SET_MIC =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIOMIXER_SET_IGAIN-constant" class="">PLAYER_AUDIOMIXER_SET_IGAIN =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>5</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIOMIXER_SET_OGAIN-constant" class="">PLAYER_AUDIOMIXER_SET_OGAIN =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>6</span></pre></dd>
+      
+        <dt id="PLAYER_AUDIOMIXER_GET_LEVELS-constant" class="">PLAYER_AUDIOMIXER_GET_LEVELS =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_WAVEFORM_DATA_MAX-constant" class="">PLAYER_WAVEFORM_DATA_MAX =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4096</span></pre></dd>
+      
+        <dt id="PLAYER_WAVEFORM_DATA_SAMPLE-constant" class="">PLAYER_WAVEFORM_DATA_SAMPLE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_SOUND_CMD_IDX-constant" class="">PLAYER_SOUND_CMD_IDX =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_BLINKENLIGHT_DATA_STATE-constant" class="">PLAYER_BLINKENLIGHT_DATA_STATE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_BLINKENLIGHT_CMD_STATE-constant" class="">PLAYER_BLINKENLIGHT_CMD_STATE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_BLINKENLIGHT_CMD_POWER-constant" class="">PLAYER_BLINKENLIGHT_CMD_POWER =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_BLINKENLIGHT_CMD_COLOR-constant" class="">PLAYER_BLINKENLIGHT_CMD_COLOR =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_BLINKENLIGHT_CMD_PERIOD-constant" class="">PLAYER_BLINKENLIGHT_CMD_PERIOD =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="PLAYER_BLINKENLIGHT_CMD_DUTYCYCLE-constant" class="">PLAYER_BLINKENLIGHT_CMD_DUTYCYCLE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>5</span></pre></dd>
+      
+        <dt id="PLAYER_BLOBFINDER_REQ_SET_COLOR-constant" class="">PLAYER_BLOBFINDER_REQ_SET_COLOR =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_BLOBFINDER_REQ_SET_IMAGER_PARAMS-constant" class="">PLAYER_BLOBFINDER_REQ_SET_IMAGER_PARAMS =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_BLOBFINDER_DATA_BLOBS-constant" class="">PLAYER_BLOBFINDER_DATA_BLOBS =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_BUMPER_REQ_GET_GEOM-constant" class="">PLAYER_BUMPER_REQ_GET_GEOM =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_BUMPER_DATA_STATE-constant" class="">PLAYER_BUMPER_DATA_STATE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_BUMPER_DATA_GEOM-constant" class="">PLAYER_BUMPER_DATA_GEOM =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_CAMERA_DATA_STATE-constant" class="">PLAYER_CAMERA_DATA_STATE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_CAMERA_REQ_GET_SOURCE-constant" class="">PLAYER_CAMERA_REQ_GET_SOURCE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_CAMERA_REQ_SET_SOURCE-constant" class="">PLAYER_CAMERA_REQ_SET_SOURCE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_CAMERA_REQ_GET_IMAGE-constant" class="">PLAYER_CAMERA_REQ_GET_IMAGE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_CAMERA_FORMAT_MONO8-constant" class="">PLAYER_CAMERA_FORMAT_MONO8 =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_CAMERA_FORMAT_MONO16-constant" class="">PLAYER_CAMERA_FORMAT_MONO16 =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_CAMERA_FORMAT_RGB565-constant" class="">PLAYER_CAMERA_FORMAT_RGB565 =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="PLAYER_CAMERA_FORMAT_RGB888-constant" class="">PLAYER_CAMERA_FORMAT_RGB888 =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>5</span></pre></dd>
+      
+        <dt id="PLAYER_CAMERA_COMPRESS_RAW-constant" class="">PLAYER_CAMERA_COMPRESS_RAW =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0</span></pre></dd>
+      
+        <dt id="PLAYER_CAMERA_COMPRESS_JPEG-constant" class="">PLAYER_CAMERA_COMPRESS_JPEG =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_DIO_DATA_VALUES-constant" class="">PLAYER_DIO_DATA_VALUES =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_DIO_CMD_VALUES-constant" class="">PLAYER_DIO_CMD_VALUES =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_ENERGY_DATA_STATE-constant" class="">PLAYER_ENERGY_DATA_STATE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_ENERGY_SET_CHARGING_POLICY_REQ-constant" class="">PLAYER_ENERGY_SET_CHARGING_POLICY_REQ =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_FIDUCIAL_MAX_SAMPLES-constant" class="">PLAYER_FIDUCIAL_MAX_SAMPLES =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>32</span></pre></dd>
+      
+        <dt id="PLAYER_FIDUCIAL_DATA_SCAN-constant" class="">PLAYER_FIDUCIAL_DATA_SCAN =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_FIDUCIAL_REQ_GET_GEOM-constant" class="">PLAYER_FIDUCIAL_REQ_GET_GEOM =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_FIDUCIAL_REQ_GET_FOV-constant" class="">PLAYER_FIDUCIAL_REQ_GET_FOV =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_FIDUCIAL_REQ_SET_FOV-constant" class="">PLAYER_FIDUCIAL_REQ_SET_FOV =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_FIDUCIAL_REQ_GET_ID-constant" class="">PLAYER_FIDUCIAL_REQ_GET_ID =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>7</span></pre></dd>
+      
+        <dt id="PLAYER_FIDUCIAL_REQ_SET_ID-constant" class="">PLAYER_FIDUCIAL_REQ_SET_ID =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>8</span></pre></dd>
+      
+        <dt id="PLAYER_GPS_DATA_STATE-constant" class="">PLAYER_GPS_DATA_STATE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_GRIPPER_STATE_OPEN-constant" class="">PLAYER_GRIPPER_STATE_OPEN =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_GRIPPER_STATE_CLOSED-constant" class="">PLAYER_GRIPPER_STATE_CLOSED =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_GRIPPER_STATE_MOVING-constant" class="">PLAYER_GRIPPER_STATE_MOVING =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_GRIPPER_STATE_ERROR-constant" class="">PLAYER_GRIPPER_STATE_ERROR =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="PLAYER_GRIPPER_DATA_STATE-constant" class="">PLAYER_GRIPPER_DATA_STATE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_GRIPPER_REQ_GET_GEOM-constant" class="">PLAYER_GRIPPER_REQ_GET_GEOM =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_GRIPPER_CMD_OPEN-constant" class="">PLAYER_GRIPPER_CMD_OPEN =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_GRIPPER_CMD_CLOSE-constant" class="">PLAYER_GRIPPER_CMD_CLOSE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_GRIPPER_CMD_STOP-constant" class="">PLAYER_GRIPPER_CMD_STOP =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_GRIPPER_CMD_STORE-constant" class="">PLAYER_GRIPPER_CMD_STORE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="PLAYER_GRIPPER_CMD_RETRIEVE-constant" class="">PLAYER_GRIPPER_CMD_RETRIEVE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>5</span></pre></dd>
+      
+        <dt id="PLAYER_IR_REQ_POSE-constant" class="">PLAYER_IR_REQ_POSE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_IR_REQ_POWER-constant" class="">PLAYER_IR_REQ_POWER =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_IR_DATA_RANGES-constant" class="">PLAYER_IR_DATA_RANGES =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_JOYSTICK_X_AXIS-constant" class="">PLAYER_JOYSTICK_X_AXIS =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0</span></pre></dd>
+      
+        <dt id="PLAYER_JOYSTICK_Y_AXIS-constant" class="">PLAYER_JOYSTICK_Y_AXIS =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_JOYSTICK_MAX_AXES-constant" class="">PLAYER_JOYSTICK_MAX_AXES =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>8</span></pre></dd>
+      
+        <dt id="PLAYER_JOYSTICK_DATA_STATE-constant" class="">PLAYER_JOYSTICK_DATA_STATE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_LASER_MAX_SAMPLES-constant" class="">PLAYER_LASER_MAX_SAMPLES =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1024</span></pre></dd>
+      
+        <dt id="PLAYER_LASER_DATA_SCAN-constant" class="">PLAYER_LASER_DATA_SCAN =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_LASER_DATA_SCANPOSE-constant" class="">PLAYER_LASER_DATA_SCANPOSE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_LASER_REQ_GET_GEOM-constant" class="">PLAYER_LASER_REQ_GET_GEOM =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_LASER_REQ_SET_CONFIG-constant" class="">PLAYER_LASER_REQ_SET_CONFIG =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_LASER_REQ_GET_CONFIG-constant" class="">PLAYER_LASER_REQ_GET_CONFIG =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_LASER_REQ_POWER-constant" class="">PLAYER_LASER_REQ_POWER =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="PLAYER_LIMB_STATE_IDLE-constant" class="">PLAYER_LIMB_STATE_IDLE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_LIMB_STATE_BRAKED-constant" class="">PLAYER_LIMB_STATE_BRAKED =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_LIMB_STATE_MOVING-constant" class="">PLAYER_LIMB_STATE_MOVING =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_LIMB_STATE_OOR-constant" class="">PLAYER_LIMB_STATE_OOR =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="PLAYER_LIMB_STATE_COLL-constant" class="">PLAYER_LIMB_STATE_COLL =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>5</span></pre></dd>
+      
+        <dt id="PLAYER_LIMB_DATA_STATE-constant" class="">PLAYER_LIMB_DATA_STATE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_LIMB_CMD_HOME-constant" class="">PLAYER_LIMB_CMD_HOME =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_LIMB_CMD_STOP-constant" class="">PLAYER_LIMB_CMD_STOP =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_LIMB_CMD_SETPOSE-constant" class="">PLAYER_LIMB_CMD_SETPOSE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_LIMB_CMD_SETPOSITION-constant" class="">PLAYER_LIMB_CMD_SETPOSITION =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="PLAYER_LIMB_CMD_VECMOVE-constant" class="">PLAYER_LIMB_CMD_VECMOVE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>5</span></pre></dd>
+      
+        <dt id="PLAYER_LIMB_REQ_POWER-constant" class="">PLAYER_LIMB_REQ_POWER =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_LIMB_REQ_BRAKES-constant" class="">PLAYER_LIMB_REQ_BRAKES =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_LIMB_REQ_GEOM-constant" class="">PLAYER_LIMB_REQ_GEOM =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_LIMB_REQ_SPEED-constant" class="">PLAYER_LIMB_REQ_SPEED =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="PLAYER_LOCALIZE_DATA_HYPOTHS-constant" class="">PLAYER_LOCALIZE_DATA_HYPOTHS =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_LOCALIZE_REQ_SET_POSE-constant" class="">PLAYER_LOCALIZE_REQ_SET_POSE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_LOCALIZE_REQ_GET_PARTICLES-constant" class="">PLAYER_LOCALIZE_REQ_GET_PARTICLES =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_LOG_TYPE_READ-constant" class="">PLAYER_LOG_TYPE_READ =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_LOG_TYPE_WRITE-constant" class="">PLAYER_LOG_TYPE_WRITE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_LOG_REQ_SET_WRITE_STATE-constant" class="">PLAYER_LOG_REQ_SET_WRITE_STATE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_LOG_REQ_SET_READ_STATE-constant" class="">PLAYER_LOG_REQ_SET_READ_STATE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_LOG_REQ_GET_STATE-constant" class="">PLAYER_LOG_REQ_GET_STATE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_LOG_REQ_SET_READ_REWIND-constant" class="">PLAYER_LOG_REQ_SET_READ_REWIND =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="PLAYER_LOG_REQ_SET_FILENAME-constant" class="">PLAYER_LOG_REQ_SET_FILENAME =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>5</span></pre></dd>
+      
+        <dt id="PLAYER_MAP_DATA_INFO-constant" class="">PLAYER_MAP_DATA_INFO =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_MAP_REQ_GET_INFO-constant" class="">PLAYER_MAP_REQ_GET_INFO =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_MAP_REQ_GET_DATA-constant" class="">PLAYER_MAP_REQ_GET_DATA =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_MAP_REQ_GET_VECTOR-constant" class="">PLAYER_MAP_REQ_GET_VECTOR =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="MCOM_DATA_LEN-constant" class="">MCOM_DATA_LEN =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>128</span></pre></dd>
+      
+        <dt id="MCOM_DATA_BUFFER_SIZE-constant" class="">MCOM_DATA_BUFFER_SIZE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0</span></pre></dd>
+      
+        <dt id="MCOM_N_BUFS-constant" class="">MCOM_N_BUFS =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>10</span></pre></dd>
+      
+        <dt id="MCOM_CHANNEL_LEN-constant" class="">MCOM_CHANNEL_LEN =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>8</span></pre></dd>
+      
+        <dt id="PLAYER_MCOM_PUSH-constant" class="">PLAYER_MCOM_PUSH =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0</span></pre></dd>
+      
+        <dt id="PLAYER_MCOM_POP-constant" class="">PLAYER_MCOM_POP =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_MCOM_READ-constant" class="">PLAYER_MCOM_READ =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_MCOM_CLEAR-constant" class="">PLAYER_MCOM_CLEAR =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_MCOM_SET_CAPACITY-constant" class="">PLAYER_MCOM_SET_CAPACITY =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="PLAYER_OPAQUE_DATA_STATE-constant" class="">PLAYER_OPAQUE_DATA_STATE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_OPAQUE_CMD_DATA-constant" class="">PLAYER_OPAQUE_CMD_DATA =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_OPAQUE_REQ_DATA-constant" class="">PLAYER_OPAQUE_REQ_DATA =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_PLANNER_DATA_STATE-constant" class="">PLAYER_PLANNER_DATA_STATE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_PLANNER_CMD_GOAL-constant" class="">PLAYER_PLANNER_CMD_GOAL =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_PLANNER_REQ_GET_WAYPOINTS-constant" class="">PLAYER_PLANNER_REQ_GET_WAYPOINTS =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_PLANNER_REQ_ENABLE-constant" class="">PLAYER_PLANNER_REQ_ENABLE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION1D_REQ_GET_GEOM-constant" class="">PLAYER_POSITION1D_REQ_GET_GEOM =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION1D_REQ_MOTOR_POWER-constant" class="">PLAYER_POSITION1D_REQ_MOTOR_POWER =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION1D_REQ_VELOCITY_MODE-constant" class="">PLAYER_POSITION1D_REQ_VELOCITY_MODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION1D_REQ_POSITION_MODE-constant" class="">PLAYER_POSITION1D_REQ_POSITION_MODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION1D_REQ_SET_ODOM-constant" class="">PLAYER_POSITION1D_REQ_SET_ODOM =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>5</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION1D_REQ_RESET_ODOM-constant" class="">PLAYER_POSITION1D_REQ_RESET_ODOM =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>6</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION1D_REQ_SPEED_PID-constant" class="">PLAYER_POSITION1D_REQ_SPEED_PID =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>7</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION1D_REQ_POSITION_PID-constant" class="">PLAYER_POSITION1D_REQ_POSITION_PID =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>8</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION1D_REQ_SPEED_PROF-constant" class="">PLAYER_POSITION1D_REQ_SPEED_PROF =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>9</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION1D_DATA_STATE-constant" class="">PLAYER_POSITION1D_DATA_STATE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION1D_DATA_GEOM-constant" class="">PLAYER_POSITION1D_DATA_GEOM =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION1D_CMD_VEL-constant" class="">PLAYER_POSITION1D_CMD_VEL =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION1D_CMD_POS-constant" class="">PLAYER_POSITION1D_CMD_POS =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION1D_STATUS_LIMIT_MIN-constant" class="">PLAYER_POSITION1D_STATUS_LIMIT_MIN =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Status byte: limit min</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>0</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION1D_STATUS_LIMIT_CEN-constant" class="">PLAYER_POSITION1D_STATUS_LIMIT_CEN =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Status byte: limit center</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION1D_STATUS_LIMIT_MAX-constant" class="">PLAYER_POSITION1D_STATUS_LIMIT_MAX =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Status byte: limit max</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION1D_STATUS_OC-constant" class="">PLAYER_POSITION1D_STATUS_OC =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Status byte: limit over current</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION1D_STATUS_TRAJ_COMPLETE-constant" class="">PLAYER_POSITION1D_STATUS_TRAJ_COMPLETE =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Status byte: limit trajectory complete</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION1D_STATUS_ENABLED-constant" class="">PLAYER_POSITION1D_STATUS_ENABLED =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Status byte: enabled</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>5</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION2D_REQ_GET_GEOM-constant" class="">PLAYER_POSITION2D_REQ_GET_GEOM =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION2D_REQ_MOTOR_POWER-constant" class="">PLAYER_POSITION2D_REQ_MOTOR_POWER =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION2D_REQ_VELOCITY_MODE-constant" class="">PLAYER_POSITION2D_REQ_VELOCITY_MODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION2D_REQ_POSITION_MODE-constant" class="">PLAYER_POSITION2D_REQ_POSITION_MODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION2D_REQ_SET_ODOM-constant" class="">PLAYER_POSITION2D_REQ_SET_ODOM =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>5</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION2D_REQ_RESET_ODOM-constant" class="">PLAYER_POSITION2D_REQ_RESET_ODOM =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>6</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION2D_REQ_SPEED_PID-constant" class="">PLAYER_POSITION2D_REQ_SPEED_PID =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>7</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION2D_REQ_POSITION_PID-constant" class="">PLAYER_POSITION2D_REQ_POSITION_PID =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>8</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION2D_REQ_SPEED_PROF-constant" class="">PLAYER_POSITION2D_REQ_SPEED_PROF =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>9</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION2D_DATA_STATE-constant" class="">PLAYER_POSITION2D_DATA_STATE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION2D_DATA_GEOM-constant" class="">PLAYER_POSITION2D_DATA_GEOM =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION2D_CMD_VEL-constant" class="">PLAYER_POSITION2D_CMD_VEL =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION2D_CMD_POS-constant" class="">PLAYER_POSITION2D_CMD_POS =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION2D_CMD_CAR-constant" class="">PLAYER_POSITION2D_CMD_CAR =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION2D_CMD_VEL_HEAD-constant" class="">PLAYER_POSITION2D_CMD_VEL_HEAD =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION3D_DATA_STATE-constant" class="">PLAYER_POSITION3D_DATA_STATE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION3D_DATA_GEOMETRY-constant" class="">PLAYER_POSITION3D_DATA_GEOMETRY =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION3D_CMD_SET_VEL-constant" class="">PLAYER_POSITION3D_CMD_SET_VEL =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION3D_CMD_SET_POS-constant" class="">PLAYER_POSITION3D_CMD_SET_POS =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION3D_GET_GEOM-constant" class="">PLAYER_POSITION3D_GET_GEOM =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION3D_MOTOR_POWER-constant" class="">PLAYER_POSITION3D_MOTOR_POWER =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION3D_VELOCITY_MODE-constant" class="">PLAYER_POSITION3D_VELOCITY_MODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION3D_POSITION_MODE-constant" class="">PLAYER_POSITION3D_POSITION_MODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION3D_RESET_ODOM-constant" class="">PLAYER_POSITION3D_RESET_ODOM =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>5</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION3D_SET_ODOM-constant" class="">PLAYER_POSITION3D_SET_ODOM =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>6</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION3D_SPEED_PID-constant" class="">PLAYER_POSITION3D_SPEED_PID =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>7</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION3D_POSITION_PID-constant" class="">PLAYER_POSITION3D_POSITION_PID =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>8</span></pre></dd>
+      
+        <dt id="PLAYER_POSITION3D_SPEED_PROF-constant" class="">PLAYER_POSITION3D_SPEED_PROF =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>9</span></pre></dd>
+      
+        <dt id="PLAYER_POWER_DATA_STATE-constant" class="">PLAYER_POWER_DATA_STATE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_POWER_REQ_SET_CHARGING_POLICY-constant" class="">PLAYER_POWER_REQ_SET_CHARGING_POLICY =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_POWER_MASK_VOLTS-constant" class="">PLAYER_POWER_MASK_VOLTS =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_POWER_MASK_WATTS-constant" class="">PLAYER_POWER_MASK_WATTS =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_POWER_MASK_JOULES-constant" class="">PLAYER_POWER_MASK_JOULES =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="PLAYER_POWER_MASK_PERCENT-constant" class="">PLAYER_POWER_MASK_PERCENT =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>8</span></pre></dd>
+      
+        <dt id="PLAYER_POWER_MASK_CHARGING-constant" class="">PLAYER_POWER_MASK_CHARGING =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>16</span></pre></dd>
+      
+        <dt id="PLAYER_PTZ_MAX_CONFIG_LEN-constant" class="">PLAYER_PTZ_MAX_CONFIG_LEN =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>32</span></pre></dd>
+      
+        <dt id="PLAYER_PTZ_VELOCITY_CONTROL-constant" class="">PLAYER_PTZ_VELOCITY_CONTROL =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0</span></pre></dd>
+      
+        <dt id="PLAYER_PTZ_POSITION_CONTROL-constant" class="">PLAYER_PTZ_POSITION_CONTROL =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_PTZ_REQ_GENERIC-constant" class="">PLAYER_PTZ_REQ_GENERIC =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_PTZ_REQ_CONTROL_MODE-constant" class="">PLAYER_PTZ_REQ_CONTROL_MODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_PTZ_REQ_GEOM-constant" class="">PLAYER_PTZ_REQ_GEOM =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="PLAYER_PTZ_REQ_STATUS-constant" class="">PLAYER_PTZ_REQ_STATUS =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>5</span></pre></dd>
+      
+        <dt id="PLAYER_PTZ_DATA_STATE-constant" class="">PLAYER_PTZ_DATA_STATE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_PTZ_DATA_GEOM-constant" class="">PLAYER_PTZ_DATA_GEOM =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_PTZ_CMD_STATE-constant" class="">PLAYER_PTZ_CMD_STATE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_RANGER_REQ_GET_GEOM-constant" class="">PLAYER_RANGER_REQ_GET_GEOM =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_RANGER_REQ_POWER-constant" class="">PLAYER_RANGER_REQ_POWER =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_RANGER_REQ_INTNS-constant" class="">PLAYER_RANGER_REQ_INTNS =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_RANGER_REQ_SET_CONFIG-constant" class="">PLAYER_RANGER_REQ_SET_CONFIG =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="PLAYER_RANGER_REQ_GET_CONFIG-constant" class="">PLAYER_RANGER_REQ_GET_CONFIG =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>5</span></pre></dd>
+      
+        <dt id="PLAYER_RANGER_DATA_RANGE-constant" class="">PLAYER_RANGER_DATA_RANGE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_RANGER_DATA_RANGESTAMPED-constant" class="">PLAYER_RANGER_DATA_RANGESTAMPED =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_RANGER_DATA_INTNS-constant" class="">PLAYER_RANGER_DATA_INTNS =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_RANGER_DATA_INTNSSTAMPED-constant" class="">PLAYER_RANGER_DATA_INTNSSTAMPED =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="PLAYER_RANGER_DATA_GEOM-constant" class="">PLAYER_RANGER_DATA_GEOM =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>5</span></pre></dd>
+      
+        <dt id="PLAYER_SIMULATION_IDENTIFIER_MAXLEN-constant" class="">PLAYER_SIMULATION_IDENTIFIER_MAXLEN =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>64</span></pre></dd>
+      
+        <dt id="PLAYER_SIMULATION_PROP_VALUE_MAXLEN-constant" class="">PLAYER_SIMULATION_PROP_VALUE_MAXLEN =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>64</span></pre></dd>
+      
+        <dt id="PLAYER_SIMULATION_REQ_GET_POSE2D-constant" class="">PLAYER_SIMULATION_REQ_GET_POSE2D =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_SIMULATION_REQ_SET_POSE2D-constant" class="">PLAYER_SIMULATION_REQ_SET_POSE2D =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_SIMULATION_REQ_GET_POSE3D-constant" class="">PLAYER_SIMULATION_REQ_GET_POSE3D =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_SIMULATION_REQ_SET_POSE3D-constant" class="">PLAYER_SIMULATION_REQ_SET_POSE3D =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="PLAYER_SIMULATION_REQ_GET_PROPERTY-constant" class="">PLAYER_SIMULATION_REQ_GET_PROPERTY =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>5</span></pre></dd>
+      
+        <dt id="PLAYER_SIMULATION_REQ_SET_PROPERTY-constant" class="">PLAYER_SIMULATION_REQ_SET_PROPERTY =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>6</span></pre></dd>
+      
+        <dt id="PLAYER_SIMULATION_CMD_PAUSE-constant" class="">PLAYER_SIMULATION_CMD_PAUSE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_SIMULATION_CMD_RESET-constant" class="">PLAYER_SIMULATION_CMD_RESET =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_SIMULATION_CMD_SAVE-constant" class="">PLAYER_SIMULATION_CMD_SAVE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_SONAR_REQ_GET_GEOM-constant" class="">PLAYER_SONAR_REQ_GET_GEOM =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_SONAR_REQ_POWER-constant" class="">PLAYER_SONAR_REQ_POWER =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_SONAR_DATA_RANGES-constant" class="">PLAYER_SONAR_DATA_RANGES =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_SONAR_DATA_GEOM-constant" class="">PLAYER_SONAR_DATA_GEOM =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_SPEECH_MAX_STRING_LEN-constant" class="">PLAYER_SPEECH_MAX_STRING_LEN =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>256</span></pre></dd>
+      
+        <dt id="PLAYER_SPEECH_CMD_SAY-constant" class="">PLAYER_SPEECH_CMD_SAY =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="SPEECH_RECOGNITION_TEXT_LEN-constant" class="">SPEECH_RECOGNITION_TEXT_LEN =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>256</span></pre></dd>
+      
+        <dt id="SPEECH_RECOGNITION_DATA_STRING-constant" class="">SPEECH_RECOGNITION_DATA_STRING =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_STEREO_DATA_STATE-constant" class="">PLAYER_STEREO_DATA_STATE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_TRUTH_DATA_POSE-constant" class="">PLAYER_TRUTH_DATA_POSE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x01</span></pre></dd>
+      
+        <dt id="PLAYER_TRUTH_DATA_FIDUCIAL_ID-constant" class="">PLAYER_TRUTH_DATA_FIDUCIAL_ID =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x02</span></pre></dd>
+      
+        <dt id="PLAYER_TRUTH_REQ_SET_POSE-constant" class="">PLAYER_TRUTH_REQ_SET_POSE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x03</span></pre></dd>
+      
+        <dt id="PLAYER_TRUTH_REQ_SET_FIDUCIAL_ID-constant" class="">PLAYER_TRUTH_REQ_SET_FIDUCIAL_ID =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x04</span></pre></dd>
+      
+        <dt id="PLAYER_TRUTH_REQ_GET_FIDUCIAL_ID-constant" class="">PLAYER_TRUTH_REQ_GET_FIDUCIAL_ID =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0x05</span></pre></dd>
+      
+        <dt id="PLAYER_WIFI_MAX_LINKS-constant" class="">PLAYER_WIFI_MAX_LINKS =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>32</span></pre></dd>
+      
+        <dt id="PLAYER_WIFI_QUAL_DBM-constant" class="">PLAYER_WIFI_QUAL_DBM =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_WIFI_QUAL_REL-constant" class="">PLAYER_WIFI_QUAL_REL =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_WIFI_QUAL_UNKNOWN-constant" class="">PLAYER_WIFI_QUAL_UNKNOWN =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_WIFI_MODE_UNKNOWN-constant" class="">PLAYER_WIFI_MODE_UNKNOWN =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>0</span></pre></dd>
+      
+        <dt id="PLAYER_WIFI_MODE_AUTO-constant" class="">PLAYER_WIFI_MODE_AUTO =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_WIFI_MODE_ADHOC-constant" class="">PLAYER_WIFI_MODE_ADHOC =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_WIFI_MODE_INFRA-constant" class="">PLAYER_WIFI_MODE_INFRA =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_WIFI_MODE_MASTER-constant" class="">PLAYER_WIFI_MODE_MASTER =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="PLAYER_WIFI_MODE_REPEAT-constant" class="">PLAYER_WIFI_MODE_REPEAT =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>5</span></pre></dd>
+      
+        <dt id="PLAYER_WIFI_MODE_SECOND-constant" class="">PLAYER_WIFI_MODE_SECOND =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>6</span></pre></dd>
+      
+        <dt id="PLAYER_WIFI_REQ_MAC-constant" class="">PLAYER_WIFI_REQ_MAC =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_WIFI_REQ_IWSPY_ADD-constant" class="">PLAYER_WIFI_REQ_IWSPY_ADD =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_WIFI_REQ_IWSPY_DEL-constant" class="">PLAYER_WIFI_REQ_IWSPY_DEL =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_WIFI_REQ_IWSPY_PING-constant" class="">PLAYER_WIFI_REQ_IWSPY_PING =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="PLAYER_WIFI_DATA_STATE-constant" class="">PLAYER_WIFI_DATA_STATE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_RFID_DATA_TAGS-constant" class="">PLAYER_RFID_DATA_TAGS =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_RFID_REQ_POWER-constant" class="">PLAYER_RFID_REQ_POWER =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_RFID_REQ_READTAG-constant" class="">PLAYER_RFID_REQ_READTAG =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_RFID_REQ_WRITETAG-constant" class="">PLAYER_RFID_REQ_WRITETAG =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_RFID_REQ_LOCKTAG-constant" class="">PLAYER_RFID_REQ_LOCKTAG =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="PLAYER_GRAPHICS2D_MAX_POINTS-constant" class="">PLAYER_GRAPHICS2D_MAX_POINTS =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>The maximum number of points that can be described in a packet</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>64</span></pre></dd>
+      
+        <dt id="PLAYER_GRAPHICS2D_CMD_CLEAR-constant" class="">PLAYER_GRAPHICS2D_CMD_CLEAR =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Command subtype: clear the drawing area (send an empty message)</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_GRAPHICS2D_CMD_POINTS-constant" class="">PLAYER_GRAPHICS2D_CMD_POINTS =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Command subtype: draw points</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_GRAPHICS2D_CMD_POLYLINE-constant" class="">PLAYER_GRAPHICS2D_CMD_POLYLINE =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Command subtype: draw a polyline</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_GRAPHICS2D_CMD_POLYGON-constant" class="">PLAYER_GRAPHICS2D_CMD_POLYGON =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Command subtype: draw a polygon</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="PLAYER_WSN_MAX_NODES-constant" class="">PLAYER_WSN_MAX_NODES =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>The maximum number of nodes that can work together in the WSN.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>100</span></pre></dd>
+      
+        <dt id="PLAYER_WSN_DATA_STATE-constant" class="">PLAYER_WSN_DATA_STATE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_WSN_CMD_DEVSTATE-constant" class="">PLAYER_WSN_CMD_DEVSTATE =
+          
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_WSN_REQ_POWER-constant" class="">PLAYER_WSN_REQ_POWER =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Request/reply: put the reader in sleep mode (0) or wake it up (1).</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_WSN_REQ_DATATYPE-constant" class="">PLAYER_WSN_REQ_DATATYPE =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Request/reply: change the data type to RAW or converted engineering units</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_WSN_REQ_DATAFREQ-constant" class="">PLAYER_WSN_REQ_DATAFREQ =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Request/reply: change the receiving data frequency</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_GRAPHICS3D_MAX_POINTS-constant" class="">PLAYER_GRAPHICS3D_MAX_POINTS =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>The maximum number of points that can be described in a packet</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>1024</span></pre></dd>
+      
+        <dt id="PLAYER_GRAPHICS3D_CMD_CLEAR-constant" class="">PLAYER_GRAPHICS3D_CMD_CLEAR =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Command subtype: clear the drawing area (send an empty message)</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_GRAPHICS2D_CMD_DRAW-constant" class="">PLAYER_GRAPHICS2D_CMD_DRAW =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Command subtype: draw subitems</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_HEALTH_DATA_STATE-constant" class="">PLAYER_HEALTH_DATA_STATE =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Data subtype: Health's data packet</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_IMU_DATA_STATE-constant" class="">PLAYER_IMU_DATA_STATE =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Data subtype: IMU position/orientation data</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_IMU_DATA_CALIB-constant" class="">PLAYER_IMU_DATA_CALIB =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Data subtype: Calibrated IMU data</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_IMU_DATA_QUAT-constant" class="">PLAYER_IMU_DATA_QUAT =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Data subtype: Quaternions orientation data</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>3</span></pre></dd>
+      
+        <dt id="PLAYER_IMU_DATA_EULER-constant" class="">PLAYER_IMU_DATA_EULER =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Data subtype: Euler orientation data</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>4</span></pre></dd>
+      
+        <dt id="PLAYER_IMU_DATA_FULLSTATE-constant" class="">PLAYER_IMU_DATA_FULLSTATE =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Data subtype: All the calibrated IMU data</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>5</span></pre></dd>
+      
+        <dt id="PLAYER_IMU_REQ_SET_DATATYPE-constant" class="">PLAYER_IMU_REQ_SET_DATATYPE =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Request/reply subtype: set data type</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+        <dt id="PLAYER_IMU_REQ_RESET_ORIENTATION-constant" class="">PLAYER_IMU_REQ_RESET_ORIENTATION =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Request/reply subtype: reset orientation</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>2</span></pre></dd>
+      
+        <dt id="PLAYER_POINTCLOUD3D_MAX_POINTS-constant" class="">PLAYER_POINTCLOUD3D_MAX_POINTS =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Maximum number of points that can be included in a data packet</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>8192</span></pre></dd>
+      
+        <dt id="PLAYER_POINTCLOUD3D_DATA_STATE-constant" class="">PLAYER_POINTCLOUD3D_DATA_STATE =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Data subtype: state</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
+      
+    </dl>
+  
+
+
+
+
+
+
+
+</div>
+    
+    <div id="footer">
+  Generated on Mon Feb 20 22:23:45 2012 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.7.4 (ruby-1.9.3).
+</div>
+
+  </body>
+</html>

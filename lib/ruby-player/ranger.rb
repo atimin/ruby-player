@@ -15,7 +15,7 @@
 module Player
   # The ranger proxy provides an interface to the ranger sensors built into robots
   # TODO Implement PLAYER_RANGER_DATA_RANGESTAMPED and PLAYER_RANGER_DATA_INTNSTAMPED
-  #
+  # TODO Implement state attr => { ranges: [0.0, 0.0], intensity: [0.0, 0.0] }
   # @example
   #   ranger = robot.subscribe(:ranger, index: 0)
   #   ranger[0].range #=> 0.2
@@ -122,6 +122,7 @@ module Player
     def fill(hdr, msg)
       case hdr.subtype
       when PLAYER_RANGER_DATA_RANGE
+        # TODO: remove to separate method read_range
         data = msg.unpack("NNG*")
         data[2..-1].each_with_index do |r, i|
           self[i].state[:range] = r
@@ -129,6 +130,7 @@ module Player
 
         debug "Got rangers #{@sensors.collect { |s| s.state[:range] }}"
       when PLAYER_RANGER_DATA_INTNS
+        # TODO: remove to separate method read_intns
         data = msg.unpack("NNG*")
         data[2..-1].each_with_index do |ints, i|
           self[i].state[:intensity] = ints

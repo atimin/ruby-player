@@ -2,12 +2,12 @@
 #      Main Configs       #
 # ----------------------- #
 
-url: http://yoursite.com
-title: My Octopress Blog
-subtitle: A blogging framework for hackers.
-author: Your Name
+url: http://flipback.github.com/ruby-player
+title: RubyPlayer 
+subtitle: Play with robots fun!
+author: Aleksey Timin
 simple_search: http://google.com/search
-description:
+description: The RubyPlayer is client library for the Player server in pure Ruby.
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
 # You can customize the format as defined in
@@ -16,7 +16,7 @@ description:
 date_format: "ordinal"
 
 # RSS / Email (optional) subscription links (change if using something like Feedburner)
-subscribe_rss: /atom.xml
+subscribe_rss: /ruby-player/atom.xml
 subscribe_email:
 # RSS feeds can list your email address if you like
 email:
@@ -26,15 +26,15 @@ email:
 # ----------------------- #
 
 # If publishing to a subdirectory as in http://site.com/project set 'root: /project'
-root: /
+root: /ruby-player
 permalink: /blog/:year/:month/:day/:title/
 source: source
-destination: public
+destination: public/ruby-player
 plugins: plugins
 code_dir: downloads/code
 category_dir: blog/categories
 markdown: rdiscount
-pygments: false # default python pygments have been replaced by pygments.rb
+pygments: true # default python pygments have been replaced by pygments.rb
 
 paginate: 10          # Posts per page on the blog index
 pagination_dir: blog  # Directory base for pagination URLs eg. /blog/page/2/
@@ -72,7 +72,7 @@ twitter_show_follower_count: false
 twitter_tweet_button: true
 
 # Google +1
-google_plus_one: false
+google_plus_one: true
 google_plus_one_size: medium
 
 # Google Plus Profile
@@ -93,7 +93,7 @@ disqus_short_name:
 disqus_show_comment_count: false
 
 # Google Analytics
-google_analytics_tracking_id:
+google_analytics_tracking_id: UA-12356703-4
 
 # Facebook Like
-facebook_like: false
+facebook_like: true

@@ -23,7 +23,7 @@ end
 <!-- more -->
 
 The library supports [aio](http://playerstage.sourceforge.net/doc/Player-svn/player/group__interface__aio.html) interface 
-for analog I\O siense this version:
+for analog I\O since this version:
 
 {% codeblock lang:ruby %}
 aio = robot.aio

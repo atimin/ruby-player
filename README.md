@@ -56,8 +56,6 @@ References
 
 [Home page](http://flipback.github.com/ruby-player/)
 
-[Wiki](https://github.com/flipback/ruby-player/wiki)
-
 [API](http://rubydoc.info/gems/ruby-player/)
 
 [Player project](http://playerstage.sourceforge.net/)

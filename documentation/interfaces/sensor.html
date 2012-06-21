@@ -5,20 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>RubyPlayer</title>
+  <title>Sensor - RubyPlayer</title>
   <meta name="author" content="Aleksey Timin">
 
   
-  <meta name="description" content="I&#8217;m glad to report about a new minor release of RubyPlayer. Now you can subscribe interfaces with
-shorter syntax: 1
+  <meta name="description" content="Sensor Jun 22nd, 2012 The Sensor class provides interface to sate and geometrical data of range sensor. Example: 1
 2
-3
-4
-5
-6
-7
-8
-require &#39; &hellip;">
+3 s = ranger[0] # Get first &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -27,7 +20,7 @@ require &#39; &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://flipback.github.com/ruby-player/">
+  <link rel="canonical" href="http://flipback.github.com/ruby-player/documentation/interfaces/sensor.html">
   <link href="/ruby-player/favicon.png" rel="icon">
   <link href="/ruby-player/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/ruby-player/javascripts/modernizr-2.0.js"></script>
@@ -102,19 +95,12 @@ require &#39; &hellip;">
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article role="article">
   
-  
-  
-    <article>
-      
   <header>
-    
-      <h1 class="entry-title"><a href="/ruby-player/blog/2012/06/17/rubyplayer-0-dot-6-0-has-been-released/">RubyPlayer-0.6.0 Has Been Released</a></h1>
-    
-    
-      <p class="meta">
-        
+    <h1 class="entry-title">Sensor</h1>
+    <p class="meta">
 
 
 
@@ -126,60 +112,63 @@ require &#39; &hellip;">
   
 
 
-<time datetime="2012-06-17T21:17:00+06:00" pubdate data-updated="true">Jun 17<span>th</span>, 2012</time>
-        
-         | <a href="/ruby-player/blog/2012/06/17/rubyplayer-0-dot-6-0-has-been-released/#disqus_thread">Comments</a>
-        
-      </p>
-    
+<time datetime="2012-06-22T00:07:00+06:00" pubdate data-updated="true">Jun 22<span>nd</span>, 2012</time></p>
   </header>
+  
+  <p>The <strong>Sensor</strong> class provides interface to sate and geometrical data of range sensor.</p>
+
+<p>Example:</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="n">s</span> <span class="o">=</span> <span class="n">ranger</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>        <span class="c1"># Get first sensor</span>
+</span><span class='line'>  <span class="n">s</span><span class="o">.</span><span class="n">range</span>              <span class="c1"># Range data in [m]</span>
+</span><span class='line'>  <span class="n">s</span><span class="o">.</span><span class="n">intensity</span>          <span class="c1"># Intensity data in [m]</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 
-  <div class="entry-content"><p>I&#8217;m glad to report about a new minor release of <strong>RubyPlayer</strong>. Now you can subscribe interfaces with
-shorter syntax:</p>
+<h3>State</h3>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p>The Sensor provides measuring data by <code>Sensor#state</code> method:</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="n">s</span><span class="o">.</span><span class="n">state</span>              <span class="c1">#=&gt; { :range =&gt; 0.0, :intensity =&gt; 0.0 }</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<p>Returned hash consists:</p>
+
+<ul>
+<li><strong>range</strong> - range data in [m]</li>
+<li><strong>intensity</strong> - data in [m]</li>
+</ul>
+
+
+<p>Also you can use the same methods.</p>
+
+<h3>Geometrical data</h3>
+
+<p>The Sensor provides geometrical data by typical method, but request is implemented by ranger proxy:</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;ruby-player&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="no">Player</span><span class="o">::</span><span class="no">Client</span><span class="o">.</span><span class="n">connect</span> <span class="s2">&quot;localhost&quot;</span> <span class="k">do</span> <span class="o">|</span><span class="n">robot</span><span class="o">|</span>
-</span><span class='line'>  <span class="c1"># subscribe to :ranger interface (default index=0)</span>
-</span><span class='line'>  <span class="n">ranger</span> <span class="o">=</span> <span class="n">robot</span><span class="o">.</span><span class="n">ranger</span> <span class="c1"># Instead of robot.subscribe(:ranger)</span>
-</span><span class='line'>  <span class="c1"># or with index</span>
-</span><span class='line'>  <span class="n">ranger</span> <span class="o">=</span> <span class="n">robot</span><span class="o">.</span><span class="n">ranger</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># Instead of robot.subscribe(:ranger, index: 2)</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="n">ranger</span><span class="o">.</span><span class="n">query_geom</span>  <span class="c1"># Request geometrical data for ranger and all sensors.</span>
+</span><span class='line'>  <span class="n">cl</span><span class="o">.</span><span class="n">read!</span>           <span class="c1"># Necessarily read buffering data from server</span>
+</span><span class='line'>  <span class="n">ranger</span><span class="o">[</span><span class="mi">0</span><span class="o">].</span><span class="n">geom</span>     <span class="c1">#=&gt; { :px =&gt; 0.0, :py =&gt; 0.0 :pz =&gt; 0.1, :proll =&gt; 0.0, :ppitch =&gt; 0.0, </span>
+</span><span class='line'>                     <span class="c1"># :pyaw =&gt; 0.0, sw =&gt; 0.1, :sl =&gt; 0.1, :sh =&gt; 0.05 }</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 
 
 
-</div>
-  
   
     <footer>
-      <a rel="full-article" href="/ruby-player/blog/2012/06/17/rubyplayer-0-dot-6-0-has-been-released/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/ruby-player/blog/2012/05/08/the-homepage-has-been-launched/">The Project&#8217;s Homepage Has Been Launched</a></h1>
-    
-    
       <p class="meta">
         
+        
 
 
 
@@ -191,31 +180,35 @@ shorter syntax:</p>
   
 
 
-<time datetime="2012-05-08T00:00:00+06:00" pubdate data-updated="true">May 8<span>th</span>, 2012</time>
-        
-         | <a href="/ruby-player/blog/2012/05/08/the-homepage-has-been-launched/#disqus_thread">Comments</a>
+<time datetime="2012-06-22T00:07:00+06:00" pubdate data-updated="true">Jun 22<span>nd</span>, 2012</time>
         
       </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>The <strong>RubyPlayer</strong> is alive! Furthermore I&#8217;m glad to launch a little site for my project. You can see here project news, usage examples and anonces about new releases.</p>
-
-<p>Thanks, flipback.</p>
+      
+        <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://flipback.github.com/ruby-player/documentation/interfaces/sensor.html" data-via="" data-counturl="http://flipback.github.com/ruby-player/documentation/interfaces/sensor.html" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
 </div>
-  
-  
 
-
-    </article>
+      
+    </footer>
   
-  <div class="pagination">
-    
-    <a href="/ruby-player/blog/archives">Blog Archives</a>
-    
-  </div>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
+  </section>
+
+</div>
+
 <aside class="sidebar">
   
     <section>
@@ -227,7 +220,7 @@ shorter syntax:</p>
       </li>
     
       <li class="post">
-        <a href="/ruby-player/blog/2012/05/08/the-homepage-has-been-launched/">The project&#8217;s homepage has been launched</a>
+        <a href="/ruby-player/blog/2012/05/08/the-homepage-has-been-launched/">The project's homepage has been launched</a>
       </li>
     
   </ul>
@@ -240,6 +233,7 @@ shorter syntax:</p>
 
   
 </aside>
+
 
     </div>
   </div>
@@ -255,7 +249,10 @@ shorter syntax:</p>
       var disqus_shortname = 'ruby-player';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://flipback.github.com/ruby-player/documentation/interfaces/sensor.html';
+        var disqus_url = 'http://flipback.github.com/ruby-player/documentation/interfaces/sensor.html';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

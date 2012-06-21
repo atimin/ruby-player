@@ -1,0 +1,393 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>position2d - RubyPlayer</title>
+  <meta name="author" content="Aleksey Timin">
+
+  
+  <meta name="description" content="Position2d Jun 22nd, 2012 sition2d** proxy provides an interface to a mobile robot base Simple example: 1
+2
+3
+4
+5
+6
+7
+8
+9
+10 require &#39;ruby- &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://flipback.github.com/ruby-player/documentation/interfaces/position2d.html">
+  <link href="/ruby-player/favicon.png" rel="icon">
+  <link href="/ruby-player/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/ruby-player/javascripts/modernizr-2.0.js"></script>
+  <script src="/ruby-player/javascripts/ender.js"></script>
+  <script src="/ruby-player/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/ruby-player/atom.xml" rel="alternate" title="RubyPlayer" type="application/atom+xml">
+  <script type="text/javascript">
+/* <![CDATA[ */
+  (function() {
+       var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+       s.type = 'text/javascript';
+       s.async = true;
+       s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
+       t.parentNode.insertBefore(s, t);
+   })();
+/* ]]> */</script>
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-12356703-4']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <div style="float:right;">
+  <a class="FlattrButton" style="display:none;" href="https://github.com/flipback/ruby-player"></a>
+  <noscript>
+    <a href="http://flattr.com/thing/655988/RubyPlayer-on-GitHub" target="_blank">
+      <img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" />
+    </a>
+  </noscript>
+</div>
+
+  <h1><a href="/ruby-player/">RubyPlayer</a></h1>
+  
+    <h2>Play with robots fun!</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/ruby-player/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:flipback.github.com/ruby-player" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/ruby-player/about">About</a></li>
+  <li><a href="/ruby-player/">News</a></li>
+  <li><a href="/ruby-player/documentation">Documentation</a></li>
+  <li><a href="http://github.com/flipback/ruby-player">Code</a></li>
+  <li><a href="http://rdoc.info/gems/ruby-player">API</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article role="article">
+  
+  <header>
+    <h1 class="entry-title">Position2d</h1>
+    <p class="meta">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-22T00:00:00+06:00" pubdate data-updated="true">Jun 22<span>nd</span>, 2012</time></p>
+  </header>
+  
+  <p>sition2d** proxy provides an interface to a mobile robot base</p>
+
+<p>Simple example:</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="nb">require</span> <span class="s1">&#39;ruby-player&#39;</span>
+</span><span class='line'>  <span class="no">Player</span><span class="o">::</span><span class="no">Client</span><span class="o">.</span><span class="n">connect</span> <span class="s2">&quot;localhost&quot;</span> <span class="k">do</span> <span class="o">|</span><span class="n">cl</span><span class="o">|</span>
+</span><span class='line'>    <span class="n">p2d</span> <span class="o">=</span> <span class="n">cl</span><span class="o">.</span><span class="n">postion2d</span>      <span class="c1"># Subscribing </span>
+</span><span class='line'>    <span class="n">p2d</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="n">vx</span><span class="p">:</span> <span class="mi">0</span><span class="o">.</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># Set forward speed robots to 0.2 m/s</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1"># Main loop</span>
+</span><span class='line'>    <span class="n">cl</span><span class="o">.</span><span class="n">loop</span> <span class="k">do</span>
+</span><span class='line'>      <span class="nb">puts</span> <span class="s2">&quot;Current postition: px=%{px}, py=%{py}, pa=%{pa}&quot;</span> <span class="o">%</span> <span class="n">p2d</span><span class="o">.</span><span class="n">state</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<h3>State</h3>
+
+<p>The <strong>position2d</strong> provides data about current state: position, speed and motor state of robot by method <code>Position2d#state</code> in hash:</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="n">p2d</span><span class="o">.</span><span class="n">state</span> <span class="c1">#=&gt; { :px =&gt; 1.2, :py =&gt; 0.0, :pa =&gt; 0.0, :vx =&gt; 0.2, :vy =&gt; 0.0, :va =&gt; 0.0, :stall =&gt; 1 }</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<p>Keys of this hash:</p>
+
+<ul>
+<li>px - x coordinate [m]</li>
+<li>py - y coordinate [m]</li>
+<li>pa - angle [rad]</li>
+<li>vx - forward speed [m/s]</li>
+<li>vy - sideways speed [m/s]</li>
+<li>va - rotational speed [rad/s]</li>
+<li>stall - state of motor</li>
+</ul>
+
+
+<p>Also, position2d have method for short access to this data:</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="n">p2d</span><span class="o">.</span><span class="n">px</span>
+</span><span class='line'>  <span class="n">p2d</span><span class="o">.</span><span class="n">va</span>
+</span><span class='line'>  <span class="n">p2d</span><span class="o">.</span><span class="n">power?</span>
+</span><span class='line'>  <span class="o">.</span><span class="n">.</span><span class="o">.</span><span class="n">.</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<h3>Geometrical data</h3>
+
+<p>You may require geometrical parameters your robot in its coordinate system (CS) by <code>Position2d#query_geom</code>:</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="n">p2d</span><span class="o">.</span><span class="n">query_geom</span>     <span class="c1"># Request geometrical data</span>
+</span><span class='line'>  <span class="n">cl</span><span class="o">.</span><span class="n">read!</span>           <span class="c1"># Necessarily read buffering data from server</span>
+</span><span class='line'>  <span class="n">p2d</span><span class="o">.</span><span class="n">geom</span>           <span class="c1">#=&gt; { :px =&gt; 0.0, :py =&gt; 0.0 :pz =&gt; 0.1, :proll =&gt; 0.0, :ppitch =&gt; 0.0, :pyaw =&gt; 0.0, :sw =&gt; 0.1, :sl =&gt; 0.1, :sh =&gt; 0.05 }</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<p>About geometrical data see <a href="/ruby-player/documentation/interfaces/geom.html">Geometrical data</a>.</p>
+
+<h3>Main commands</h3>
+
+<p> You can control speed or position your robot by several methods:</p>
+
+<h4>Position#set_speed</h4>
+
+<p>Full call:</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="n">p2d</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="n">vx</span><span class="p">:</span> <span class="mi">0</span><span class="o">.</span><span class="mi">1</span><span class="p">,</span> <span class="n">vy</span><span class="p">:</span> <span class="mi">0</span><span class="o">.</span><span class="mi">1</span><span class="p">,</span> <span class="n">va</span><span class="p">:</span> <span class="mi">0</span><span class="o">.</span><span class="mi">1</span><span class="p">,</span> <span class="n">stall</span><span class="p">:</span><span class="mi">1</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<p>parameters:</p>
+
+<ul>
+<li>vx - forward speed [m/s]</li>
+<li>vy - sideways speed [m/s]</li>
+<li>va - rotational speed [rad/s]</li>
+<li>stall - state of motor</li>
+</ul>
+
+
+<p>If you don't define all parameters the RubyPlayer initializes its with currently values automatically:</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="n">p2d</span><span class="o">.</span><span class="n">set_speed</span><span class="p">(</span><span class="n">vx</span><span class="p">:</span><span class="mi">0</span><span class="o">.</span><span class="mi">1</span><span class="p">)</span>  <span class="c1">#=&gt; Eql p2d.set_speed(vx:0.1, vy:0.1, :va:0.0, stall:1) </span>
+</span><span class='line'>                        <span class="c1"># if state =&gt; { ..., :vy =&gt; 0.1, :va =&gt; 0.0, :stall =&gt; 1 }</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<h4>Position#set_car</h4>
+
+<p>This method different <code>Position#set_speed</code> by that set angle (<code>:a</code> - parameter) motion instead angle speed. Angle is deviation from current angle in robot CS (<code>:pa</code>). Full call:</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="n">p2d</span><span class="o">.</span><span class="n">set_car</span><span class="p">(</span><span class="n">vx</span><span class="p">:</span> <span class="mi">0</span><span class="o">.</span><span class="mi">1</span><span class="p">,</span> <span class="n">vy</span><span class="p">:</span> <span class="mi">0</span><span class="o">.</span><span class="mi">1</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="mi">0</span><span class="o">.</span><span class="mi">1</span><span class="p">,</span> <span class="n">stall</span><span class="p">:</span><span class="mi">1</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<p>Also as <code>#set_speed</code> this method determines all non-defined parameters automatically.</p>
+
+<h4>Position#stop!</h4>
+
+<p>For simple stopping of robot:</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="n">p2d</span><span class="o">.</span><span class="n">stop!</span>  <span class="c1">#=&gt; Eql set_speed(vx: 0, vy: 0, va: 0)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<h3>More</h3>
+
+<p>The <strong>position2d</strong> proxy has many more methods to control motion of robots. Probably, it is not needed in your project. However you can get information about all methods <a href="http://rdoc.info/gems/ruby-player/Player/Position2d">here</a>.</p>
+
+  
+    <footer>
+      <p class="meta">
+        
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-22T00:00:00+06:00" pubdate data-updated="true">Jun 22<span>nd</span>, 2012</time>
+        
+      </p>
+      
+        <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://flipback.github.com/ruby-player/documentation/interfaces/position2d.html" data-via="" data-counturl="http://flipback.github.com/ruby-player/documentation/interfaces/position2d.html" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+      
+    </footer>
+  
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/ruby-player/blog/2012/06/17/rubyplayer-0-dot-6-0-has-been-released/">RubyPlayer-0.6.0 has been released</a>
+      </li>
+    
+      <li class="post">
+        <a href="/ruby-player/blog/2012/05/08/the-homepage-has-been-launched/">The project's homepage has been launched</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Aleksey Timin -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'ruby-player';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://flipback.github.com/ruby-player/documentation/interfaces/position2d.html';
+        var disqus_url = 'http://flipback.github.com/ruby-player/documentation/interfaces/position2d.html';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

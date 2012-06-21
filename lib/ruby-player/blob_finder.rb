@@ -39,13 +39,13 @@ module Player
       @imager_params = { brightness: 0, contrast: 0, colormode: 0, autogain: 0 }
     end
 
-    # The image width. 
+    # The image width [px]. 
     # @return [Integer]
     def width
       state[:width] 
     end
 
-    # The image height. 
+    # The image height [px]. 
     # @return [Integer]
     def height
       state[:height] 

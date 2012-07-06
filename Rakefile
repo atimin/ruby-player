@@ -19,3 +19,7 @@ task :default => :spec
 
 require 'yard'
 YARD::Rake::YardocTask.new
+
+task :pry do
+  sh "bundle exec pry -r ./lib/ruby-player.rb"
+end
